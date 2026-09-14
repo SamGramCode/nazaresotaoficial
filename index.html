@@ -1,23 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nazaresota Oficial</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #1a1a2e; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
-    .container { width: 100%; max-width: 500px; }
-    .card { width: 100%; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
-    .card img { width: 100%; height: auto; display: block; }
-    @media (max-width: 480px) { .card { border-radius: 24px; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracie's Inner Circle</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .font-serif-custom { font-family: 'Playfair Display', serif; }
+        .font-sans-custom { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <div class="card">
-      <img src="nazaresota.png" alt="Nazaresota Oficial" loading="lazy">
+<body class="bg-zinc-950 min-h-screen flex items-center justify-center p-4 font-sans-custom">
+
+    <!-- Contenedor Estilo Móvil -->
+    <div class="w-full max-w-sm bg-[#D8CEE3] rounded-[2.5rem] p-6 shadow-2xl flex flex-col items-center text-center relative overflow-hidden border border-[#c9b8d8]">
+        
+        <!-- Ilustración / Imagen Superior (Puedes reemplazar la URL de la imagen) -->
+        <div class="mt-4 mb-6 relative w-48 h-48 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop" 
+                 alt="Gracie" 
+                 class="w-40 h-40 object-cover rounded-full shadow-md border-2 border-white/40">
+        </div>
+
+        <!-- Títulos -->
+        <h1 class="font-serif-custom text-3xl md:text-4xl text-[#4A3B5C] font-normal tracking-wide uppercase mb-3">
+            Gracie's<br>Inner Circle
+        </h1>
+
+        <!-- Descripción -->
+        <p class="text-[#5F4E72] text-sm leading-relaxed px-2 mb-10 font-light">
+            Un espacio íntimo con gracie. Donde comparto mi behind-the-scenes y autenticidad sin filtros.
+        </p>
+
+        <!-- Sección de Autenticación / Huella Digital -->
+        <div class="mt-auto w-full flex flex-col items-center pb-6">
+            <!-- Icono de Huella Digital (SVG) -->
+            <div class="text-[#6D5A82] mb-3 opacity-90 hover:scale-105 transition-transform cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.81 3.7"></path>
+                    <path d="M12 2a10 10 0 0 0-7.35 16.76"></path>
+                    <path d="M16 16v1a2 2 0 0 1-4 0v-2a4 4 0 0 0-8 0v1"></path>
+                    <path d="M12 6a6 6 0 0 0-6 6c0 1.5.2 3.5 1 5"></path>
+                    <path d="M19 11v2a7 7 0 0 1-1.4 4.2"></path>
+                    <path d="M20.24 7.24A10 10 0 0 1 22 12v1"></path>
+                </svg>
+            </div>
+            
+            <!-- Texto inferior -->
+            <span class="text-xs uppercase tracking-widest text-[#7A6790] font-medium">
+                Mantén presionado para autentigar
+            </span>
+        </div>
+
     </div>
-  </div>
+
 </body>
 </html>
