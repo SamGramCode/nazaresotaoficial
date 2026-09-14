@@ -18,7 +18,6 @@
       justify-content: center;
       min-height: 100vh;
       padding: 1rem;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .container {
@@ -30,7 +29,6 @@
       width: 100%;
       max-width: 420px;
       margin: 0 auto;
-      position: relative;
       border-radius: 28px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -42,42 +40,9 @@
       display: block;
     }
 
-    .text-overlay {
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      color: white;
-      font-family: Georgia, serif;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      font-weight: normal;
-      letter-spacing: 2px;
-      pointer-events: none;
-    }
-
-    .overlay-title {
-      top: 38%;
-      font-size: 3.5rem;
-      line-height: 1.1;
-    }
-
-    .overlay-subtitle {
-      top: 50%;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      padding: 0 2rem;
-    }
-
     @media (max-width: 480px) {
       .card {
         border-radius: 24px;
-      }
-
-      .overlay-title {
-        font-size: 2.5rem;
-      }
-
-      .overlay-subtitle {
-        font-size: 1rem;
       }
     }
   </style>
@@ -86,40 +51,7 @@
   <div class="container">
     <div class="card">
       <img src="nazaresota.png" alt="Inner Circle" loading="lazy">
-      <div class="text-overlay overlay-title" id="titleOverlay">GRACIE'S<br>INNER CIRCLE</div>
-      <div class="text-overlay overlay-subtitle" id="subtitleOverlay">Un espacio íntimo con gracie.<br>Donde comparto mi behind-the-scenes y autenticidad sin filtros.</div>
     </div>
   </div>
-
-  <script>
-    // Solo accesible via JavaScript desde console
-    // Para editar, debes usar: updateContent({title: "...", subtitle: "..."})
-
-    const titleOverlay = document.getElementById('titleOverlay');
-    const subtitleOverlay = document.getElementById('subtitleOverlay');
-
-    const defaults = {
-      title: "GRACIE'S<br>INNER CIRCLE",
-      subtitle: "Un espacio íntimo con gracie.<br>Donde comparto mi behind-the-scenes y autenticidad sin filtros."
-    };
-
-    // Función para editar (solo desde código)
-    window.updateContent = function(newData) {
-      if (newData.title) {
-        titleOverlay.innerHTML = newData.title;
-      }
-      if (newData.subtitle) {
-        subtitleOverlay.innerHTML = newData.subtitle;
-      }
-      console.log('✓ Contenido actualizado');
-    };
-
-    // Reset
-    window.resetContent = function() {
-      titleOverlay.innerHTML = defaults.title;
-      subtitleOverlay.innerHTML = defaults.subtitle;
-      console.log('✓ Reset a valores originales');
-    };
-  </script>
 </body>
 </html>
