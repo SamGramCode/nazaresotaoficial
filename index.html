@@ -276,6 +276,14 @@
             lockBtn = document.querySelector('.lock-btn');
             lockSubtitle = document.querySelector('.lock-subtitle');
             if (lockBtn) {
+                // Remove any existing listeners to prevent duplicates
+                lockBtn.removeEventListener('mousedown', startPress);
+                lockBtn.removeEventListener('mouseup', cancelPress);
+                lockBtn.removeEventListener('mouseleave', cancelPress);
+                lockBtn.removeEventListener('touchstart', startPress);
+                lockBtn.removeEventListener('touchend', cancelPress);
+
+                // Add listeners fresh
                 lockBtn.addEventListener('mousedown', startPress);
                 lockBtn.addEventListener('mouseup', cancelPress);
                 lockBtn.addEventListener('mouseleave', cancelPress);
