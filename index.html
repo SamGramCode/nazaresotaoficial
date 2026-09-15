@@ -148,10 +148,7 @@
     </div>
 
     <!-- LINKS SECTION -->
-    <div class="links-section" id="linksSection">
-        <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
-        <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
-    </div>
+    <div class="links-section" id="linksSection"></div>
 
     <script>
         const translations = {
@@ -416,6 +413,13 @@
         function confirmAge() {
             const modal = document.getElementById('ageModal');
             const linksSection = document.getElementById('linksSection');
+
+            // Create buttons dynamically
+            linksSection.innerHTML = `
+                <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
+                <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+            `;
+
             modal.classList.remove('show');
             linksSection.classList.add('show');
             document.body.style.setProperty('overflow', 'hidden', 'important');
