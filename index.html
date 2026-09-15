@@ -135,32 +135,21 @@
         </div>
     </div>
 
-    <!-- LEVEL 2: After long-press (action buttons) -->
+    <!-- LEVEL 2: After long-press (action buttons - visible in HTML) -->
     <div id="level2" style="display:none;">
         <div class="language-selector">
             <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
             <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
         </div>
         <div class="links-section">
-            <button type="button" class="btn-link btn-verify" onclick="openAgeModal()">VERIFICAR EDAD</button>
-            <button type="button" class="btn-link btn-back" onclick="backToLevel1()">ATRÁS</button>
+            <button type="button" class="btn-link btn-verify" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
+            <button type="button" class="btn-link btn-back" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
         </div>
     </div>
 
-    <!-- FINAL BUTTONS: After age verification -->
-    <div id="finalButtons" style="display:none;">
-        <div class="language-selector">
-            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-        </div>
-        <div class="links-section">
-            <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
-            <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
-        </div>
-    </div>
-
-    <!-- AGE MODAL CONTAINER (generated in JavaScript) -->
+    <!-- CONTAINERS FOR DYNAMIC CONTENT (generated in JavaScript) -->
     <div id="ageModalContainer"></div>
+    <div id="finalButtonsContainer"></div>
 
     <script>
         const translations = {
@@ -427,8 +416,8 @@
             isActivated = false;
             document.getElementById('level1').style.display = 'block';
             document.getElementById('level2').style.display = 'none';
-            document.getElementById('finalButtons').style.display = 'none';
             document.getElementById('ageModalContainer').innerHTML = '';
+            document.getElementById('finalButtonsContainer').innerHTML = '';
             document.body.style.removeProperty('overflow');
             document.documentElement.style.removeProperty('overflow');
             setupLockButton();
@@ -463,8 +452,20 @@
         }
 
         function confirmAge() {
+            const container = document.getElementById('finalButtonsContainer');
+
+            container.innerHTML = `
+                <div class="language-selector">
+                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                </div>
+                <div class="links-section">
+                    <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
+                    <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+                </div>
+            `;
+
             document.getElementById('level2').style.display = 'none';
-            document.getElementById('finalButtons').style.display = 'flex';
             document.getElementById('ageModalContainer').innerHTML = '';
             document.body.style.setProperty('overflow', 'hidden', 'important');
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
