@@ -4,14 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nazaresota</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { width: 100%; height: 100%; overflow-x: hidden; background: transparent; }
-        body { background: transparent; padding: 0; margin: 0; width: 100%; overflow-x: hidden; }
-        img { display: block; width: 100vw; height: 100vh; object-fit: cover; }
+        body { background: transparent; padding: 0; margin: 0; width: 100%; height: 100vh; overflow: hidden; position: relative; }
+        
+        .container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+        
+        img { width: 100vw; height: 100vh; object-fit: cover; display: block; }
+        
+        .text-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.8;
+            font-size: 1rem;
+            z-index: 10;
+        }
+        
+        .text-overlay h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .text-overlay p { margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
-    <img src="nazaresota.png" alt="Nazaresota">
+    <div class="container">
+        <img src="nazaresota.png" alt="Nazaresota">
+        <div class="text-overlay">
+            <h1>Hola mi CIELO ♡<br>soy NAZARESOTA</h1>
+            
+            <p>Curvy, auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
+            
+            <p>Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
+            
+            <p>Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+        </div>
+    </div>
 </body>
 </html>
