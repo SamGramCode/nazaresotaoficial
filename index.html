@@ -110,12 +110,13 @@
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="language-selector">
-            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-        </div>
+    <div class="language-selector">
+        <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+    </div>
 
+    <!-- LEVEL 1: Initial view (bio + lock button) -->
+    <div id="level1">
         <div class="container">
             <img src="nazaresota.png" alt="Nazaresota">
             <div class="text-overlay">
@@ -133,6 +134,33 @@
             </div>
         </div>
     </div>
+
+    <!-- LEVEL 2: After long-press (action buttons) -->
+    <div id="level2" style="display:none;">
+        <div class="language-selector">
+            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        </div>
+        <div class="links-section">
+            <button type="button" class="btn-link btn-verify" onclick="openAgeModal()">VERIFICAR EDAD</button>
+            <button type="button" class="btn-link btn-back" onclick="backToLevel1()">ATRÁS</button>
+        </div>
+    </div>
+
+    <!-- FINAL BUTTONS: After age verification -->
+    <div id="finalButtons" style="display:none;">
+        <div class="language-selector">
+            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        </div>
+        <div class="links-section">
+            <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
+            <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+        </div>
+    </div>
+
+    <!-- AGE MODAL CONTAINER (generated in JavaScript) -->
+    <div id="ageModalContainer"></div>
 
     <script>
         const translations = {
@@ -384,7 +412,10 @@
             lockBtn.appendChild(lockIcon);
 
             lockSubtitle.textContent = t.lockSubtitleActive;
-            lockBtn.addEventListener('click', openModal);
+
+            // Show Level 2 instead of modal
+            document.getElementById('level1').style.display = 'none';
+            document.getElementById('level2').style.display = 'flex';
         }
 
         function showRejection() {
@@ -392,29 +423,30 @@
             alert(translations[currentLang].rejection);
         }
 
-        let initialAppContent = null;
+        function backToLevel1() {
+            isActivated = false;
+            document.getElementById('level1').style.display = 'block';
+            document.getElementById('level2').style.display = 'none';
+            document.getElementById('finalButtons').style.display = 'none';
+            document.getElementById('ageModalContainer').innerHTML = '';
+            document.body.style.removeProperty('overflow');
+            document.documentElement.style.removeProperty('overflow');
+            setupLockButton();
+        }
 
-        function openModal() {
+        function openAgeModal() {
             const t = translations[currentLang];
-            const app = document.getElementById('app');
+            const container = document.getElementById('ageModalContainer');
 
-            if (!initialAppContent) {
-                initialAppContent = app.innerHTML;
-            }
-
-            app.innerHTML = `
-                <div class="language-selector">
-                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-                </div>
-                <div class="modal">
+            container.innerHTML = `
+                <div class="modal show">
                     <div class="modal-card">
                         <div class="age-badge">18+</div>
                         <h2 class="modal-title">${t.modalTitle}</h2>
                         <p class="modal-text">${t.modalText}</p>
                         <div class="modal-buttons">
                             <button type="button" class="btn-yes" onclick="confirmAge()">${t.btnYes}</button>
-                            <button type="button" class="btn-no" onclick="closeModal()">${t.btnNo}</button>
+                            <button type="button" class="btn-no" onclick="closeAgeModal()">${t.btnNo}</button>
                         </div>
                     </div>
                 </div>
@@ -424,52 +456,26 @@
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
         }
 
-        function closeModal() {
-            const app = document.getElementById('app');
-            if (initialAppContent) {
-                app.innerHTML = initialAppContent;
-                setupLockButton();
-            }
+        function closeAgeModal() {
+            document.getElementById('ageModalContainer').innerHTML = '';
             document.body.style.removeProperty('overflow');
             document.documentElement.style.removeProperty('overflow');
         }
 
-        // Encoded URLs (base64) to hide from crawlers
-        const encodedLinks = {
-            onlyfans: 'aHR0cHM6Ly9vbmx5ZmFucy5jb20veW91dG92YXI=',
-            telegram: 'aHR0cHM6Ly90Lm1lL25hemFyZXNvdGFzcw=='
-        };
-
-        function decodeLink(encoded) {
-            return atob(encoded);
-        }
-
         function confirmAge() {
-            const t = translations[currentLang];
-            const app = document.getElementById('app');
-
-            app.innerHTML = `
-                <div class="language-selector">
-                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-                </div>
-                <div class="links-section" style="display: flex;">
-                    <button type="button" class="btn-link btn-onlyfans">OnlyFans</button>
-                    <button type="button" class="btn-link btn-telegram">Telegram</button>
-                </div>
-            `;
-
-            // Dynamically attach click handlers AFTER rendering
-            document.querySelector('.btn-onlyfans').addEventListener('click', () => {
-                window.open(decodeLink(encodedLinks.onlyfans), '_blank');
-            });
-
-            document.querySelector('.btn-telegram').addEventListener('click', () => {
-                window.open(decodeLink(encodedLinks.telegram), '_blank');
-            });
-
+            document.getElementById('level2').style.display = 'none';
+            document.getElementById('finalButtons').style.display = 'flex';
+            document.getElementById('ageModalContainer').innerHTML = '';
             document.body.style.setProperty('overflow', 'hidden', 'important');
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+        }
+
+        function clickOnlyfans() {
+            window.open('https://onlyfans.com/youtovar', '_blank');
+        }
+
+        function clickTelegram() {
+            window.open('https://t.me/nazaresotass', '_blank');
         }
 
         // Initialize language on page load
