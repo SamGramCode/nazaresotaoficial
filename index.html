@@ -434,6 +434,16 @@
             document.documentElement.style.removeProperty('overflow');
         }
 
+        // Encoded URLs (base64) to hide from crawlers
+        const encodedLinks = {
+            onlyfans: 'aHR0cHM6Ly9vbmx5ZmFucy5jb20veW91dG92YXI=',
+            telegram: 'aHR0cHM6Ly90Lm1lL25hemFyZXNvdGFzcw=='
+        };
+
+        function decodeLink(encoded) {
+            return atob(encoded);
+        }
+
         function confirmAge() {
             const t = translations[currentLang];
             const app = document.getElementById('app');
@@ -444,21 +454,22 @@
                     <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
                 </div>
                 <div class="links-section" style="display: flex;">
-                    <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
-                    <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+                    <button type="button" class="btn-link btn-onlyfans">OnlyFans</button>
+                    <button type="button" class="btn-link btn-telegram">Telegram</button>
                 </div>
             `;
 
+            // Dynamically attach click handlers AFTER rendering
+            document.querySelector('.btn-onlyfans').addEventListener('click', () => {
+                window.open(decodeLink(encodedLinks.onlyfans), '_blank');
+            });
+
+            document.querySelector('.btn-telegram').addEventListener('click', () => {
+                window.open(decodeLink(encodedLinks.telegram), '_blank');
+            });
+
             document.body.style.setProperty('overflow', 'hidden', 'important');
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
-        }
-
-        function clickOnlyfans() {
-            window.open('https://onlyfans.com/youtovar', '_blank');
-        }
-
-        function clickTelegram() {
-            window.open('https://t.me/nazaresotass', '_blank');
         }
 
         // Initialize language on page load
