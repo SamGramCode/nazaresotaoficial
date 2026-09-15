@@ -338,11 +338,16 @@
         }
 
         function startPress(e) {
-            if (isActivated) return;
+            console.log('🟢 startPress triggered', {isActivated, eventType: e.type});
+            if (isActivated) {
+                console.log('❌ Already activated, returning');
+                return;
+            }
 
             isTouchDevice = e.type.includes('touch');
             mousePositions = [];
             touchData = [];
+            console.log('📍 Press started, isTouchDevice:', isTouchDevice);
 
             if (isTouchDevice) {
                 document.addEventListener('touchmove', trackTouch);
@@ -369,12 +374,20 @@
                 document.removeEventListener('mousemove', trackMouse);
                 document.removeEventListener('touchmove', trackTouch);
 
-                if (validateMovement()) {
+                console.log('⏱️ Timeout completed, validating movement...');
+                const isHuman = validateMovement();
+                console.log('✓ Movement validation result:', isHuman);
+
+                if (isHuman) {
+                    console.log('✅ ACTIVATING BUTTON');
                     activateButton();
                 } else {
+                    console.log('🚫 BOT DETECTED');
                     showRejection();
                 }
             }, PRESS_TIME);
+
+            console.log('⏳ Press timer started, will trigger in', PRESS_TIME, 'ms');
         }
 
         function trackMouse(e) {
@@ -401,6 +414,7 @@
         }
 
         function activateButton() {
+            console.log('🎉 ACTIVATEBUTTON CALLED - isActivated is now TRUE');
             isActivated = true;
             lockBtn.classList.add('activated');
             const t = translations[currentLang];
@@ -508,9 +522,12 @@
         }
 
         // Initialize language on page load
+        console.log('🚀 Initialization starting...');
         updateLanguage();
         updateLangButtons();
         setupLockButton();
+        console.log('✅ Initialization complete');
+        console.log('🎯 Ready! Press and hold the lock button for 1.2 seconds');
 
         // Keep language selector fixed on web - continuous check
         setInterval(() => {
