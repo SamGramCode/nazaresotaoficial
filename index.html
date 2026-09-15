@@ -110,26 +110,27 @@
     </style>
 </head>
 <body>
-    <!-- LANGUAGE SELECTOR -->
-    <div class="language-selector">
-        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-    </div>
+    <div id="app">
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        </div>
 
-    <div class="container">
-        <img src="nazaresota.png" alt="Nazaresota">
-        <div class="text-overlay">
-            <h1><span class="hola">Hola</span><br><span class="cielo">mi CIELO ♡</span></h1>
-            
-            <p>Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
-            
-            <p>Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
-            
-            <p>Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+        <div class="container">
+            <img src="nazaresota.png" alt="Nazaresota">
+            <div class="text-overlay">
+                <h1><span class="hola">Hola</span><br><span class="cielo">mi CIELO ♡</span></h1>
 
-            <div class="lock-btn">MANTÉN PRESIONADO AQUÍ <span class="lock-icon">🔒</span></div>
+                <p>Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
 
-            <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
+                <p>Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
+
+                <p>Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+
+                <div class="lock-btn">MANTÉN PRESIONADO AQUÍ <span class="lock-icon">🔒</span></div>
+
+                <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
+            </div>
         </div>
     </div>
 
@@ -248,11 +249,23 @@
             });
         }
 
-        const lockBtn = document.querySelector('.lock-btn');
-        const lockSubtitle = document.querySelector('.lock-subtitle');
+        let lockBtn = document.querySelector('.lock-btn');
+        let lockSubtitle = document.querySelector('.lock-subtitle');
         let pressTimer;
         let isActivated = false;
         const PRESS_TIME = 1200;
+
+        function setupLockButton() {
+            lockBtn = document.querySelector('.lock-btn');
+            lockSubtitle = document.querySelector('.lock-subtitle');
+            if (lockBtn) {
+                lockBtn.addEventListener('mousedown', startPress);
+                lockBtn.addEventListener('mouseup', cancelPress);
+                lockBtn.addEventListener('mouseleave', cancelPress);
+                lockBtn.addEventListener('touchstart', startPress);
+                lockBtn.addEventListener('touchend', cancelPress);
+            }
+        }
 
         // Anti-bot validation
         let mousePositions = [];
@@ -379,66 +392,63 @@
             alert(translations[currentLang].rejection);
         }
 
-        function createAgeModal() {
+        let initialAppContent = null;
+
+        function openModal() {
             const t = translations[currentLang];
-            const modal = document.createElement('div');
-            modal.id = 'ageModal';
-            modal.className = 'modal show';
-            modal.innerHTML = `
-                <div class="modal-card">
-                    <div class="age-badge">18+</div>
-                    <h2 class="modal-title">${t.modalTitle}</h2>
-                    <p class="modal-text">${t.modalText}</p>
-                    <div class="modal-buttons">
-                        <button type="button" class="btn-yes" onclick="confirmAge()">${t.btnYes}</button>
-                        <button type="button" class="btn-no" onclick="closeModal();">${t.btnNo}</button>
+            const app = document.getElementById('app');
+
+            if (!initialAppContent) {
+                initialAppContent = app.innerHTML;
+            }
+
+            app.innerHTML = `
+                <div class="language-selector">
+                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                </div>
+                <div class="modal">
+                    <div class="modal-card">
+                        <div class="age-badge">18+</div>
+                        <h2 class="modal-title">${t.modalTitle}</h2>
+                        <p class="modal-text">${t.modalText}</p>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-yes" onclick="confirmAge()">${t.btnYes}</button>
+                            <button type="button" class="btn-no" onclick="closeModal()">${t.btnNo}</button>
+                        </div>
                     </div>
                 </div>
             `;
-            document.body.appendChild(modal);
-        }
 
-        function openModal() {
-            let modal = document.getElementById('ageModal');
-            if (!modal) {
-                createAgeModal();
-                modal = document.getElementById('ageModal');
-            } else {
-                modal.classList.add('show');
-            }
             document.body.style.setProperty('overflow', 'hidden', 'important');
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
         }
 
         function closeModal() {
-            const modal = document.getElementById('ageModal');
-            if (modal) {
-                modal.classList.remove('show');
-                document.body.style.removeProperty('overflow');
-                document.documentElement.style.removeProperty('overflow');
+            const app = document.getElementById('app');
+            if (initialAppContent) {
+                app.innerHTML = initialAppContent;
+                setupLockButton();
             }
+            document.body.style.removeProperty('overflow');
+            document.documentElement.style.removeProperty('overflow');
         }
 
         function confirmAge() {
-            const modal = document.getElementById('ageModal');
-            let linksSection = document.getElementById('linksSection');
+            const t = translations[currentLang];
+            const app = document.getElementById('app');
 
-            if (!linksSection) {
-                linksSection = document.createElement('div');
-                linksSection.id = 'linksSection';
-                linksSection.className = 'links-section show';
-                document.body.appendChild(linksSection);
-            }
-
-            linksSection.innerHTML = `
-                <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
-                <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+            app.innerHTML = `
+                <div class="language-selector">
+                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                </div>
+                <div class="links-section" style="display: flex;">
+                    <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
+                    <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+                </div>
             `;
 
-            if (modal) modal.classList.remove('show');
-            if (!linksSection.classList.contains('show')) {
-                linksSection.classList.add('show');
-            }
             document.body.style.setProperty('overflow', 'hidden', 'important');
             document.documentElement.style.setProperty('overflow', 'hidden', 'important');
         }
@@ -451,16 +461,10 @@
             window.open('https://t.me/nazaresotass', '_blank');
         }
 
-        lockBtn.addEventListener('mousedown', startPress);
-        lockBtn.addEventListener('mouseup', cancelPress);
-        lockBtn.addEventListener('mouseleave', cancelPress);
-
-        lockBtn.addEventListener('touchstart', startPress);
-        lockBtn.addEventListener('touchend', cancelPress);
-
         // Initialize language on page load
         updateLanguage();
         updateLangButtons();
+        setupLockButton();
 
         // Keep language selector fixed on web - continuous check
         setInterval(() => {
