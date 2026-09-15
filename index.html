@@ -26,7 +26,11 @@
             .container { height: 100vh; }
         }
         
-        img { width: 100vw; height: 100vh; object-fit: cover; display: block; }
+        img { width: 100vw; display: block; height: auto; }
+
+        @media (max-width: 768px) {
+            img { height: 100vh; object-fit: cover; }
+        }
         
         .text-overlay {
             position: absolute;
