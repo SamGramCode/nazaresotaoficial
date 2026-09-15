@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nazaresota Official</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; } /* v2 */
         html { width: 100%; height: 100%; overflow-x: hidden; background: transparent; }
@@ -26,10 +26,10 @@
             .container { height: 100vh; }
         }
         
-        img { width: 100vw; display: block; height: auto; }
+        img { width: 100vw; display: block; height: auto; transform: scale(1.1); }
 
         @media (max-width: 768px) {
-            img { height: 100vh; object-fit: cover; }
+            img { height: 100vh; object-fit: cover; transform: scale(1.1); }
         }
         
         .text-overlay {
@@ -47,11 +47,46 @@
             text-align: center;
         }
 
-        .text-overlay h1 { font-size: 2.4rem; margin-bottom: 1rem; font-family: 'Bebas Neue', sans-serif; position: relative; bottom: -20px; }
-        .text-overlay p { margin-bottom: 1rem; }
+        .text-overlay h1 { font-size: 2.4rem; margin-bottom: 1rem; font-family: 'Bebas Neue', sans-serif; position: relative; top: 60px; }
+        .text-overlay h1 .hola { font-size: 4.8rem; position: relative; bottom: -50px; font-family: 'Poppins', sans-serif; letter-spacing: -0.1em; }
+        .text-overlay h1 .cielo { display: block; position: relative; left: 12px; }
+        .text-overlay p { margin-bottom: 1rem; position: relative; top: 38px; }
+        .lock-btn { font-size: 0.9rem; margin-top: 2rem; padding: 1rem 2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; cursor: pointer; position: relative; top: 10px; background: rgba(255,255,255,0.05); }
+        .lock-icon { opacity: 0.4; }
+        .lock-subtitle { font-size: 0.65rem; margin-top: 1.5rem; opacity: 0.6; position: relative; top: -10px; }
+        .lock-btn.activated { background: rgba(255,255,255,0.1); }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('fondo-mariposas.jpg') center/cover no-repeat; z-index: 1000; justify-content: center; align-items: center; overflow-y: hidden; }
+        .modal.show { display: flex; }
+        .modal-card { background: rgba(180,160,205,0.95); border-radius: 25px; padding: 3rem 2rem; text-align: center; max-width: 320px; }
+        .age-badge { width: 90px; height: 90px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; color: #FFFFFF; }
+        .modal-title { color: #FFFFFF; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 1rem 0; }
+        .modal-text { color: #FFFFFF; font-size: 0.95rem; margin: 1.5rem 0 2rem 0; line-height: 1.5; }
+        .modal-buttons { display: flex; flex-direction: column; gap: 1rem; }
+        .btn-yes { background: #FF6B9D; color: #FFFFFF; border: none; padding: 1rem; border-radius: 12px; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+        .btn-yes:hover { background: #FF5585; transform: translateY(-2px); }
+        .btn-no { background: #9B9B9B; color: #FFFFFF; border: none; padding: 1rem; border-radius: 12px; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+        .btn-no:hover { background: #808080; transform: translateY(-2px); }
+
+        /* LINKS SECTION */
+        .links-section { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('fondo-mariposas.jpg') center/cover no-repeat; z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; padding: 2rem; }
+        .links-section.show { display: flex; }
+        .btn-link { width: 100%; max-width: 300px; padding: 1.5rem; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s; letter-spacing: 1px; }
+        .btn-onlyfans { background: #FF6B9D; color: #FFFFFF; }
+        .btn-onlyfans:hover { background: #FF5585; transform: scale(1.05); }
+        .btn-telegram { background: #FF6B9D; color: #FFFFFF; }
+        .btn-telegram:hover { background: #FF5585; transform: scale(1.05); }
+
+        /* LANGUAGE SELECTOR */
+        .language-selector { position: fixed; top: 15px; right: 15px; z-index: 10000; display: flex; gap: 12px; pointer-events: auto !important; width: auto; height: auto; margin: 0 !important; padding: 0 !important; }
+        .lang-btn { background: none; border: none; color: #FFFFFF; font-size: 0.9rem; font-weight: 700; cursor: pointer; padding: 5px; text-decoration: none; transition: all 0.3s; letter-spacing: 1px; }
+        .lang-btn.active { text-decoration: underline; }
+        .lang-btn:hover { opacity: 0.8; }
 
         /* Web - misma proporción, escalado */
         @media (min-width: 769px) {
+            .language-selector { right: 65px !important; }
             img { object-fit: cover; }
 
             .text-overlay {
@@ -63,23 +98,359 @@
                 text-align: center;
             }
 
-            .text-overlay h1 { font-size: 4rem; margin-bottom: 1.5rem; font-family: 'Bebas Neue', sans-serif; position: relative; bottom: -20px; }
-            .text-overlay p { margin-bottom: 1.5rem; }
+            .text-overlay h1 { font-size: 4rem; margin-bottom: 1.5rem; font-family: 'Bebas Neue', sans-serif; position: relative; top: 205px; }
+            .text-overlay h1 .hola { font-size: 8rem; position: relative; bottom: -50px; font-family: 'Poppins', sans-serif; letter-spacing: -0.1em; }
+            .text-overlay h1 .cielo { display: block; position: relative; left: 12px; }
+            .text-overlay p { margin-bottom: 1.5rem; position: relative; top: 263px; }
+            .lock-btn { font-size: 1.1rem; margin-top: 2rem; padding: 1.2rem 2.5rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; cursor: pointer; position: relative; top: 335px; background: rgba(255,255,255,0.05); }
+            .lock-icon { opacity: 0.4; }
+            .lock-subtitle { font-size: 0.8rem; margin-top: 1.5rem; opacity: 0.6; position: relative; top: 315px; }
         }
     </style>
 </head>
 <body>
+    <!-- LANGUAGE SELECTOR -->
+    <div class="language-selector">
+        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+    </div>
+
     <div class="container">
         <img src="nazaresota.png" alt="Nazaresota">
         <div class="text-overlay">
-            <h1>Hola mi CIELO ♡</h1>
+            <h1><span class="hola">Hola</span><br><span class="cielo">mi CIELO ♡</span></h1>
             
             <p>Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
             
             <p>Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
             
             <p>Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+
+            <div class="lock-btn">MANTÉN PRESIONADO AQUÍ <span class="lock-icon">🔒</span></div>
+
+            <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
         </div>
     </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="ageModal">
+        <div class="modal-card">
+            <div class="age-badge">18+</div>
+            <h2 class="modal-title">VERIFICACIÓN DE EDAD</h2>
+            <p class="modal-text">Este contenido está restringido para mayores de 18 años</p>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
+                <button type="button" class="btn-no" onclick="closeModal()">NO, VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LINKS SECTION -->
+    <div class="links-section" id="linksSection">
+        <button type="button" class="btn-link btn-onlyfans" onclick="clickOnlyfans()">OnlyFans</button>
+        <button type="button" class="btn-link btn-telegram" onclick="clickTelegram()">Telegram</button>
+    </div>
+
+    <script>
+        const translations = {
+            es: {
+                hola: 'Hola',
+                cielo: 'mi CIELO ♡',
+                para1: 'Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡',
+                para2: 'Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡',
+                para3: 'Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡',
+                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒',
+                lockSubtitle: 'Mantén presionado para entrar sin candado',
+                lockBtnActive: 'TOCA AQUÍ PARA MÁS 🔒',
+                lockSubtitleActive: 'TOCA PARA ENTRAR',
+                modalTitle: 'VERIFICACIÓN DE EDAD',
+                modalText: 'Este contenido está restringido para mayores de 18 años',
+                btnYes: 'SÍ TENGO 18+',
+                btnNo: 'NO, VOLVER',
+                rejection: 'Intenta de nuevo de forma natural'
+            },
+            en: {
+                hola: 'Hello',
+                cielo: 'my HEAVEN ♡',
+                para1: 'Hi, I\'m NAZARESOTA ♡ authentic and charming. I love enjoying life, laughing at everything and connecting with people who know how to appreciate a confident woman. ♡',
+                para2: 'I\'m a mix of sweetness, attitude and curves that don\'t go unnoticed. I like good conversations, unexpected details and connections that feel special. ♡',
+                para3: 'If you like women with personality, confidence and a smile that captivates, maybe here you\'ll find something more than just a simple bio. ♡',
+                lockBtn: 'HOLD HERE 🔒',
+                lockSubtitle: 'Hold to enter unlocked',
+                lockBtnActive: 'TAP HERE FOR MORE 🔒',
+                lockSubtitleActive: 'TAP TO ENTER',
+                modalTitle: 'AGE VERIFICATION',
+                modalText: 'This content is restricted for 18+ only',
+                btnYes: 'YES I\'M 18+',
+                btnNo: 'NO, GO BACK',
+                rejection: 'Try again naturally'
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'es';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            updateLanguage();
+            updateLangButtons();
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            document.querySelector('.hola').textContent = t.hola;
+            document.querySelector('.cielo').textContent = t.cielo;
+            const paragraphs = document.querySelectorAll('.text-overlay p');
+            paragraphs[0].textContent = t.para1;
+            paragraphs[1].textContent = t.para2;
+            paragraphs[2].textContent = t.para3;
+
+            document.querySelector('.modal-title').textContent = t.modalTitle;
+            document.querySelector('.modal-text').textContent = t.modalText;
+            document.querySelector('.btn-yes').textContent = t.btnYes;
+            document.querySelector('.btn-no').textContent = t.btnNo;
+
+            if (!isActivated) {
+                lockBtn.textContent = t.lockBtn + ' ';
+                lockBtn.innerHTML = t.lockBtn.replace('🔒', '<span class="lock-icon">🔒</span>');
+                lockSubtitle.textContent = t.lockSubtitle;
+            } else {
+                lockBtn.textContent = t.lockBtnActive + ' ';
+                const lockIcon = document.createElement('span');
+                lockIcon.className = 'lock-icon';
+                lockIcon.textContent = '🔒';
+                lockBtn.textContent = '';
+                lockBtn.textContent = t.lockBtnActive.replace('🔒', '');
+                lockBtn.appendChild(lockIcon);
+                lockSubtitle.textContent = t.lockSubtitleActive;
+            }
+
+            // Adjust position for English/Spanish and Mobile/Web
+            const h1 = document.querySelector('.text-overlay h1');
+            const pars = document.querySelectorAll('.text-overlay p');
+            const isWeb = window.innerWidth > 768;
+
+            if (currentLang === 'en') {
+                if (isWeb) {
+                    h1.style.top = '165px';
+                    pars.forEach(p => p.style.top = '223px');
+                    lockBtn.style.top = '295px';
+                    lockSubtitle.style.top = '275px';
+                } else {
+                    h1.style.top = '20px';
+                    pars.forEach(p => p.style.top = '-2px');
+                    lockBtn.style.top = '-30px';
+                    lockSubtitle.style.top = '-50px';
+                }
+            } else if (currentLang === 'es') {
+                if (isWeb) {
+                    h1.style.top = '205px';
+                    pars.forEach(p => p.style.top = '263px');
+                    lockBtn.style.top = '335px';
+                    lockSubtitle.style.top = '315px';
+                } else {
+                    h1.style.top = '60px';
+                    pars.forEach(p => p.style.top = '38px');
+                    lockBtn.style.top = '10px';
+                    lockSubtitle.style.top = '-10px';
+                }
+            }
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        const lockBtn = document.querySelector('.lock-btn');
+        const lockSubtitle = document.querySelector('.lock-subtitle');
+        let pressTimer;
+        let isActivated = false;
+        const PRESS_TIME = 1200;
+
+        // Anti-bot validation
+        let mousePositions = [];
+        let touchData = [];
+        let isTouchDevice = false;
+
+        function validateMovement() {
+            if (isTouchDevice) {
+                return validateTouchMovement();
+            } else {
+                return validateMouseMovement();
+            }
+        }
+
+        function validateMouseMovement() {
+            if (mousePositions.length < 5) return true;
+            let xVariances = [];
+            let yVariances = [];
+            for (let i = 1; i < mousePositions.length; i++) {
+                xVariances.push(Math.abs(mousePositions[i].x - mousePositions[i-1].x));
+                yVariances.push(Math.abs(mousePositions[i].y - mousePositions[i-1].y));
+            }
+            const avgXVar = xVariances.reduce((a, b) => a + b) / xVariances.length;
+            const avgYVar = yVariances.reduce((a, b) => a + b) / yVariances.length;
+            if (avgXVar < 0.5 && avgYVar < 0.5) return false;
+            return true;
+        }
+
+        function validateTouchMovement() {
+            if (touchData.length < 3) return true;
+            let positions = touchData.map(t => ({x: t.x, y: t.y}));
+            let pressures = touchData.map(t => t.pressure || 0.5);
+            let xVariances = [];
+            let yVariances = [];
+            for (let i = 1; i < positions.length; i++) {
+                xVariances.push(Math.abs(positions[i].x - positions[i-1].x));
+                yVariances.push(Math.abs(positions[i].y - positions[i-1].y));
+            }
+            const avgXVar = xVariances.reduce((a, b) => a + b, 0) / (xVariances.length || 1);
+            const avgYVar = yVariances.reduce((a, b) => a + b, 0) / (yVariances.length || 1);
+            const avgPressure = pressures.reduce((a, b) => a + b) / pressures.length;
+            const pressureVar = pressures.reduce((a, b) => a + Math.abs(b - avgPressure), 0) / pressures.length;
+            if ((pressureVar < 0.05 && avgXVar < 1 && avgYVar < 1)) return false;
+            return true;
+        }
+
+        function startPress(e) {
+            if (isActivated) return;
+
+            isTouchDevice = e.type.includes('touch');
+            mousePositions = [];
+            touchData = [];
+
+            if (isTouchDevice) {
+                document.addEventListener('touchmove', trackTouch);
+            } else {
+                document.addEventListener('mousemove', trackMouse);
+            }
+
+            let startTime = Date.now();
+
+            const progressInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / PRESS_TIME;
+
+                if (progress <= 1) {
+                    const bgOpacity = 0.05 + (progress * 0.1);
+                    lockBtn.style.background = `rgba(255,255,255,${bgOpacity})`;
+                } else {
+                    clearInterval(progressInterval);
+                }
+            }, 10);
+
+            pressTimer = setTimeout(() => {
+                clearInterval(progressInterval);
+                document.removeEventListener('mousemove', trackMouse);
+                document.removeEventListener('touchmove', trackTouch);
+
+                if (validateMovement()) {
+                    activateButton();
+                } else {
+                    showRejection();
+                }
+            }, PRESS_TIME);
+        }
+
+        function trackMouse(e) {
+            mousePositions.push({x: e.clientX, y: e.clientY});
+        }
+
+        function trackTouch(e) {
+            const touch = e.touches[0];
+            touchData.push({
+                x: touch.clientX,
+                y: touch.clientY,
+                pressure: e.touches[0].force || 0.5
+            });
+        }
+
+        function cancelPress() {
+            clearTimeout(pressTimer);
+            lockBtn.style.background = 'rgba(255,255,255,0.05)';
+            document.removeEventListener('mousemove', trackMouse);
+            document.removeEventListener('touchmove', trackTouch);
+        }
+
+        function activateButton() {
+            isActivated = true;
+            lockBtn.classList.add('activated');
+            const t = translations[currentLang];
+            lockBtn.textContent = t.lockBtnActive.replace('🔒', '');
+
+            const lockIcon = document.createElement('span');
+            lockIcon.className = 'lock-icon';
+            lockIcon.textContent = '🔒';
+            lockBtn.appendChild(lockIcon);
+
+            lockSubtitle.textContent = t.lockSubtitleActive;
+            lockBtn.addEventListener('click', openModal);
+        }
+
+        function showRejection() {
+            lockBtn.style.background = 'rgba(255,255,255,0.05)';
+            alert(translations[currentLang].rejection);
+        }
+
+        function openModal() {
+            const modal = document.getElementById('ageModal');
+            modal.classList.add('show');
+            document.body.style.setProperty('overflow', 'hidden', 'important');
+            document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('ageModal');
+            modal.classList.remove('show');
+            document.body.style.removeProperty('overflow');
+            document.documentElement.style.removeProperty('overflow');
+        }
+
+        function confirmAge() {
+            const modal = document.getElementById('ageModal');
+            const linksSection = document.getElementById('linksSection');
+            modal.classList.remove('show');
+            linksSection.classList.add('show');
+            document.body.style.setProperty('overflow', 'hidden', 'important');
+            document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+        }
+
+        function clickOnlyfans() {
+            window.open('https://onlyfans.com/youtovar', '_blank');
+        }
+
+        function clickTelegram() {
+            window.open('https://t.me/nazaresotass', '_blank');
+        }
+
+        lockBtn.addEventListener('mousedown', startPress);
+        lockBtn.addEventListener('mouseup', cancelPress);
+        lockBtn.addEventListener('mouseleave', cancelPress);
+
+        lockBtn.addEventListener('touchstart', startPress);
+        lockBtn.addEventListener('touchend', cancelPress);
+
+        // Initialize language on page load
+        updateLanguage();
+        updateLangButtons();
+
+        // Keep language selector fixed on web - continuous check
+        setInterval(() => {
+            const selector = document.querySelector('.language-selector');
+            if (window.innerWidth > 768) {
+                selector.style.position = 'fixed';
+                selector.style.top = '15px';
+                selector.style.right = '65px';
+                selector.style.zIndex = '10000';
+            }
+        }, 100);
+    </script>
+
 </body>
 </html>
