@@ -392,9 +392,12 @@
 
         function cancelPress() {
             clearTimeout(pressTimer);
+            pressTimer = null;
             lockBtn.style.background = 'rgba(255,255,255,0.05)';
             document.removeEventListener('mousemove', trackMouse);
             document.removeEventListener('touchmove', trackTouch);
+            mousePositions = [];
+            touchData = [];
         }
 
         function activateButton() {
@@ -422,12 +425,29 @@
 
         function backToLevel1() {
             isActivated = false;
+
+            // Reset lock button to initial state
+            lockBtn = document.querySelector('.lock-btn');
+            lockSubtitle = document.querySelector('.lock-subtitle');
+
+            if (lockBtn) {
+                // Restore original text
+                const t = translations[currentLang];
+                lockBtn.innerHTML = t.lockBtn.replace('🔒', '<span class="lock-icon">🔒</span>');
+                lockBtn.classList.remove('activated');
+                lockBtn.style.background = 'rgba(255,255,255,0.05)';
+                lockSubtitle.textContent = t.lockSubtitle;
+            }
+
+            // Show level1, hide others
             document.getElementById('level1').style.display = 'block';
             document.getElementById('level2').style.display = 'none';
             document.getElementById('ageModalContainer').innerHTML = '';
             document.getElementById('finalButtonsContainer').innerHTML = '';
             document.body.style.removeProperty('overflow');
             document.documentElement.style.removeProperty('overflow');
+
+            // Re-setup event listeners
             setupLockButton();
         }
 
