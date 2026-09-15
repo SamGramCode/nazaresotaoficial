@@ -8,7 +8,17 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { width: 100%; height: 100%; overflow-x: hidden; background: transparent; }
-        body { background: transparent; padding: 0; margin: 0; width: 100%; height: 100vh; overflow: hidden; position: relative; }
+        body { background: transparent; padding: 0; margin: 0; width: 100%; overflow-x: hidden; position: relative; }
+
+        /* Celular - sin scroll */
+        @media (max-width: 768px) {
+            body { height: 100vh; overflow-y: hidden; }
+        }
+
+        /* Web - permite scroll */
+        @media (min-width: 769px) {
+            body { overflow-y: auto; }
+        }
         
         .container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
         
