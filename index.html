@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inner Circle</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Creator Page</title>
+    <!-- Tailwind CSS CDN para estilos rápidos y limpios -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes tipográficas elegantes (Playfair Display para títulos y Plus Jakarta Sans para cuerpo) -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         .font-serif-custom { font-family: 'Playfair Display', serif; }
         .font-sans-custom { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-[#0f0f0f] min-h-screen flex items-center justify-center p-4 font-sans-custom">
+<body class="bg-[#0b0b0b] min-h-screen flex items-center justify-center p-4 font-sans-custom">
 
     <!-- Tarjeta Móvil Principal -->
-    <div class="w-full max-w-[360px] bg-[#D6CCE3] rounded-[2.5rem] pt-12 pb-10 px-6 shadow-2xl flex flex-col items-center text-center relative overflow-hidden border border-[#c5b8d4]">
+    <div class="w-full max-w-[350px] bg-[#D6CCE3] rounded-[2.5rem] pt-12 pb-10 px-6 shadow-2xl flex flex-col items-center text-center relative overflow-hidden border border-[#c4b7d3]">
         
-        <!-- Ilustración / Retrato Superior (Ajusta la URL o ruta de tu imagen recortada de la chica) -->
-        <div class="w-44 h-44 mb-6 flex items-center justify-center relative">
+        <!-- Contenedor de la Imagen / Ilustración Superior -->
+        <div class="w-40 h-40 mb-5 flex items-center justify-center relative">
+            <!-- 
+              NOTA: Aquí colocas la ruta de tu imagen o ilustración recortada. 
+              Si la guardas en la misma carpeta como 'avatar.png', solo cambia el src a src="avatar.png"
+            -->
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop" 
-                 alt="Avatar" 
-                 class="w-40 h-40 object-cover rounded-full shadow-md border-2 border-white/40">
+                 alt="Avatar Creator" 
+                 class="w-full h-full object-cover rounded-full shadow-md border-2 border-white/50">
         </div>
 
-        <!-- Título Principal (Aquí puedes cambiar "GRACIE'S INNER CIRCLE" por el nombre que quieras) -->
-        <h1 class="font-serif-custom text-[2.2rem] leading-none text-[#433550] font-normal tracking-wide uppercase mb-4">
+        <!-- Título Principal (Editable por código) -->
+        <h1 class="font-serif-custom text-[2rem] leading-[1.1] text-[#433550] font-normal tracking-wide uppercase mb-3">
             Gracie's<br>Inner Circle
         </h1>
 
-        <!-- Descripción -->
-        <p class="text-[#564863] text-[13px] leading-relaxed px-4 mb-20 font-light">
+        <!-- Descripción (Editable por código) -->
+        <p class="text-[#564863] text-[13px] leading-relaxed px-3 mb-14 font-light">
             Un espacio íntimo con gracie. Donde comparto mi behind-the-scenes y autenticidad sin filtros.
         </p>
 
-        <!-- Sección de Autenticación / Huella Digital -->
+        <!-- Sección Inferior: Botón / Autenticación -->
         <div class="w-full flex flex-col items-center mt-auto">
-            <!-- Icono de Huella Digital Limpio -->
-            <div class="text-[#625172] mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 11v5"></path>
-                    <path d="M12 7a4 4 0 0 0-4 4v1"></path>
-                    <path d="M16 12v1a4 4 0 0 1-8 0v-1a4 4 0 0 1 8 0z"></path>
-                    <path d="M19 10a7 7 0 0 1 1 3.5v1.5"></path>
-                    <path d="M4 13.5A8 8 0 0 1 12 3a8 8 0 0 1 8 8"></path>
-                    <path d="M2 12a10 10 0 0 1 20 0v2"></path>
+            <!-- Icono de Huella Digital Vectorial Limpio (SVG de código, no imagen) -->
+            <div class="text-[#625172] mb-3 opacity-90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.81 3.7"></path>
+                    <path d="M12 2a10 10 0 0 0-7.35 16.76"></path>
+                    <path d="M16 16v1a2 2 0 0 1-4 0v-2a4 4 0 0 0-8 0v1"></path>
+                    <path d="M12 6a6 6 0 0 0-6 6c0 1.5.2 3.5 1 5"></path>
+                    <path d="M19 11v2a7 7 0 0 1-1.4 4.2"></path>
+                    <path d="M20.24 7.24A10 10 0 0 1 22 12v1"></path>
                 </svg>
             </div>
             
