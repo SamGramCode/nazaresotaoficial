@@ -377,6 +377,32 @@
                     btn.classList.add('active');
                 }
             });
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+
+            // Update heading
+            const holaEl = document.querySelector('.hola');
+            const cieloEl = document.querySelector('.cielo');
+            if (holaEl) holaEl.textContent = t.hola;
+            if (cieloEl) cieloEl.textContent = t.cielo;
+
+            // Update paragraphs
+            const paragraphs = document.querySelectorAll('.text-overlay p');
+            if (paragraphs[0]) paragraphs[0].textContent = t.para1;
+            if (paragraphs[1]) paragraphs[1].textContent = t.para2;
+            if (paragraphs[2]) paragraphs[2].textContent = t.para3;
+
+            // Update lock button (if not activated)
+            if (!isActivated && lockBtn) {
+                lockBtn.innerHTML = t.lockBtn.replace('🔒', '<span class="lock-icon">🔒</span>');
+            }
+
+            // Update lock subtitle
+            const subtitleEl = document.querySelector('.lock-subtitle');
+            if (subtitleEl) subtitleEl.textContent = t.lockSubtitle;
         }
 
         function onPressStart(e) {
