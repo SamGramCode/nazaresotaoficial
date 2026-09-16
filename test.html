@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Long Press</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #000; color: #fff; font-family: Arial; }
+        #btn {
+            padding: 30px 60px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            border-radius: 50px;
+            margin: 20px 0;
+        }
+        #status {
+            padding: 20px;
+            background: #1a1a1a;
+            margin: 20px 0;
+            font-size: 14px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LONG PRESS TEST</h1>
+    <button id="btn">PRESS AND HOLD 5 SECONDS</button>
+    <div id="status">Status will appear here...</div>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const status = document.getElementById('status');
+        let pressTimer = null;
+        const PRESS_TIME = 5000; // 5 seconds for testing
+
+        function log(msg) {
+            console.log(msg);
+            status.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+        }
+
+        function onPressStart(e) {
+            log(`✅ PRESS START (${e.type})`);
+            if (pressTimer) return;
+
+            let startTime = Date.now();
+            const interval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const percent = Math.floor((elapsed / PRESS_TIME) * 100);
+                status.style.background = `rgba(0, ${percent * 2}, 0, 0.3)`;
+            }, 50);
+
+            pressTimer = setTimeout(() => {
+                clearInterval(interval);
+                log(`✅ SUCCESS! Long press completed!`);
+                btn.style.background = 'rgba(0, 255, 0, 0.3)';
+                pressTimer = null;
+            }, PRESS_TIME);
+        }
+
+        function onPressEnd(e) {
+            if (pressTimer) {
+                log(`❌ PRESS CANCELLED (${e.type})`);
+                clearTimeout(pressTimer);
+                pressTimer = null;
+                status.style.background = '#1a1a1a';
+            }
+        }
+
+        // Test different event types
+        log('Adding event listeners...');
+
+        btn.addEventListener('mousedown', onPressStart);
+        btn.addEventListener('mouseup', onPressEnd);
+        btn.addEventListener('mouseleave', onPressEnd);
+
+        btn.addEventListener('touchstart', onPressStart);
+        btn.addEventListener('touchend', onPressEnd);
+
+        btn.addEventListener('pointerdown', onPressStart);
+        btn.addEventListener('pointerup', onPressEnd);
+        btn.addEventListener('pointerleave', onPressEnd);
+
+        log('✅ Ready. Press and hold the button...');
+    </script>
+</body>
+</html>
