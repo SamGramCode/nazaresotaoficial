@@ -3,40 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fashion, lifestyle, self-love and authentic connection">
-    <title>Hi Nazaresota | Official</title>
+    <title>Nazaresota Oficial</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; overflow-x: hidden; background: transparent; }
-        body { position: relative; }
+        html, body { width: 100%; height: 100%; overflow-x: hidden; }
+        body { background: transparent; }
+
+        .language-selector {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 10000;
+            display: flex;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .lang-btn.active { text-decoration: underline; }
+        .lang-btn:hover { opacity: 0.8; }
+
+        #level1 {
+            position: relative;
+            width: 100vw;
+            overflow: hidden;
+        }
 
         @media (max-width: 768px) {
             body { height: 100vh; overflow-y: hidden; }
+            #level1 { height: 100vh; }
         }
 
         @media (min-width: 769px) {
             body { overflow-y: auto; }
         }
 
-        #root {
-            width: 100%;
-            height: 100%;
-        }
-
-        .container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
-
         img {
             width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            transform: scale(1.1);
             display: block;
+            height: auto;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            img { height: 100vh; object-fit: cover; }
         }
 
         .text-overlay {
@@ -92,7 +119,6 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
-            -webkit-touch-callout: none;
             transition: all 0.3s;
             font-weight: 700;
             color: #FFFFFF;
@@ -116,7 +142,25 @@
             top: -10px;
         }
 
-        .modal {
+        #level2 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('fondo-mariposas.jpg') center/cover no-repeat;
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        #level2.show { display: flex; }
+
+        #ageModal {
             display: none;
             position: fixed;
             top: 0;
@@ -130,7 +174,7 @@
             overflow-y: hidden;
         }
 
-        .modal.show {
+        #ageModal.show {
             display: flex;
         }
 
@@ -207,7 +251,7 @@
 
         .btn-no:hover { background: #808080; transform: translateY(-2px); }
 
-        .links-section {
+        #finalButtons {
             display: none;
             position: fixed;
             top: 0;
@@ -223,9 +267,7 @@
             padding: 2rem;
         }
 
-        .links-section.show {
-            display: flex;
-        }
+        #finalButtons.show { display: flex; }
 
         .btn-link {
             width: 100%;
@@ -249,140 +291,96 @@
 
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
-        .language-selector {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 10000;
-            display: flex;
-            gap: 12px;
-        }
-
-        .lang-btn {
-            background: none;
-            border: none;
-            color: #FFFFFF;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-            user-select: none;
-        }
-
-        .lang-btn.active { text-decoration: underline; }
-
         @media (min-width: 769px) {
-            .text-overlay h1 { font-size: 4rem; top: 205px; }
+            .text-overlay {
+                bottom: 490px;
+                left: 100px;
+                right: 100px;
+                font-size: 1.2rem;
+            }
+
+            .text-overlay h1 { font-size: 4rem; position: relative; top: 205px; }
             .text-overlay h1 .hola { font-size: 8rem; }
-            .text-overlay p { top: 263px; }
-            .lock-btn { font-size: 1.1rem; padding: 1.2rem 2.5rem; top: 335px; }
-            .lock-subtitle { font-size: 0.8rem; top: 315px; }
+            .text-overlay p { position: relative; top: 263px; }
+            .lock-btn { font-size: 1.1rem; padding: 1.2rem 2.5rem; position: relative; top: 335px; }
+            .lock-subtitle { font-size: 0.8rem; position: relative; top: 315px; }
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="language-selector">
+        <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+    </div>
+
+    <div id="level1">
+        <img src="nazaresota.png" alt="Nazaresota">
+        <div class="text-overlay">
+            <h1><span class="hola">Hola</span><br><span class="cielo">mi CIELO ♡</span></h1>
+
+            <p>Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
+
+            <p>Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
+
+            <p>Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+
+            <button type="button" class="lock-btn" id="lockBtn">MANTÉN PRESIONADO AQUÍ <span class="lock-icon">🔒</span></button>
+
+            <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
+        </div>
+    </div>
+
+    <div id="level2">
+        <div class="language-selector">
+            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        </div>
+        <button type="button" class="btn-link" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
+        <button type="button" class="btn-link" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
+    </div>
+
+    <div id="ageModal">
+        <div class="modal-card">
+            <div class="age-badge">18+</div>
+            <h2 class="modal-title">VERIFICACIÓN DE EDAD</h2>
+            <p class="modal-text">Este contenido está restringido para mayores de 18 años</p>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
+                <button type="button" class="btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="finalButtons">
+        <div class="language-selector">
+            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        </div>
+        <button type="button" class="btn-link" onclick="window.open('https://onlyfans.com/youtovar', '_blank')">OnlyFans</button>
+        <button type="button" class="btn-link" onclick="window.open('https://t.me/nazaresotass', '_blank')">Telegram</button>
+    </div>
 
     <script>
-        const PRESS_TIME = 1200;
-        let isActivated = false;
-        let pressTimer = null;
-        let lockBtn = null;
-
-        const translations = {
-            es: {
-                hola: 'Hola',
-                cielo: 'mi CIELO ♡',
-                para1: 'Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡',
-                para2: 'Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡',
-                para3: 'Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡',
-                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒',
-                lockSubtitle: 'Mantén presionado para entrar sin candado',
-                lockBtnActive: 'TOCA AQUÍ PARA VER MÁS 🔒',
-                modalTitle: 'VERIFICACIÓN DE EDAD',
-                modalText: 'Este contenido está restringido para mayores de 18 años',
-                btnYes: 'SÍ TENGO 18+',
-                btnNo: 'NO, VOLVER',
-            },
-            en: {
-                hola: 'Hello',
-                cielo: 'my HEAVEN ♡',
-                para1: 'Hi, I\'m NAZARESOTA ♡ authentic and charming. I love enjoying life, laughing at everything and connecting with people who know how to appreciate a confident woman. ♡',
-                para2: 'I\'m a mix of sweetness, attitude and curves that don\'t go unnoticed. I like good conversations, unexpected details and connections that feel special. ♡',
-                para3: 'If you like women with personality, confidence and a smile that captivates, maybe here you\'ll find something more than just a simple bio. ♡',
-                lockBtn: 'HOLD HERE 🔒',
-                lockSubtitle: 'Hold to enter unlocked',
-                lockBtnActive: 'TAP HERE FOR MORE 🔒',
-                modalTitle: 'AGE VERIFICATION',
-                modalText: 'This content is restricted for 18+ only',
-                btnYes: 'YES I\'M 18+',
-                btnNo: 'NO, GO BACK',
-            }
-        };
-
         let currentLang = localStorage.getItem('language') || 'es';
-
-        function renderLevel1() {
-            const t = translations[currentLang];
-            return `
-                <div class="language-selector">
-                    <button type="button" class="lang-btn ${currentLang === 'es' ? 'active' : ''}" data-lang="es">ES</button>
-                    <button type="button" class="lang-btn ${currentLang === 'en' ? 'active' : ''}" data-lang="en">EN</button>
-                </div>
-                <div class="container">
-                    <img src="nazaresota.png" alt="Nazaresota">
-                    <div class="text-overlay">
-                        <h1><span class="hola">${t.hola}</span><br><span class="cielo">${t.cielo}</span></h1>
-                        <p>${t.para1}</p>
-                        <p>${t.para2}</p>
-                        <p>${t.para3}</p>
-                        <button type="button" class="lock-btn" id="lockBtn">${t.lockBtn}</button>
-                        <div class="lock-subtitle">${t.lockSubtitle}</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderAgeModal() {
-            const t = translations[currentLang];
-            return `
-                <div class="modal show" id="ageModal">
-                    <div class="modal-card">
-                        <div class="age-badge">18+</div>
-                        <h2 class="modal-title">${t.modalTitle}</h2>
-                        <p class="modal-text">${t.modalText}</p>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-yes" id="confirmAgeBtn">${t.btnYes}</button>
-                            <button type="button" class="btn-no" id="cancelAgeBtn">${t.btnNo}</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderFinalButtons() {
-            return `
-                <div class="links-section show">
-                    <button type="button" class="btn-link" onclick="window.open('https://onlyfans.com/youtovar', '_blank')">OnlyFans</button>
-                    <button type="button" class="btn-link" onclick="window.open('https://t.me/nazaresotass', '_blank')">Telegram</button>
-                </div>
-            `;
-        }
+        let lockBtn = document.getElementById('lockBtn');
+        let pressTimer = null;
+        let isActivated = false;
+        const PRESS_TIME = 1200; // 1.2 segundos
 
         function changeLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('language', lang);
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
             });
         }
 
         function onPressStart(e) {
-            e.preventDefault();
-            e.stopPropagation();
+            console.log('🟢 START PRESS');
             if (isActivated || pressTimer) return;
 
             let startTime = Date.now();
@@ -392,18 +390,17 @@
                 if (progress <= 1) {
                     const bgOpacity = 0.05 + (progress * 0.1);
                     lockBtn.style.background = `rgba(255,255,255,${bgOpacity})`;
-                } else {
-                    clearInterval(interval);
                 }
             }, 10);
 
             pressTimer = setTimeout(() => {
                 clearInterval(interval);
+                console.log('✅ ACTIVATE BUTTON');
                 activateButton();
             }, PRESS_TIME);
         }
 
-        function onPressEnd() {
+        function onPressEnd(e) {
             if (pressTimer) {
                 clearTimeout(pressTimer);
                 pressTimer = null;
@@ -414,44 +411,54 @@
         function activateButton() {
             isActivated = true;
             pressTimer = null;
-            const t = translations[currentLang];
-            lockBtn.textContent = t.lockBtnActive + ' ';
-            const icon = document.createElement('span');
-            icon.className = 'lock-icon';
-            icon.textContent = '🔒';
-            lockBtn.appendChild(icon);
-            lockBtn.onclick = showAgeModal;
-            if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 50]); // Double vibration on success
+            }
+            lockBtn.textContent = 'TOCA AQUÍ PARA VER MÁS ';
+            const lockIcon = document.createElement('span');
+            lockIcon.className = 'lock-icon';
+            lockIcon.textContent = '🔒';
+            lockBtn.appendChild(lockIcon);
+            lockBtn.onclick = openAgeModal;
         }
 
-        function showAgeModal() {
-            document.getElementById('root').insertAdjacentHTML('beforeend', renderAgeModal());
-            document.getElementById('confirmAgeBtn').onclick = confirmAge;
-            document.getElementById('cancelAgeBtn').onclick = cancelAge;
-            if (navigator.vibrate) navigator.vibrate(50);
+        function backToLevel1() {
+            isActivated = false;
+            pressTimer = null;
+            lockBtn.style.background = 'rgba(255,255,255,0.05)';
+            document.getElementById('level2').classList.remove('show');
+            document.getElementById('level1').style.display = 'block';
+            document.getElementById('ageModal').classList.remove('show');
+            document.getElementById('finalButtons').classList.remove('show');
+            setupLockButton();
+        }
+
+        function openAgeModal() {
+            console.log('📱 openAgeModal called');
+            console.log('Vibrate supported:', !!navigator.vibrate);
+            if (navigator.vibrate) {
+                console.log('Vibrating 50ms...');
+                navigator.vibrate(50);
+            }
+            document.getElementById('ageModal').classList.add('show');
+        }
+
+        function closeAgeModal() {
+            isActivated = false;
+            pressTimer = null;
+            lockBtn.onclick = null;
+            lockBtn.textContent = 'MANTÉN PRESIONADO AQUÍ ';
+            const lockIcon = document.createElement('span');
+            lockIcon.className = 'lock-icon';
+            lockIcon.textContent = '🔒';
+            lockBtn.appendChild(lockIcon);
+            document.getElementById('ageModal').classList.remove('show');
+            setupLockButton();
         }
 
         function confirmAge() {
-            document.getElementById('ageModal').remove();
-            document.getElementById('root').insertAdjacentHTML('beforeend', renderFinalButtons());
-        }
-
-        function cancelAge() {
-            document.getElementById('ageModal').remove();
-            resetButton();
-        }
-
-        function resetButton() {
-            isActivated = false;
-            pressTimer = null;
-            const t = translations[currentLang];
-            lockBtn.textContent = t.lockBtn + ' ';
-            const icon = document.createElement('span');
-            icon.className = 'lock-icon';
-            icon.textContent = '🔒';
-            lockBtn.appendChild(icon);
-            lockBtn.onclick = null;
-            setupLockButton();
+            document.getElementById('ageModal').classList.remove('show');
+            document.getElementById('finalButtons').classList.add('show');
         }
 
         function setupLockButton() {
@@ -460,33 +467,28 @@
                 lockBtn.removeEventListener('pointerdown', onPressStart);
                 lockBtn.removeEventListener('pointerup', onPressEnd);
                 lockBtn.removeEventListener('pointerleave', onPressEnd);
-                lockBtn.removeEventListener('touchstart', onPressStart);
-                lockBtn.removeEventListener('touchend', onPressEnd);
                 lockBtn.removeEventListener('mousedown', onPressStart);
                 lockBtn.removeEventListener('mouseup', onPressEnd);
                 lockBtn.removeEventListener('mouseleave', onPressEnd);
+                lockBtn.removeEventListener('touchstart', onPressStart);
+                lockBtn.removeEventListener('touchend', onPressEnd);
 
                 lockBtn.addEventListener('pointerdown', onPressStart);
                 lockBtn.addEventListener('pointerup', onPressEnd);
                 lockBtn.addEventListener('pointerleave', onPressEnd);
-                lockBtn.addEventListener('touchstart', onPressStart);
-                lockBtn.addEventListener('touchend', onPressEnd);
                 lockBtn.addEventListener('mousedown', onPressStart);
                 lockBtn.addEventListener('mouseup', onPressEnd);
                 lockBtn.addEventListener('mouseleave', onPressEnd);
+                lockBtn.addEventListener('touchstart', onPressStart);
+                lockBtn.addEventListener('touchend', onPressEnd);
+
+                console.log('✓ Lock button ready');
             }
         }
 
-        // INIT
-        document.getElementById('root').innerHTML = renderLevel1();
+        console.log('🚀 INITIALIZATION');
         setupLockButton();
-
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.onclick = (e) => {
-                e.preventDefault();
-                changeLanguage(btn.getAttribute('data-lang'));
-            };
-        });
+        console.log('✅ READY - Press and hold for 1.2 seconds');
     </script>
 </body>
 </html>
