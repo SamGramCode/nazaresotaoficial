@@ -119,6 +119,7 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            -webkit-touch-callout: none;
             transition: all 0.3s;
             font-weight: 700;
             color: #FFFFFF;
@@ -381,6 +382,7 @@
 
         function onPressStart(e) {
             console.log('🟢 START PRESS');
+            e.preventDefault(); // Prevenir menú de Safari
             if (isActivated || pressTimer) return;
 
             let startTime = Date.now();
