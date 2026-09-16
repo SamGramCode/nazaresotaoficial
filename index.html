@@ -356,36 +356,6 @@
         </div>
     </div>
 
-    <div id="level2">
-        <div class="language-selector">
-            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-        </div>
-        <button type="button" class="btn-link" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
-        <button type="button" class="btn-link" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
-    </div>
-
-    <div id="ageModal">
-        <div class="modal-card">
-            <div class="age-badge">18+</div>
-            <h2 class="modal-title">VERIFICACIÓN DE EDAD</h2>
-            <p class="modal-text">Este contenido está restringido para mayores de 18 años</p>
-
-            <div class="modal-buttons">
-                <button type="button" class="btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
-                <button type="button" class="btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="finalButtons">
-        <div class="language-selector">
-            <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-            <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-        </div>
-        <button type="button" class="btn-link" onclick="window.open('https://onlyfans.com/youtovar', '_blank')">OnlyFans</button>
-        <button type="button" class="btn-link" onclick="window.open('https://t.me/nazaresotass', '_blank')">Telegram</button>
-    </div>
 
     <script>
         let currentLang = 'es'; // Always start in Spanish
@@ -607,6 +577,53 @@
                 openAgeModal();
             }
         }
+
+        // Inyectar elementos al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+
+            // Inyectar level2
+            const level2 = document.createElement('div');
+            level2.id = 'level2';
+            level2.innerHTML = `
+                <div class="language-selector">
+                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+                </div>
+                <button type="button" class="btn-link" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
+                <button type="button" class="btn-link" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
+            `;
+            body.appendChild(level2);
+
+            // Inyectar ageModal
+            const ageModal = document.createElement('div');
+            ageModal.id = 'ageModal';
+            ageModal.innerHTML = `
+                <div class="modal-card">
+                    <div class="age-badge">18+</div>
+                    <h2 class="modal-title">VERIFICACIÓN DE EDAD</h2>
+                    <p class="modal-text">Este contenido está restringido para mayores de 18 años</p>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
+                        <button type="button" class="btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
+                    </div>
+                </div>
+            `;
+            body.appendChild(ageModal);
+
+            // Inyectar finalButtons
+            const finalButtons = document.createElement('div');
+            finalButtons.id = 'finalButtons';
+            finalButtons.innerHTML = `
+                <div class="language-selector">
+                    <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+                </div>
+                <button type="button" class="btn-link" onclick="window.open('https://onlyfans.com/youtovar', '_blank')">OnlyFans</button>
+                <button type="button" class="btn-link" onclick="window.open('https://t.me/nazaresotass', '_blank')">Telegram</button>
+            `;
+            body.appendChild(finalButtons);
+        });
 
         console.log('🚀 INITIALIZATION');
         setupLockButton();
