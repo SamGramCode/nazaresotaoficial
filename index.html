@@ -471,6 +471,10 @@
             console.log('🟢 START PRESS');
             if (isActivated || pressTimer) return;
 
+            if (navigator.vibrate) {
+                navigator.vibrate(30);
+            }
+
             let startTime = Date.now();
             const interval = setInterval(() => {
                 const elapsed = Date.now() - startTime;
