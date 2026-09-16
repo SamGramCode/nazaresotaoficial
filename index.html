@@ -381,8 +381,9 @@
         }
 
         function onPressStart(e) {
-            console.log('🟢 START PRESS');
-            e.preventDefault(); // Prevenir menú de Safari
+            console.log('🟢 START PRESS', e.type);
+            e.preventDefault(); // Prevenir menú de Safari/Chrome
+            e.stopPropagation(); // Detener propagación
             if (isActivated || pressTimer) return;
 
             let startTime = Date.now();
