@@ -431,6 +431,9 @@
         }
 
         function openAgeModal() {
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
             document.getElementById('ageModal').classList.add('show');
         }
 
