@@ -368,6 +368,35 @@
         let isActivated = false;
         const PRESS_TIME = 1200; // 1.2 segundos
 
+        const translations = {
+            es: {
+                hola: 'Hola',
+                cielo: 'mi CIELO ♡',
+                para1: 'Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡',
+                para2: 'Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡',
+                para3: 'Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡',
+                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒',
+                lockSubtitle: 'Mantén presionado para entrar sin candado',
+                modalTitle: 'VERIFICACIÓN DE EDAD',
+                modalText: 'Este contenido está restringido para mayores de 18 años',
+                btnYes: 'SÍ TENGO 18+',
+                btnNo: 'NO, VOLVER'
+            },
+            en: {
+                hola: 'Hello',
+                cielo: 'my LOVE ♡',
+                para1: 'Hi, I\'m NAZARESOTA ♡ authentic and charming. I love enjoying life, laughing at everything, and connecting with people who appreciate a confident woman. ♡',
+                para2: 'I\'m a mix of sweetness, attitude and curves that don\'t go unnoticed. I like good conversations, unexpected details and connections that feel special. ♡',
+                para3: 'If you like women with personality, confidence and a smile that makes you fall in love, maybe you\'ll find something more than a simple bio here. ♡',
+                lockBtn: 'PRESS AND HOLD HERE 🔒',
+                lockSubtitle: 'Press and hold to enter unlocked',
+                modalTitle: 'AGE VERIFICATION',
+                modalText: 'This content is restricted to adults 18+',
+                btnYes: 'YES I AM 18+',
+                btnNo: 'NO, GO BACK'
+            }
+        };
+
         function changeLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('language', lang);
@@ -382,6 +411,10 @@
 
         function updateLanguage() {
             const t = translations[currentLang];
+            if (!t) {
+                console.error('❌ Translations not found for:', currentLang);
+                return;
+            }
 
             // Update heading
             const holaEl = document.querySelector('.hola');
@@ -391,9 +424,9 @@
 
             // Update paragraphs
             const paragraphs = document.querySelectorAll('.text-overlay p');
-            if (paragraphs[0]) paragraphs[0].textContent = t.para1;
-            if (paragraphs[1]) paragraphs[1].textContent = t.para2;
-            if (paragraphs[2]) paragraphs[2].textContent = t.para3;
+            if (paragraphs.length >= 1) paragraphs[0].textContent = t.para1;
+            if (paragraphs.length >= 2) paragraphs[1].textContent = t.para2;
+            if (paragraphs.length >= 3) paragraphs[2].textContent = t.para3;
 
             // Update lock button (if not activated)
             if (!isActivated && lockBtn) {
@@ -403,6 +436,19 @@
             // Update lock subtitle
             const subtitleEl = document.querySelector('.lock-subtitle');
             if (subtitleEl) subtitleEl.textContent = t.lockSubtitle;
+
+            // Update modal and age verification texts
+            const modalTitle = document.querySelector('.modal-title');
+            const modalText = document.querySelector('.modal-text');
+            const btnYes = document.querySelector('.btn-yes');
+            const btnNo = document.querySelector('.btn-no');
+
+            if (modalTitle) modalTitle.textContent = t.modalTitle;
+            if (modalText) modalText.textContent = t.modalText;
+            if (btnYes) btnYes.textContent = t.btnYes;
+            if (btnNo) btnNo.textContent = t.btnNo;
+
+            console.log('✅ Language updated to:', currentLang);
         }
 
         function onPressStart(e) {
@@ -514,6 +560,7 @@
 
         console.log('🚀 INITIALIZATION');
         setupLockButton();
+        updateLanguage(); // Initialize language on page load
         console.log('✅ READY - Press and hold for 1.2 seconds');
     </script>
 </body>
