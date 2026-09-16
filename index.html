@@ -40,7 +40,7 @@
         .lang-btn.active { text-decoration: underline; }
         .lang-btn:hover { opacity: 0.8; }
 
-        .container {
+        #level1 {
             position: relative;
             width: 100vw;
             overflow: hidden;
@@ -48,7 +48,7 @@
 
         @media (max-width: 768px) {
             body { height: 100vh; overflow-y: hidden; }
-            .container { height: 100vh; }
+            #level1 { height: 100vh; }
         }
 
         @media (min-width: 769px) {
@@ -124,6 +124,12 @@
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
+            display: block;
+            width: auto;
+            min-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            touch-action: manipulation;
         }
 
         .lock-icon { opacity: 0.4; }
@@ -136,7 +142,6 @@
             top: -10px;
         }
 
-        /* LEVEL 2 STYLES */
         #level2 {
             display: none;
             position: fixed;
@@ -155,7 +160,6 @@
 
         #level2.show { display: flex; }
 
-        /* MODAL STYLES */
         #ageModal {
             display: none;
             position: fixed;
@@ -247,7 +251,6 @@
 
         .btn-no:hover { background: #808080; transform: translateY(-2px); }
 
-        /* FINAL BUTTONS STYLES */
         #finalButtons {
             display: none;
             position: fixed;
@@ -288,7 +291,6 @@
 
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
-        /* WEB RESPONSIVE */
         @media (min-width: 769px) {
             .text-overlay {
                 bottom: 490px;
@@ -306,14 +308,12 @@
     </style>
 </head>
 <body>
-    <!-- LANGUAGE SELECTOR -->
     <div class="language-selector">
         <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
         <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
     </div>
 
-    <!-- LEVEL 1: INICIAL -->
-    <div class="container" id="level1">
+    <div id="level1">
         <img src="nazaresota.png" alt="Nazaresota">
         <div class="text-overlay">
             <h1><span class="hola">Hola</span><br><span class="cielo">mi CIELO ♡</span></h1>
@@ -330,7 +330,6 @@
         </div>
     </div>
 
-    <!-- LEVEL 2: DESPUÉS DEL LONG-PRESS -->
     <div id="level2">
         <div class="language-selector">
             <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
@@ -340,7 +339,6 @@
         <button type="button" class="btn-link" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
     </div>
 
-    <!-- AGE MODAL: VERIFICACIÓN DE EDAD -->
     <div id="ageModal">
         <div class="modal-card">
             <div class="age-badge">18+</div>
@@ -354,7 +352,6 @@
         </div>
     </div>
 
-    <!-- FINAL BUTTONS: ONLYFANS + TELEGRAM -->
     <div id="finalButtons">
         <div class="language-selector">
             <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
@@ -365,28 +362,12 @@
     </div>
 
     <script>
-        // TRANSLATIONS
-        const translations = {
-            es: {
-                hola: 'Hola',
-                cielo: 'mi CIELO ♡',
-            },
-            en: {
-                hola: 'Hello',
-                cielo: 'my HEAVEN ♡',
-            }
-        };
-
         let currentLang = localStorage.getItem('language') || 'es';
         let lockBtn = document.getElementById('lockBtn');
-        let pressTimer;
+        let pressTimer = null;
         let isActivated = false;
         const PRESS_TIME = 1200;
-        let mousePositions = [];
-        let touchData = [];
-        let isTouchDevice = false;
 
-        // CHANGE LANGUAGE
         function changeLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('language', lang);
@@ -398,94 +379,46 @@
             });
         }
 
-        // VALIDATE MOVEMENT (Human vs Bot)
-        function validateMouseMovement() {
-            if (mousePositions.length < 5) return true;
-            let xVariances = [];
-            let yVariances = [];
-            for (let i = 1; i < mousePositions.length; i++) {
-                xVariances.push(Math.abs(mousePositions[i].x - mousePositions[i-1].x));
-                yVariances.push(Math.abs(mousePositions[i].y - mousePositions[i-1].y));
-            }
-            const avgXVar = xVariances.reduce((a, b) => a + b) / xVariances.length;
-            const avgYVar = yVariances.reduce((a, b) => a + b) / yVariances.length;
-            return !(avgXVar < 0.5 && avgYVar < 0.5);
-        }
-
-        function validateTouchMovement() {
-            if (touchData.length < 3) return true;
-            return true; // Simplified for mobile
-        }
-
-        // LONG-PRESS FUNCTIONS
-        function startPress(e) {
+        function onPressStart(e) {
             console.log('🟢 START PRESS');
-            if (isActivated) return;
-
-            isTouchDevice = e.type.includes('touch');
-            mousePositions = [];
-            touchData = [];
-
-            if (isTouchDevice) {
-                document.addEventListener('touchmove', trackTouch);
-            } else {
-                document.addEventListener('mousemove', trackMouse);
-            }
+            if (isActivated || pressTimer) return;
 
             let startTime = Date.now();
-
-            const progressInterval = setInterval(() => {
+            const interval = setInterval(() => {
                 const elapsed = Date.now() - startTime;
                 const progress = elapsed / PRESS_TIME;
                 if (progress <= 1) {
                     const bgOpacity = 0.05 + (progress * 0.1);
                     lockBtn.style.background = `rgba(255,255,255,${bgOpacity})`;
-                } else {
-                    clearInterval(progressInterval);
                 }
             }, 10);
 
             pressTimer = setTimeout(() => {
-                clearInterval(progressInterval);
-                document.removeEventListener('mousemove', trackMouse);
-                document.removeEventListener('touchmove', trackTouch);
-
-                const isHuman = isTouchDevice ? validateTouchMovement() : validateMouseMovement();
-                if (isHuman) {
-                    activateButton();
-                } else {
-                    alert('Intenta de nuevo de forma natural');
-                }
+                clearInterval(interval);
+                console.log('✅ ACTIVATE BUTTON');
+                activateButton();
             }, PRESS_TIME);
         }
 
-        function cancelPress() {
-            clearTimeout(pressTimer);
-            lockBtn.style.background = 'rgba(255,255,255,0.05)';
-            document.removeEventListener('mousemove', trackMouse);
-            document.removeEventListener('touchmove', trackTouch);
+        function onPressEnd(e) {
+            if (pressTimer) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+                lockBtn.style.background = 'rgba(255,255,255,0.05)';
+            }
         }
 
-        function trackMouse(e) {
-            mousePositions.push({x: e.clientX, y: e.clientY});
-        }
-
-        function trackTouch(e) {
-            const touch = e.touches[0];
-            touchData.push({x: touch.clientX, y: touch.clientY});
-        }
-
-        // ACTIVATE & LEVEL TRANSITIONS
         function activateButton() {
-            console.log('✅ ACTIVATE BUTTON');
             isActivated = true;
+            pressTimer = null;
             document.getElementById('level1').style.display = 'none';
             document.getElementById('level2').classList.add('show');
         }
 
         function backToLevel1() {
-            console.log('🔄 BACK TO LEVEL 1');
             isActivated = false;
+            pressTimer = null;
+            lockBtn.style.background = 'rgba(255,255,255,0.05)';
             document.getElementById('level2').classList.remove('show');
             document.getElementById('level1').style.display = 'block';
             document.getElementById('ageModal').classList.remove('show');
@@ -494,7 +427,6 @@
         }
 
         function openAgeModal() {
-            console.log('📋 OPEN AGE MODAL');
             document.getElementById('ageModal').classList.add('show');
         }
 
@@ -503,35 +435,36 @@
         }
 
         function confirmAge() {
-            console.log('✅ CONFIRM AGE');
             document.getElementById('ageModal').classList.remove('show');
             document.getElementById('level2').classList.remove('show');
             document.getElementById('finalButtons').classList.add('show');
         }
 
-        // SETUP LOCK BUTTON
         function setupLockButton() {
             lockBtn = document.getElementById('lockBtn');
             if (lockBtn) {
-                // Remove old listeners
-                lockBtn.removeEventListener('pointerdown', startPress);
-                lockBtn.removeEventListener('pointerup', cancelPress);
-                lockBtn.removeEventListener('pointerleave', cancelPress);
-                lockBtn.removeEventListener('touchstart', startPress);
-                lockBtn.removeEventListener('touchend', cancelPress);
+                lockBtn.removeEventListener('pointerdown', onPressStart);
+                lockBtn.removeEventListener('pointerup', onPressEnd);
+                lockBtn.removeEventListener('pointerleave', onPressEnd);
+                lockBtn.removeEventListener('mousedown', onPressStart);
+                lockBtn.removeEventListener('mouseup', onPressEnd);
+                lockBtn.removeEventListener('mouseleave', onPressEnd);
+                lockBtn.removeEventListener('touchstart', onPressStart);
+                lockBtn.removeEventListener('touchend', onPressEnd);
 
-                // Add new listeners - using pointerdown/pointerup for better Safari support
-                lockBtn.addEventListener('pointerdown', startPress);
-                lockBtn.addEventListener('pointerup', cancelPress);
-                lockBtn.addEventListener('pointerleave', cancelPress);
-                lockBtn.addEventListener('touchstart', startPress);
-                lockBtn.addEventListener('touchend', cancelPress);
+                lockBtn.addEventListener('pointerdown', onPressStart);
+                lockBtn.addEventListener('pointerup', onPressEnd);
+                lockBtn.addEventListener('pointerleave', onPressEnd);
+                lockBtn.addEventListener('mousedown', onPressStart);
+                lockBtn.addEventListener('mouseup', onPressEnd);
+                lockBtn.addEventListener('mouseleave', onPressEnd);
+                lockBtn.addEventListener('touchstart', onPressStart);
+                lockBtn.addEventListener('touchend', onPressEnd);
 
                 console.log('✓ Lock button ready');
             }
         }
 
-        // INITIALIZE
         console.log('🚀 INITIALIZATION');
         setupLockButton();
         console.log('✅ READY - Press and hold for 1.2 seconds');
