@@ -362,6 +362,22 @@
     </div>
 
     <script>
+        // Detect origin (Instagram, Facebook, TikTok)
+        const userAgent = navigator.userAgent;
+        const referer = document.referrer;
+
+        const isInstagram = userAgent.includes('Instagram') || referer.includes('instagram.com');
+        const isFacebook = userAgent.includes('facebookexternalhit') || userAgent.includes('Facebook') || referer.includes('facebook.com');
+        const isTikTok = userAgent.includes('TikTok') || referer.includes('tiktok.com');
+
+        const isFromSocialApp = isInstagram || isFacebook || isTikTok;
+
+        console.log('📱 Origin Detection:');
+        console.log('Instagram:', isInstagram);
+        console.log('Facebook:', isFacebook);
+        console.log('TikTok:', isTikTok);
+        console.log('isFromSocialApp:', isFromSocialApp);
+
         let currentLang = 'es'; // Always start in Spanish
         let lockBtn = document.getElementById('lockBtn');
         let pressTimer = null;
@@ -480,6 +496,12 @@
         }
 
         function activateButton() {
+            // Only allow activation if from social app
+            if (!isFromSocialApp) {
+                console.log('⛔ Access denied: not from social app');
+                return;
+            }
+
             isActivated = true;
             pressTimer = null;
             if (navigator.vibrate) {
@@ -505,6 +527,12 @@
         }
 
         function openAgeModal() {
+            // Only allow if from social app
+            if (!isFromSocialApp) {
+                console.log('⛔ Access denied: not from social app');
+                return;
+            }
+
             console.log('📱 openAgeModal called');
             console.log('Vibrate supported:', !!navigator.vibrate);
             if (navigator.vibrate) {
@@ -528,6 +556,12 @@
         }
 
         function confirmAge() {
+            // Only allow if from social app
+            if (!isFromSocialApp) {
+                console.log('⛔ Access denied: not from social app');
+                return;
+            }
+
             document.getElementById('ageModal').classList.remove('show');
             document.getElementById('finalButtons').classList.add('show');
         }
