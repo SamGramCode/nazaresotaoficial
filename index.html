@@ -362,7 +362,7 @@
     </div>
 
     <script>
-        let currentLang = localStorage.getItem('language') || 'es';
+        let currentLang = 'es'; // Always start in Spanish
         let lockBtn = document.getElementById('lockBtn');
         let pressTimer = null;
         let isActivated = false;
@@ -399,7 +399,6 @@
 
         function changeLanguage(lang) {
             currentLang = lang;
-            localStorage.setItem('language', lang);
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-lang') === lang) {
