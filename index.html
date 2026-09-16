@@ -58,8 +58,9 @@
         img {
             width: 100vw;
             display: block;
-            height: auto;
-            object-fit: contain;
+            height: 100vh;
+            object-fit: cover;
+            object-position: 50% 50%;
         }
 
 
@@ -289,6 +290,14 @@
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
         @media (min-width: 769px) {
+            img {
+                width: 100vw;
+                display: block;
+                height: auto;
+                object-fit: contain;
+                object-position: 50% 0%;
+            }
+
             .text-overlay {
                 bottom: 490px;
                 left: 100px;
