@@ -366,6 +366,7 @@
         let lockBtn = document.getElementById('lockBtn');
         let pressTimer = null;
         let isActivated = false;
+        let canOpenModal = false; // Prevent auto-opening modal
         const PRESS_TIME = 1200; // 1.2 segundos
 
         const translations = {
@@ -476,6 +477,12 @@
                 clearTimeout(pressTimer);
                 pressTimer = null;
                 lockBtn.style.background = 'rgba(255,255,255,0.05)';
+                canOpenModal = false;
+            } else if (isActivated) {
+                // Delay to ensure pointerup event completes before allowing modal
+                setTimeout(() => {
+                    canOpenModal = true;
+                }, 100);
             }
         }
 
@@ -490,7 +497,7 @@
             lockIcon.className = 'lock-icon';
             lockIcon.textContent = '🔒';
             lockBtn.appendChild(lockIcon);
-            lockBtn.onclick = openAgeModal;
+            // DO NOT assign onclick here - let click listener handle it
         }
 
         function backToLevel1() {
@@ -505,6 +512,12 @@
         }
 
         function openAgeModal() {
+            // Only open if button was activated AND user has released
+            if (!isActivated || !canOpenModal) {
+                console.log('❌ Modal blocked - not ready yet');
+                return;
+            }
+
             console.log('📱 openAgeModal called');
             console.log('Vibrate supported:', !!navigator.vibrate);
             if (navigator.vibrate) {
@@ -543,6 +556,7 @@
                 lockBtn.removeEventListener('mouseleave', onPressEnd);
                 lockBtn.removeEventListener('touchstart', onPressStart);
                 lockBtn.removeEventListener('touchend', onPressEnd);
+                lockBtn.removeEventListener('click', handleLockBtnClick);
 
                 lockBtn.addEventListener('pointerdown', onPressStart);
                 lockBtn.addEventListener('pointerup', onPressEnd);
@@ -552,8 +566,15 @@
                 lockBtn.addEventListener('mouseleave', onPressEnd);
                 lockBtn.addEventListener('touchstart', onPressStart);
                 lockBtn.addEventListener('touchend', onPressEnd);
+                lockBtn.addEventListener('click', handleLockBtnClick);
 
                 console.log('✓ Lock button ready');
+            }
+        }
+
+        function handleLockBtnClick(e) {
+            if (isActivated && canOpenModal) {
+                openAgeModal();
             }
         }
 
