@@ -1,0 +1,15 @@
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: meta-webindexer
+Disallow: /
+
+User-agent: meta-externalfetcher
+Disallow: /
+
+# Allow all other crawlers
+User-agent: *
+Allow: /
