@@ -509,17 +509,20 @@
         function setupLockButton() {
             lockBtn = document.getElementById('lockBtn');
             if (lockBtn) {
-                lockBtn.removeEventListener('mousedown', startPress);
-                lockBtn.removeEventListener('mouseup', cancelPress);
-                lockBtn.removeEventListener('mouseleave', cancelPress);
+                // Remove old listeners
+                lockBtn.removeEventListener('pointerdown', startPress);
+                lockBtn.removeEventListener('pointerup', cancelPress);
+                lockBtn.removeEventListener('pointerleave', cancelPress);
                 lockBtn.removeEventListener('touchstart', startPress);
                 lockBtn.removeEventListener('touchend', cancelPress);
 
-                lockBtn.addEventListener('mousedown', startPress);
-                lockBtn.addEventListener('mouseup', cancelPress);
-                lockBtn.addEventListener('mouseleave', cancelPress);
+                // Add new listeners - using pointerdown/pointerup for better Safari support
+                lockBtn.addEventListener('pointerdown', startPress);
+                lockBtn.addEventListener('pointerup', cancelPress);
+                lockBtn.addEventListener('pointerleave', cancelPress);
                 lockBtn.addEventListener('touchstart', startPress);
                 lockBtn.addEventListener('touchend', cancelPress);
+
                 console.log('✓ Lock button ready');
             }
         }
