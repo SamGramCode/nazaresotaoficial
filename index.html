@@ -58,12 +58,10 @@
         img {
             width: 100vw;
             display: block;
-            height: auto;
+            height: 100vh;
+            object-fit: cover;
         }
 
-        @media (max-width: 768px) {
-            img { height: 100vh; object-fit: cover; object-position: 50% 30%; }
-        }
 
         .text-overlay {
             position: absolute;
