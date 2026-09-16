@@ -411,6 +411,9 @@
         function activateButton() {
             isActivated = true;
             pressTimer = null;
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 50]); // Double vibration on success
+            }
             lockBtn.textContent = 'TOCA AQUÍ PARA VER MÁS ';
             const lockIcon = document.createElement('span');
             lockIcon.className = 'lock-icon';
@@ -431,7 +434,10 @@
         }
 
         function openAgeModal() {
+            console.log('📱 openAgeModal called');
+            console.log('Vibrate supported:', !!navigator.vibrate);
             if (navigator.vibrate) {
+                console.log('Vibrating 50ms...');
                 navigator.vibrate(50);
             }
             document.getElementById('ageModal').classList.add('show');
