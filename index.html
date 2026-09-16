@@ -411,8 +411,12 @@
         function activateButton() {
             isActivated = true;
             pressTimer = null;
-            document.getElementById('level1').style.display = 'none';
-            document.getElementById('ageModal').classList.add('show');
+            lockBtn.textContent = 'TOCA AQUÍ PARA VER MÁS ';
+            const lockIcon = document.createElement('span');
+            lockIcon.className = 'lock-icon';
+            lockIcon.textContent = '🔒';
+            lockBtn.appendChild(lockIcon);
+            lockBtn.onclick = openAgeModal;
         }
 
         function backToLevel1() {
@@ -433,8 +437,13 @@
         function closeAgeModal() {
             isActivated = false;
             pressTimer = null;
+            lockBtn.onclick = null;
+            lockBtn.textContent = 'MANTÉN PRESIONADO AQUÍ ';
+            const lockIcon = document.createElement('span');
+            lockIcon.className = 'lock-icon';
+            lockIcon.textContent = '🔒';
+            lockBtn.appendChild(lockIcon);
             document.getElementById('ageModal').classList.remove('show');
-            document.getElementById('level1').style.display = 'block';
             setupLockButton();
         }
 
