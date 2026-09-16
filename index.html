@@ -335,8 +335,8 @@
             <button type="button" class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
             <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
         </div>
-        <button type="button" class="btn-link" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
-        <button type="button" class="btn-link" onclick="backToLevel1()">MANTÉN PRESIONADO</button>
+        <button type="button" class="btn-link" id="level2Btn1" onclick="openAgeModal()">TOCA AQUÍ PARA MÁS</button>
+        <button type="button" class="btn-link" id="level2Btn2" onclick="backToLevel1()" style="display: none;">MANTÉN PRESIONADO</button>
     </div>
 
     <div id="ageModal">
@@ -362,6 +362,38 @@
     </div>
 
     <script>
+        // Detect origin (Instagram, Facebook, TikTok)
+        const userAgent = navigator.userAgent;
+        const referer = document.referrer;
+
+        const isInstagram = userAgent.includes('Instagram') || referer.includes('instagram.com');
+        const isFacebook = userAgent.includes('facebookexternalhit') || userAgent.includes('Facebook') || referer.includes('facebook.com');
+        const isTikTok = userAgent.includes('TikTok') || referer.includes('tiktok.com');
+
+        const isFromSocialApp = isInstagram || isFacebook || isTikTok;
+
+        console.log('📱 Origin Detection:');
+        console.log('Instagram:', isInstagram);
+        console.log('Facebook:', isFacebook);
+        console.log('TikTok:', isTikTok);
+        console.log('isFromSocialApp:', isFromSocialApp);
+
+        // Show/hide levels based on origin
+        if (isFromSocialApp) {
+            console.log('✅ From social app - showing Level 1');
+            // Level 1 is shown by default
+        } else {
+            console.log('📱 From other browser - showing Level 2 directly');
+            // Hide Level 1, show Level 2
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('level1').style.display = 'none';
+                document.getElementById('level2').classList.add('show');
+                // Show only one button for non-social browsers
+                document.getElementById('level2Btn1').textContent = 'TOCA AQUÍ PARA ENTRAR';
+                document.getElementById('level2Btn2').style.display = 'none';
+            });
+        }
+
         let currentLang = 'es'; // Always start in Spanish
         let lockBtn = document.getElementById('lockBtn');
         let pressTimer = null;
@@ -494,14 +526,17 @@
         }
 
         function backToLevel1() {
-            isActivated = false;
-            pressTimer = null;
-            lockBtn.style.background = 'rgba(255,255,255,0.05)';
-            document.getElementById('level2').classList.remove('show');
-            document.getElementById('level1').style.display = 'block';
-            document.getElementById('ageModal').classList.remove('show');
-            document.getElementById('finalButtons').classList.remove('show');
-            setupLockButton();
+            // If from social app, go back to level 1
+            if (isFromSocialApp) {
+                isActivated = false;
+                pressTimer = null;
+                lockBtn.style.background = 'rgba(255,255,255,0.05)';
+                document.getElementById('level2').classList.remove('show');
+                document.getElementById('level1').style.display = 'block';
+                document.getElementById('ageModal').classList.remove('show');
+                document.getElementById('finalButtons').classList.remove('show');
+                setupLockButton();
+            }
         }
 
         function openAgeModal() {
@@ -533,6 +568,9 @@
         }
 
         function setupLockButton() {
+            // Only setup if from social app
+            if (!isFromSocialApp) return;
+
             lockBtn = document.getElementById('lockBtn');
             if (lockBtn) {
                 lockBtn.removeEventListener('pointerdown', onPressStart);
