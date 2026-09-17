@@ -329,6 +329,140 @@
 
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
+        /* Mini Modal */
+        .mini-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+
+        .mini-modal.show {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .mini-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .mini-modal-content {
+            position: relative;
+            background: #FFFFFF;
+            border-radius: 20px 20px 0 0;
+            padding: 2rem;
+            max-width: 100%;
+            width: 100%;
+            max-height: 70vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .mini-modal-preview {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mini-modal-preview img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .mini-modal-preview h3 {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .mini-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mini-btn {
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .mini-btn-primary {
+            background: #FF6B9D;
+            color: #FFFFFF;
+        }
+
+        .mini-btn-primary:active {
+            background: #FF5585;
+            transform: scale(0.98);
+        }
+
+        .mini-btn-secondary {
+            background: #F0F0F0;
+            color: #333;
+        }
+
+        .mini-btn-secondary:active {
+            background: #E0E0E0;
+        }
+
+        .mini-btn-tertiary {
+            background: #E8E8E8;
+            color: #333;
+        }
+
+        .mini-btn-tertiary:active {
+            background: #D8D8D8;
+        }
+
+        .mini-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-modal-close:active {
+            transform: scale(0.9);
+        }
 
         @media (min-width: 769px) {
             .language-selector {
@@ -385,17 +519,16 @@
 
 
     <script>
-        // Force exit from Instagram to external browser
-        (function() {
+        // Detect if user is coming from Instagram
+        function isFromInstagram() {
             const userAgent = navigator.userAgent.toLowerCase();
-            if (userAgent.includes('instagram') || userAgent.includes('igdmui')) {
-                const url = window.location.href;
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                if (isIOS) {
-                    window.location.href = 'safari-' + url;
-                } else {
-                    window.location.href = url;
-                }
+            return userAgent.includes('instagram') || userAgent.includes('igdmui');
+        }
+
+        // Force exit from Instagram to external browser (only for non-Instagram page loads)
+        (function() {
+            if (isFromInstagram()) {
+                // Don't force exit on initial load - let user interact with button
             }
         })();
 
@@ -411,6 +544,41 @@
                 // Android: Use intent to open in default browser
                 window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
             }
+        }
+
+        // Mini modal functions
+        function openMiniModal() {
+            document.getElementById('miniModal').classList.add('show');
+        }
+
+        function closeMiniModal() {
+            document.getElementById('miniModal').classList.remove('show');
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Enlace copiado al portapapeles');
+                closeMiniModal();
+            });
+        }
+
+        function shareLink() {
+            const url = window.location.href;
+            const title = 'Nazaresota Oficial';
+
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: url
+                });
+            } else {
+                alert('Compartir no está disponible en este navegador');
+            }
+        }
+
+        function openLinkExternal() {
+            openInExternalBrowser();
         }
 
         let currentLang = 'es';
@@ -509,9 +677,15 @@
 
         function onPressEnd(e) {
             if (pressTimer) {
+                // User released before 1.2s - it's a quick click
                 clearTimeout(pressTimer);
                 pressTimer = null;
                 lockBtn.style.background = 'rgba(255,255,255,0.05)';
+
+                // Handle quick click on Instagram
+                if (isFromInstagram()) {
+                    location.reload();
+                }
             }
         }
 
@@ -540,7 +714,12 @@
             if (navigator.vibrate) {
                 navigator.vibrate([50, 30, 50]);
             }
-            openInExternalBrowser();
+
+            if (isFromInstagram()) {
+                openMiniModal();
+            } else {
+                openInExternalBrowser();
+            }
         }
 
 
@@ -592,6 +771,23 @@
             console.log('✅ READY - Press and hold for 1.2 seconds');
         });
     </script>
+
+    <!-- Mini Modal -->
+    <div id="miniModal" class="mini-modal">
+        <div class="mini-modal-overlay" onclick="closeMiniModal()"></div>
+        <div class="mini-modal-content">
+            <div class="mini-modal-preview">
+                <img src="nazaresota.png" alt="Nazaresota Oficial">
+                <h3>Nazaresota Oficial</h3>
+            </div>
+            <div class="mini-modal-buttons">
+                <button type="button" class="mini-btn mini-btn-primary" onclick="openLinkExternal()">📱 Abrir enlace</button>
+                <button type="button" class="mini-btn mini-btn-secondary" onclick="copyLink()">📋 Copiar enlace</button>
+                <button type="button" class="mini-btn mini-btn-tertiary" onclick="shareLink()">📤 Compartir</button>
+            </div>
+            <button type="button" class="mini-modal-close" onclick="closeMiniModal()">✕</button>
+        </div>
+    </div>
 
     <!-- Cloudflare Insights -->
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"2d7f3290ed6c4383b0f9f10f036ede34","r":1,"spa":2}' crossorigin="anonymous"></script>
