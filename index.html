@@ -720,22 +720,37 @@
 
         function openLinkExternal() {
             const url = 'https://nazaresotaoficial.com';
+            const userAgent = navigator.userAgent.toLowerCase();
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const inInstagram = userAgent.includes('instagram') || userAgent.includes('igdmui');
 
-            if (isFromInstagram()) {
+            console.log('🔗 Opening link - Instagram:', inInstagram, 'iOS:', isIOS);
+
+            if (inInstagram) {
                 // Force open OUTSIDE Instagram webview
                 if (isIOS) {
                     // iOS: Use Safari URL scheme
                     window.location.href = 'safari-' + url;
                 } else {
-                    // Android: Create link element and click to force external opening
+                    // Android: Aggressive method - create link and force click
                     const link = document.createElement('a');
                     link.href = url;
                     link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.style.display = 'none';
+
+                    // Add to DOM before clicking
+                    document.body.appendChild(link);
                     link.click();
+
+                    // Remove after click
+                    setTimeout(() => {
+                        document.body.removeChild(link);
+                    }, 100);
                 }
             } else {
-                openInExternalBrowser();
+                // Not Instagram - use normal method
+                window.open(url, '_blank');
             }
 
             // Close modal after opening
