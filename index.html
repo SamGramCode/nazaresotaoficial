@@ -465,9 +465,7 @@
         // Detect if user is coming from Instagram
         function isFromInstagram() {
             const userAgent = navigator.userAgent.toLowerCase();
-            return userAgent.includes('instagram') ||
-                   userAgent.includes('ip') ||
-                   document.referrer.includes('instagram.com');
+            return userAgent.includes('instagram') || userAgent.includes('igdmui');
         }
 
         // Open URL in external browser
