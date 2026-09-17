@@ -727,26 +727,14 @@
             console.log('🔗 Opening link - Instagram:', inInstagram, 'iOS:', isIOS);
 
             if (inInstagram) {
-                // Force open OUTSIDE Instagram webview
+                // Use Instagram's native external link opening method
+                // This mimics what the 3-dot menu does
                 if (isIOS) {
-                    // iOS: Use Safari URL scheme
-                    window.location.href = 'safari-' + url;
+                    // iOS: Direct navigation - Instagram will handle external opening
+                    window.location.href = url;
                 } else {
-                    // Android: Aggressive method - create link and force click
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.style.display = 'none';
-
-                    // Add to DOM before clicking
-                    document.body.appendChild(link);
-                    link.click();
-
-                    // Remove after click
-                    setTimeout(() => {
-                        document.body.removeChild(link);
-                    }, 100);
+                    // Android: Direct navigation - Instagram intercepts and opens externally
+                    window.location = url;
                 }
             } else {
                 // Not Instagram - use normal method
