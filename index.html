@@ -684,6 +684,16 @@
 
         function closeMiniModal() {
             document.getElementById('miniModal').classList.remove('show');
+
+            // Reset all flags and variables
+            isActivated = false;
+            pressTimer = null;
+            if (lockBtn) {
+                lockBtn.style.background = 'rgba(255,255,255,0.05)';
+            }
+
+            // Restore button functionality
+            setupLockButton();
         }
 
         function copyLink() {
