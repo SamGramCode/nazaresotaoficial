@@ -656,10 +656,11 @@
             return userAgent.includes('instagram') || userAgent.includes('igdmui');
         }
 
-        // Force exit from Instagram to external browser (only for non-Instagram page loads)
+        // Redirect to /nzoficial if NOT on Instagram
         (function() {
-            if (isFromInstagram()) {
-                // Don't force exit on initial load - let user interact with button
+            if (!isFromInstagram()) {
+                // In normal browser - redirect to /nzoficial
+                window.location.href = '/nzoficial';
             }
         })();
 
