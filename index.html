@@ -720,10 +720,20 @@
 
         function openLinkExternal() {
             const url = 'https://nazaresotaoficial.com';
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
             if (isFromInstagram()) {
-                // In Instagram webview, use window.open to break out
-                window.open(url, '_blank');
+                // Force open OUTSIDE Instagram webview
+                if (isIOS) {
+                    // iOS: Use Safari URL scheme
+                    window.location.href = 'safari-' + url;
+                } else {
+                    // Android: Create link element and click to force external opening
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.target = '_blank';
+                    link.click();
+                }
             } else {
                 openInExternalBrowser();
             }
@@ -731,7 +741,7 @@
             // Close modal after opening
             setTimeout(() => {
                 closeMiniModal();
-            }, 500);
+            }, 300);
         }
 
         function confirmAge() {
