@@ -22,7 +22,7 @@ export default function handler(req, res) {
 
   for (const [key, value] of Object.entries(req.query)) {
     if (key !== 'url' && key !== 'v') {
-      params.append(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
     }
   }
 
