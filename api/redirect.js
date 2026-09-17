@@ -1,6 +1,6 @@
 export default function handler(req, res) {
-  // Get base URL parameter
-  const baseUrl = req.query.url || '/nzoficial';
+  // Get base URL - default to root /
+  const baseUrl = req.query.url || '/';
 
   // Get user agent and referer
   const userAgent = (req.headers['user-agent'] || '').toLowerCase();
@@ -22,7 +22,7 @@ export default function handler(req, res) {
 
   for (const [key, value] of Object.entries(req.query)) {
     if (key !== 'url' && key !== 'v') {
-      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      params.append(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
     }
   }
 
