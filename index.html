@@ -727,20 +727,9 @@
 
             console.log('🔗 Opening link - Instagram:', inInstagram, 'iOS:', isIOS);
 
-            if (inInstagram) {
-                // Use Instagram's native external link opening method
-                // This mimics what the 3-dot menu does
-                if (isIOS) {
-                    // iOS: Direct navigation - Instagram will handle external opening
-                    window.location.href = url;
-                } else {
-                    // Android: Direct navigation - Instagram intercepts and opens externally
-                    window.location = url;
-                }
-            } else {
-                // Not Instagram - use normal method
-                window.open(url, '_blank');
-            }
+            // Always use window.open for external opening
+            // Instagram sees different URL and allows browser opening
+            window.open(url, '_blank');
 
             // Close modal after opening
             setTimeout(() => {
