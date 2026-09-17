@@ -303,6 +303,98 @@
 
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
+        #instagramModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            overflow-y: hidden;
+        }
+
+        #instagramModal.show {
+            display: flex;
+        }
+
+        .instagram-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            max-width: 300px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .instagram-title {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .instagram-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .instagram-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-open, .btn-hold {
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .btn-open {
+            background: #FF6B9D;
+            color: #FFFFFF;
+        }
+
+        .btn-open:hover {
+            background: #FF5585;
+            transform: translateY(-2px);
+        }
+
+        .btn-hold {
+            background: #667eea;
+            color: #FFFFFF;
+        }
+
+        .btn-hold:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
         @media (min-width: 769px) {
             .language-selector {
                 position: fixed;
@@ -339,6 +431,18 @@
         <button type="button" class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
     </div>
 
+    <div id="instagramModal">
+        <div class="instagram-card">
+            <div class="instagram-icon">📱</div>
+            <h2 class="instagram-title">Abre en navegador externo</h2>
+            <p class="instagram-subtitle">Para una mejor experiencia</p>
+            <div class="instagram-buttons">
+                <button type="button" class="btn-open" id="btnOpenClick">Abre ahora</button>
+                <button type="button" class="btn-hold" id="btnOpenHold">Mantén presionado 3s</button>
+            </div>
+        </div>
+    </div>
+
     <div id="level1">
         <img src="nazaresota.png" alt="Nazaresota">
         <div class="text-overlay">
@@ -358,6 +462,31 @@
 
 
     <script>
+        // Detect if user is coming from Instagram
+        function isFromInstagram() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            return userAgent.includes('instagram') ||
+                   userAgent.includes('ip') ||
+                   document.referrer.includes('instagram.com');
+        }
+
+        // Open URL in external browser
+        function openInExternalBrowser() {
+            const url = window.location.href;
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+            if (isIOS) {
+                // Try to open in Safari
+                window.location.href = 'safari-' + url;
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 1000);
+            } else {
+                // Android - open in Chrome or default browser
+                window.location.href = url;
+            }
+        }
+
         let currentLang = 'es'; // Always start in Spanish
         let lockBtn = document.getElementById('lockBtn');
         let pressTimer = null;
@@ -580,6 +709,29 @@
 
         // Inyectar elementos al cargar
         document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is from Instagram
+            if (isFromInstagram()) {
+                document.getElementById('instagramModal').classList.add('show');
+
+                // Setup Instagram button listeners
+                const btnOpenClick = document.getElementById('btnOpenClick');
+                const btnOpenHold = document.getElementById('btnOpenHold');
+
+                btnOpenClick.addEventListener('click', openInExternalBrowser);
+
+                // Long press functionality (3 seconds)
+                let holdTimer = null;
+                btnOpenHold.addEventListener('pointerdown', () => {
+                    holdTimer = setTimeout(openInExternalBrowser, 3000);
+                });
+                btnOpenHold.addEventListener('pointerup', () => {
+                    if (holdTimer) clearTimeout(holdTimer);
+                });
+                btnOpenHold.addEventListener('pointerleave', () => {
+                    if (holdTimer) clearTimeout(holdTimer);
+                });
+            }
+
             const body = document.body;
 
             // Inyectar level2
