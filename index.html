@@ -676,7 +676,7 @@
             const linkBtn = document.querySelector('.mini-modal-buttons a');
             if (linkBtn) {
                 const timestamp = Date.now();
-                linkBtn.href = `/redirect?v=${timestamp}`;
+                linkBtn.href = `/?v=${timestamp}`;
             }
         }
 
@@ -989,7 +989,7 @@
                 <h3>Nazaresota</h3>
             </div>
             <div class="mini-modal-buttons">
-                <a href="/redirect?v=1" target="_blank" rel="noopener" class="mini-btn mini-btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">🔗 Abrir enlace</a>
+                <a href="/?v=1" target="_blank" rel="noopener" class="mini-btn mini-btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">🔗 Abrir enlace</a>
                 <button type="button" class="mini-btn mini-btn-secondary" onclick="copyLink()">🔗 Copiar enlace</button>
                 <button type="button" class="mini-btn mini-btn-tertiary" onclick="shareLink()">📤 Compartir...</button>
             </div>
