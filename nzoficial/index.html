@@ -749,8 +749,10 @@
 
         function confirmAge() {
             // User confirmed they are 18+
-            // Continue to next level or show main content
+            // Show Level 2 (main content with OnlyFans, Telegram, etc)
             closeAgeModal();
+            document.getElementById('level1').style.display = 'none';
+            document.getElementById('level2').classList.add('show');
         }
 
         let currentLang = 'es';
