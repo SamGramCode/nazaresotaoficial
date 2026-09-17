@@ -678,6 +678,13 @@
         // Mini modal functions
         function openMiniModal() {
             document.getElementById('miniModal').classList.add('show');
+
+            // Update link with timestamp to prevent Instagram caching
+            const linkBtn = document.querySelector('.mini-modal-buttons a');
+            if (linkBtn) {
+                const timestamp = Date.now();
+                linkBtn.href = `/api/redirect?url=/nzoficial&utm_source=ig&utm_medium=webview&utm_campaign=instagram&v=${timestamp}`;
+            }
         }
 
         function closeMiniModal() {
@@ -989,7 +996,7 @@
                 <h3>Nazaresota</h3>
             </div>
             <div class="mini-modal-buttons">
-                <a href="/api/redirect?url=/nzoficial&utm_source=ig&utm_medium=webview&utm_campaign=instagram" target="_blank" rel="noopener" class="mini-btn mini-btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">🔗 Abrir enlace</a>
+                <a href="/api/redirect?url=/nzoficial&utm_source=ig&utm_medium=webview&utm_campaign=instagram&v=1" target="_blank" rel="noopener" class="mini-btn mini-btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">🔗 Abrir enlace</a>
                 <button type="button" class="mini-btn mini-btn-secondary" onclick="copyLink()">🔗 Copiar enlace</button>
                 <button type="button" class="mini-btn mini-btn-tertiary" onclick="shareLink()">📤 Compartir...</button>
             </div>
