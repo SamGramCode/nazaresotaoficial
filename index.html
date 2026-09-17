@@ -385,6 +385,20 @@
 
 
     <script>
+        // Force exit from Instagram to external browser
+        (function() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes('instagram') || userAgent.includes('igdmui')) {
+                const url = window.location.href;
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                if (isIOS) {
+                    window.location.href = 'safari-' + url;
+                } else {
+                    window.location.href = url;
+                }
+            }
+        })();
+
         // Open URL in external browser
         function openInExternalBrowser() {
             const url = window.location.href;
