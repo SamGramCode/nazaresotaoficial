@@ -405,12 +405,11 @@
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
             if (isIOS) {
+                // iOS: Use Safari URL scheme
                 window.location.href = 'safari-' + url;
-                setTimeout(() => {
-                    window.location.href = url;
-                }, 1000);
             } else {
-                window.location.href = url;
+                // Android: Use intent to open in default browser
+                window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
             }
         }
 
