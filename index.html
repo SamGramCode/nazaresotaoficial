@@ -399,6 +399,34 @@
             transform: translateY(-2px);
         }
 
+        @media (min-width: 769px) {
+            .language-selector {
+                position: fixed;
+                top: 15px;
+                right: 20px;
+            }
+
+            img {
+                width: 100vw;
+                display: block;
+                height: auto;
+                object-fit: contain;
+                object-position: 50% 0%;
+            }
+
+            .text-overlay {
+                bottom: 490px;
+                left: 145px;
+                right: 145px;
+                font-size: 1.2rem;
+            }
+
+            .text-overlay h1 { font-size: 4rem; position: relative; top: 205px; }
+            .text-overlay h1 .hola { font-size: 8rem; }
+            .text-overlay p { position: relative; top: 263px; }
+            .lock-btn { font-size: 1.1rem; padding: 1.2rem 2.5rem; position: relative; top: 335px; }
+            .lock-subtitle { font-size: 0.8rem; position: relative; top: 315px; }
+        }
     </style>
 </head>
 <body>
