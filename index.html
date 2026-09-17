@@ -329,7 +329,7 @@
 
         .btn-link:hover { background: #FF5585; transform: scale(1.05); }
 
-        /* Mini Modal */
+        /* Mini Modal - Instagram Style */
         .mini-modal {
             display: none;
             position: fixed;
@@ -352,18 +352,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             cursor: pointer;
         }
 
         .mini-modal-content {
             position: relative;
-            background: #FFFFFF;
-            border-radius: 20px 20px 0 0;
-            padding: 2rem;
+            background: #4A1F2E;
+            border-radius: 25px 25px 0 0;
+            padding: 2.5rem 2rem 2rem;
             max-width: 100%;
             width: 100%;
-            max-height: 70vh;
+            max-height: 80vh;
             overflow-y: auto;
             animation: slideUp 0.3s ease-out;
         }
@@ -379,88 +379,103 @@
 
         .mini-modal-preview {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .mini-modal-preview img {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 15px;
-            margin-bottom: 1rem;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
             object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.1);
         }
 
         .mini-modal-preview h3 {
-            color: #333;
-            font-size: 1.2rem;
-            font-weight: 700;
+            color: #E8B4C4;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .mini-modal-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 1.2rem;
+            margin-top: 2rem;
         }
 
         .mini-btn {
             border: none;
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 1.2rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
             font-weight: 700;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
         }
 
         .mini-btn-primary {
-            background: #FF6B9D;
-            color: #FFFFFF;
+            background: rgba(201, 123, 143, 0.3);
+            color: #E8B4C4;
+            border: 1.5px solid rgba(201, 123, 143, 0.5);
         }
 
         .mini-btn-primary:active {
-            background: #FF5585;
+            background: rgba(201, 123, 143, 0.5);
             transform: scale(0.98);
         }
 
         .mini-btn-secondary {
-            background: #F0F0F0;
-            color: #333;
+            background: rgba(201, 123, 143, 0.3);
+            color: #E8B4C4;
+            border: 1.5px solid rgba(201, 123, 143, 0.5);
         }
 
         .mini-btn-secondary:active {
-            background: #E0E0E0;
+            background: rgba(201, 123, 143, 0.5);
+            transform: scale(0.98);
         }
 
         .mini-btn-tertiary {
-            background: #E8E8E8;
-            color: #333;
+            background: rgba(201, 123, 143, 0.3);
+            color: #E8B4C4;
+            border: 1.5px solid rgba(201, 123, 143, 0.5);
         }
 
         .mini-btn-tertiary:active {
-            background: #D8D8D8;
+            background: rgba(201, 123, 143, 0.5);
+            transform: scale(0.98);
         }
 
         .mini-modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            font-size: 1.5rem;
-            color: #666;
+            font-size: 1.8rem;
+            color: #E8B4C4;
             cursor: pointer;
-            width: 2rem;
-            height: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
 
         .mini-modal-close:active {
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(0.9);
         }
 
@@ -946,16 +961,16 @@
     <div id="miniModal" class="mini-modal">
         <div class="mini-modal-overlay" onclick="closeMiniModal()"></div>
         <div class="mini-modal-content">
+            <button type="button" class="mini-modal-close" onclick="closeMiniModal()">✕</button>
             <div class="mini-modal-preview">
                 <img src="nazaresota.png" alt="Nazaresota Oficial">
-                <h3>Nazaresota Oficial</h3>
+                <h3>Nazaresota</h3>
             </div>
             <div class="mini-modal-buttons">
-                <button type="button" class="mini-btn mini-btn-primary" onclick="openLinkExternal()">📱 Abrir enlace</button>
-                <button type="button" class="mini-btn mini-btn-secondary" onclick="copyLink()">📋 Copiar enlace</button>
-                <button type="button" class="mini-btn mini-btn-tertiary" onclick="shareLink()">📤 Compartir</button>
+                <button type="button" class="mini-btn mini-btn-primary" onclick="openLinkExternal()">🔗 Abrir enlace</button>
+                <button type="button" class="mini-btn mini-btn-secondary" onclick="copyLink()">🔗 Copiar enlace</button>
+                <button type="button" class="mini-btn mini-btn-tertiary" onclick="shareLink()">📤 Compartir...</button>
             </div>
-            <button type="button" class="mini-modal-close" onclick="closeMiniModal()">✕</button>
         </div>
     </div>
 
