@@ -719,7 +719,19 @@
         }
 
         function openLinkExternal() {
-            openInExternalBrowser();
+            const url = 'https://nazaresotaoficial.com';
+
+            if (isFromInstagram()) {
+                // In Instagram webview, use window.open to break out
+                window.open(url, '_blank');
+            } else {
+                openInExternalBrowser();
+            }
+
+            // Close modal after opening
+            setTimeout(() => {
+                closeMiniModal();
+            }, 500);
         }
 
         function confirmAge() {
