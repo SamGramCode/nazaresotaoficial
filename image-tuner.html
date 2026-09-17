@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afinador de Imagen Nazaresota</title>
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --surface2: #242424;
+            --border: #333;
+            --txt: #fff;
+            --txt2: #aaa;
+            --accent: #ff6b9d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .header p {
+            color: var(--txt2);
+            font-size: 0.9rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .preview {
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-preview {
+            width: 375px;
+            height: 812px;
+            margin: 0 auto;
+        }
+
+        .desktop-preview {
+            width: 100%;
+            height: 500px;
+            overflow-y: scroll;
+            border: 1px solid var(--border);
+            background: #000;
+        }
+
+        .preview img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .control-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .control-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--txt2);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 107, 157, 0.5);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 8px rgba(255, 107, 157, 0.5);
+        }
+
+        .value-display {
+            display: inline-block;
+            background: var(--surface2);
+            color: var(--accent);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .select {
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--txt);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-number {
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--txt);
+            font-size: 0.9rem;
+        }
+
+        .input-number:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .code-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .code-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            color: #4ade80;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+        }
+
+        .copy-btn.copied {
+            background: #4ade80;
+            color: #000;
+        }
+
+        .row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .row-item {
+            flex: 1;
+        }
+
+        @media (max-width: 1000px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Afinador de Imagen Nazaresota</h1>
+            <p>Ajusta zoom, posición y modo de ajuste para que se vea perfecta en móvil y desktop</p>
+        </div>
+
+        <div class="grid">
+            <!-- MÓVIL -->
+            <div class="section">
+                <div class="section-title">📱 Preview Móvil (375×812)</div>
+                <div class="preview mobile-preview" style="position: relative;">
+                    <img id="mobileImg" src="nazaresota.png" alt="Preview" style="object-fit: cover; object-position: center;">
+                    <div id="mobileTextOverlay" style="position: absolute; bottom: 5px; left: 50px; right: 50px; color: #fff; font-size: 0.75rem; text-align: center; z-index: 10; pointer-events: none;">
+                        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">HOLA</p>
+                        <p style="font-size: 0.8rem;">Texto de preview</p>
+                        <button style="margin-top: 0.5rem; padding: 1rem 2rem; background: #ff6b9d; color: #fff; border: none; border-radius: 50px; font-size: 0.75rem;">BOTÓN</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Object-Fit
+                        <span class="value-display" id="mobileObjectFit">cover</span>
+                    </label>
+                    <select class="select" id="mobileObjectFitSelect" onchange="updateMobile()">
+                        <option value="cover">cover (llena, puede recortar)</option>
+                        <option value="contain">contain (completa, espacios en blanco)</option>
+                        <option value="fill">fill (estira la imagen)</option>
+                        <option value="scale-down">scale-down (no amplía)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Zoom
+                        <span class="value-display" id="mobileZoomVal">100%</span>
+                    </label>
+                    <input type="range" class="slider" id="mobileZoom" min="50" max="200" value="100" onchange="updateMobile()">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Posición Horizontal
+                        <span class="value-display" id="mobileXVal">50%</span>
+                    </label>
+                    <input type="range" class="slider" id="mobileX" min="0" max="100" value="50" onchange="updateMobile()">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Posición Vertical
+                        <span class="value-display" id="mobileYVal">50%</span>
+                    </label>
+                    <input type="range" class="slider" id="mobileY" min="0" max="100" value="50" onchange="updateMobile()">
+                </div>
+
+            </div>
+
+            <!-- DESKTOP -->
+            <div class="section">
+                <div class="section-title">💻 Preview Desktop</div>
+                <div class="preview desktop-preview">
+                    <img id="desktopImg" src="nazaresota.png" alt="Preview" style="width: 100%; height: auto; object-fit: contain; display: block;">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Object-Fit
+                        <span class="value-display" id="desktopObjectFit">contain</span>
+                    </label>
+                    <select class="select" id="desktopObjectFitSelect" onchange="updateDesktop()">
+                        <option value="contain" selected>contain (completa, espacios en blanco)</option>
+                        <option value="cover">cover (llena, puede recortar)</option>
+                        <option value="fill">fill (estira la imagen)</option>
+                        <option value="scale-down">scale-down (no amplía)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Zoom
+                        <span class="value-display" id="desktopZoomVal">100%</span>
+                    </label>
+                    <input type="range" class="slider" id="desktopZoom" min="50" max="200" value="100" onchange="updateDesktop()">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Posición Horizontal
+                        <span class="value-display" id="desktopXVal">50%</span>
+                    </label>
+                    <input type="range" class="slider" id="desktopX" min="0" max="100" value="50" onchange="updateDesktop()">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        Posición Vertical
+                        <span class="value-display" id="desktopYVal">50%</span>
+                    </label>
+                    <input type="range" class="slider" id="desktopY" min="0" max="100" value="50" onchange="updateDesktop()">
+                </div>
+            </div>
+        </div>
+
+        <!-- CÓDIGO GENERADO -->
+        <div class="code-section">
+            <div class="code-section-title">📋 CSS Para Tu index.html</div>
+
+            <h3 style="color: var(--txt2); font-size: 0.9rem; margin: 1rem 0 0.5rem;">Mobile (≤768px):</h3>
+            <div class="code-block" id="mobileCode"></div>
+
+            <h3 style="color: var(--txt2); font-size: 0.9rem; margin: 1rem 0 0.5rem;">Desktop (≥769px):</h3>
+            <div class="code-block" id="desktopCode"></div>
+
+            <button class="copy-btn" onclick="copyAllCode()">📋 Copiar todo el CSS</button>
+        </div>
+    </div>
+
+    <script>
+        function updateMobile() {
+            const objectFit = document.getElementById('mobileObjectFitSelect').value;
+            const zoom = document.getElementById('mobileZoom').value;
+            const x = document.getElementById('mobileX').value;
+            const y = document.getElementById('mobileY').value;
+
+            const img = document.getElementById('mobileImg');
+            img.style.objectFit = objectFit;
+            img.style.objectPosition = x + '% ' + y + '%';
+
+            if (objectFit === 'cover') {
+                img.style.transform = `scale(${zoom / 100})`;
+            } else {
+                img.style.transform = 'none';
+            }
+
+            document.getElementById('mobileObjectFit').textContent = objectFit;
+            document.getElementById('mobileZoomVal').textContent = zoom + '%';
+            document.getElementById('mobileXVal').textContent = x + '%';
+            document.getElementById('mobileYVal').textContent = y + '%';
+
+            generateCode();
+        }
+
+        function updateDesktop() {
+            const objectFit = document.getElementById('desktopObjectFitSelect').value;
+            const zoom = document.getElementById('desktopZoom').value;
+            const x = document.getElementById('desktopX').value;
+            const y = document.getElementById('desktopY').value;
+
+            const img = document.getElementById('desktopImg');
+            img.style.objectFit = objectFit;
+            img.style.objectPosition = x + '% ' + y + '%';
+            img.style.transform = zoom !== '100' ? `scale(${zoom / 100})` : 'none';
+
+            document.getElementById('desktopObjectFit').textContent = objectFit;
+            document.getElementById('desktopZoomVal').textContent = zoom + '%';
+            document.getElementById('desktopXVal').textContent = x + '%';
+            document.getElementById('desktopYVal').textContent = y + '%';
+
+            generateCode();
+        }
+
+        function generateCode() {
+            const mobileObjectFit = document.getElementById('mobileObjectFitSelect').value;
+            const mobileZoom = document.getElementById('mobileZoom').value;
+            const mobileX = document.getElementById('mobileX').value;
+            const mobileY = document.getElementById('mobileY').value;
+
+            const desktopObjectFit = document.getElementById('desktopObjectFitSelect').value;
+            const desktopZoom = document.getElementById('desktopZoom').value;
+            const desktopX = document.getElementById('desktopX').value;
+            const desktopY = document.getElementById('desktopY').value;
+
+            const mobileCSS = `img {
+    width: 100vw;
+    display: block;
+    height: 100vh;
+    object-fit: ${mobileObjectFit};
+    object-position: ${mobileX}% ${mobileY}%;
+    ${mobileZoom !== '100' ? `transform: scale(${(mobileZoom / 100).toFixed(2)});` : ''}
+}`;
+
+            const desktopCSS = `@media (min-width: 769px) {
+    img {
+        width: 100vw;
+        display: block;
+        height: 100vh;
+        object-fit: ${desktopObjectFit};
+        object-position: ${desktopX}% ${desktopY}%;
+        ${desktopZoom !== '100' ? `transform: scale(${(desktopZoom / 100).toFixed(2)});` : ''}
+    }
+}`;
+
+            document.getElementById('mobileCode').textContent = mobileCSS;
+            document.getElementById('desktopCode').textContent = desktopCSS;
+        }
+
+        function updateMobileText() {
+            const textSize = document.getElementById('mobileTextSize').value;
+            const textBottom = document.getElementById('mobileTextBottom').value;
+            const textMargin = document.getElementById('mobileTextMargin').value;
+            const buttonPad = document.getElementById('mobileButtonPad').value;
+
+            const overlay = document.getElementById('mobileTextOverlay');
+            overlay.style.fontSize = textSize + 'rem';
+            overlay.style.bottom = textBottom + 'px';
+            overlay.style.left = textMargin + 'px';
+            overlay.style.right = textMargin + 'px';
+
+            const btn = overlay.querySelector('button');
+            btn.style.padding = buttonPad + 'rem ' + (buttonPad * 2) + 'rem';
+
+            document.getElementById('mobileTextSizeVal').textContent = textSize + 'rem';
+            document.getElementById('mobileTextBottomVal').textContent = textBottom + 'px';
+            document.getElementById('mobileTextMarginVal').textContent = textMargin + 'px';
+            document.getElementById('mobileButtonPadVal').textContent = buttonPad + 'rem';
+        }
+
+        function copyAllCode() {
+            const mobileCode = document.getElementById('mobileCode').textContent;
+            const desktopCode = document.getElementById('desktopCode').textContent;
+            const allCode = mobileCode + '\n\n' + desktopCode;
+
+            navigator.clipboard.writeText(allCode).then(() => {
+                const btn = event.target;
+                btn.textContent = '✅ ¡Copiado!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copiar todo el CSS';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Inicializar
+        generateCode();
+    </script>
+</body>
+</html>
