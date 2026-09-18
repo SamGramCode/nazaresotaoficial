@@ -350,7 +350,8 @@
             <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
             <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
         </div>
-        <div id="linksContainer"></div>
+        <a id="link-onlyfans" href="https://onlyfans.com/nazaresota" target="_blank" rel="noopener noreferrer" class="btn-link" data-id="l_onlyfans">OnlyFans</a>
+        <a id="link-telegram" href="https://t.me/nazaresotaoficial" target="_blank" rel="noopener noreferrer" class="btn-link" data-id="l_telegram">Telegram</a>
         <button class="btn-link" onclick="backToLevel1()" style="background: transparent; color: #E8B4C4; border: 2px solid #E8B4C4;">VOLVER</button>
     </div>
 
@@ -368,36 +369,26 @@
     </div>
 
     <script>
-        // Load config from API (works in Instagram webview)
+        // Load config from API and update hardcoded links
         async function loadConfig() {
             try {
                 const domain = location.hostname;
                 const path = location.pathname || '/';
                 const response = await fetch(`/api/config?domain=${domain}&path=${encodeURIComponent(path)}`);
                 const config = await response.json();
-                renderLinks(config.links);
+                updateLinks(config.links);
             } catch (e) {
                 console.error('Config fetch failed:', e);
-                // Fallback to hardcoded links
-                renderLinks([
-                    { id: 'l_onlyfans', label: 'OnlyFans', url: 'https://onlyfans.com/nazaresota' },
-                    { id: 'l_telegram', label: 'Telegram', url: 'https://t.me/nazaresotaoficial' }
-                ]);
             }
         }
 
-        function renderLinks(links) {
-            const container = document.getElementById('linksContainer');
-            container.innerHTML = '';
+        function updateLinks(links) {
             links.forEach(link => {
-                const a = document.createElement('a');
-                a.href = link.url;
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.className = 'btn-link';
-                a.setAttribute('data-id', link.id);
-                a.textContent = link.label;
-                container.appendChild(a);
+                const linkId = link.id.replace('l_', '');
+                const el = document.getElementById(`link-${linkId}`);
+                if (el) {
+                    el.href = link.url;
+                }
             });
         }
 
