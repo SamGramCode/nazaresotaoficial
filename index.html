@@ -4,29 +4,473 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nazaresota Oficial</title>
+    <meta name="robots" content="noindex, nofollow, noai, noimageai">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta property="og:title" content="Nazaresota Oficial">
+    <meta property="og:description" content="Soy NAZARESOTA ♡ auténtica y con mucho encanto. Bienvenido a mi espacio oficial.">
+    <meta property="og:image" content="https://nazaresotaoficial.com/nazaresota.png">
+    <meta property="og:url" content="https://nazaresotaoficial.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nazaresota Oficial">
+    <meta name="twitter:description" content="Soy NAZARESOTA ♡ auténtica y con mucho encanto. Bienvenido a mi espacio oficial.">
+    <meta name="twitter:image" content="https://nazaresotaoficial.com/nazaresota.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; }
-        body {
-            background: #1a1a1a;
+        html, body { width: 100%; height: 100%; overflow-x: hidden; }
+        body { background: transparent; }
+
+        .language-selector {
+            position: fixed;
+            top: -5px;
+            right: 35px;
+            z-index: 10000;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: Arial, sans-serif;
+            gap: 12px;
         }
-        .container {
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        .lang-btn.active { text-decoration: underline; }
+        .lang-btn:hover { opacity: 0.8; }
+
+        #level1 {
+            position: relative;
+            width: 100vw;
+            overflow: hidden;
+            margin-left: -5px;
+        }
+
+        @media (max-width: 768px) {
+            body { height: 100vh; overflow-y: hidden; }
+            #level1 { height: 100vh; }
+        }
+
+        @media (min-width: 769px) {
+            body { overflow-y: auto; }
+        }
+
+        .bg-image {
+            width: 100vw;
+            display: block;
+            height: 100vh;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+
+        .text-overlay {
+            position: absolute;
+            bottom: 5px;
+            left: 50px;
+            right: 50px;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.6;
+            font-size: 0.75rem;
+            z-index: 10;
+            text-transform: uppercase;
             text-align: center;
+        }
+
+        .text-overlay h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            position: relative;
+            top: 60px;
+        }
+
+        .text-overlay h1 .hola { display: block; font-size: 1.8rem; }
+        .text-overlay h1 .cielo { display: block; font-size: 1.2rem; font-style: italic; }
+
+        .text-overlay p {
+            font-size: 0.85rem;
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+
+        .lock-btn {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #E8B4C4;
+            color: #E8B4C4;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 25px;
+            margin-top: 1.2rem;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+
+        .lock-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+        }
+
+        .lock-btn:active {
+            transform: scale(0.98);
+        }
+
+        .lock-subtitle {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        .final-buttons-content {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, #4A1F2E 0%, #2a1620 100%);
             padding: 2rem;
         }
-        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        p { font-size: 1.1rem; opacity: 0.8; }
+
+        .btn-link {
+            background: #E8B4C4;
+            color: #4A1F2E;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+            user-select: none;
+        }
+
+        .btn-link:hover {
+            background: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .btn-link:active {
+            transform: scale(0.98);
+        }
+
+        .age-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .age-modal.show {
+            display: flex;
+        }
+
+        .age-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .age-modal-content {
+            position: relative;
+            z-index: 10000;
+            background: linear-gradient(135deg, #4A1F2E 0%, #2a1620 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            margin: 1rem;
+        }
+
+        .age-badge {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #E8B4C4;
+            margin-bottom: 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .age-title {
+            color: #E8B4C4;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .age-text {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .age-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+
+        .age-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.3px;
+            user-select: none;
+        }
+
+        .age-btn-yes {
+            background: #E8B4C4;
+            color: #4A1F2E;
+        }
+
+        .age-btn-yes:hover {
+            background: #ffffff;
+            transform: scale(1.02);
+        }
+
+        .age-btn-no {
+            background: transparent;
+            color: #E8B4C4;
+            border: 2px solid #E8B4C4;
+        }
+
+        .age-btn-no:hover {
+            background: rgba(232,180,196,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .text-overlay {
+                left: 20px;
+                right: 20px;
+                bottom: 10px;
+            }
+
+            .text-overlay h1 {
+                font-size: 1.8rem;
+                top: 30px;
+            }
+
+            .text-overlay h1 .hola {
+                font-size: 1.3rem;
+            }
+
+            .text-overlay h1 .cielo {
+                font-size: 0.9rem;
+            }
+
+            .text-overlay p {
+                font-size: 0.7rem;
+                margin: 0.5rem 0;
+            }
+
+            .lock-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .lock-subtitle {
+                font-size: 0.6rem;
+            }
+
+            .language-selector {
+                right: 15px;
+                gap: 8px;
+            }
+
+            .lang-btn {
+                font-size: 0.8rem;
+            }
+
+            .final-buttons-content {
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .btn-link {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                width: 80%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Nazaresota</h1>
-        <p>Construyendo...</p>
+    <div id="level1" class="level1">
+        <div class="language-selector">
+            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+        </div>
+        <img src="fondo-mariposas.jpg" alt="Fondo" class="bg-image">
+        <div class="text-overlay">
+            <h1>
+                <span class="hola">Hola</span>
+                <span class="cielo">mi CIELO ♡</span>
+            </h1>
+            <p class="para1">Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
+            <p class="para2">Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
+            <p class="para3">Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
+            <button class="lock-btn" id="lockBtn" onclick="handleLockClick()">MANTÉN PRESIONADO AQUÍ 🔒</button>
+            <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
+        </div>
     </div>
+
+    <div id="level2" class="final-buttons-content" style="display: none;">
+        <div class="language-selector">
+            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+        </div>
+        <div id="linksContainer"></div>
+        <button class="btn-link" onclick="backToLevel1()" style="background: transparent; color: #E8B4C4; border: 2px solid #E8B4C4;">VOLVER</button>
+    </div>
+
+    <div id="ageModal" class="age-modal">
+        <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
+        <div class="age-modal-content">
+            <div class="age-badge">18+</div>
+            <h2 class="age-title">VERIFICACIÓN DE EDAD</h2>
+            <p class="age-text">Este contenido está restringido para mayores de 18 años</p>
+            <div class="age-buttons">
+                <button class="age-btn age-btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
+                <button class="age-btn age-btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load config from API (works in Instagram webview)
+        async function loadConfig() {
+            try {
+                const domain = location.hostname;
+                const path = location.pathname || '/';
+                const response = await fetch(`/api/config?domain=${domain}&path=${encodeURIComponent(path)}`);
+                const config = await response.json();
+                renderLinks(config.links);
+            } catch (e) {
+                console.error('Config fetch failed:', e);
+                // Fallback to hardcoded links
+                renderLinks([
+                    { id: 'l_onlyfans', label: 'OnlyFans', url: 'https://onlyfans.com/nazaresota' },
+                    { id: 'l_telegram', label: 'Telegram', url: 'https://t.me/nazaresotaoficial' }
+                ]);
+            }
+        }
+
+        function renderLinks(links) {
+            const container = document.getElementById('linksContainer');
+            container.innerHTML = '';
+            links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.className = 'btn-link';
+                a.setAttribute('data-id', link.id);
+                a.textContent = link.label;
+                container.appendChild(a);
+            });
+        }
+
+        // Load config when page is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadConfig);
+        } else {
+            loadConfig();
+        }
+
+        const translations = {
+            es: {
+                hola: 'Hola',
+                cielo: 'mi CIELO ♡',
+                para1: 'Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡',
+                para2: 'Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡',
+                para3: 'Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡',
+                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒'
+            },
+            en: {
+                hola: 'Hello',
+                cielo: 'my LOVE ♡',
+                para1: 'Hi, I\'m NAZARESOTA ♡ authentic and charming. I love enjoying life, laughing at everything, and connecting with people who appreciate a confident woman. ♡',
+                para2: 'I\'m a mix of sweetness, attitude and curves that don\'t go unnoticed. I like good conversations, unexpected details and connections that feel special. ♡',
+                para3: 'If you like women with personality, confidence and a smile that makes you fall in love, maybe you\'ll find something more than a simple bio here. ♡',
+                lockBtn: 'PRESS AND HOLD HERE 🔒'
+            }
+        };
+
+        let currentLang = 'es';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            updateLanguage();
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            document.querySelector('.hola').textContent = t.hola;
+            document.querySelector('.cielo').textContent = t.cielo;
+            document.querySelector('.para1').textContent = t.para1;
+            document.querySelector('.para2').textContent = t.para2;
+            document.querySelector('.para3').textContent = t.para3;
+            document.getElementById('lockBtn').textContent = t.lockBtn;
+        }
+
+        function handleLockClick() {
+            openAgeModal();
+        }
+
+        function openAgeModal() {
+            document.getElementById('ageModal').classList.add('show');
+        }
+
+        function closeAgeModal() {
+            document.getElementById('ageModal').classList.remove('show');
+        }
+
+        function confirmAge() {
+            closeAgeModal();
+            document.getElementById('level1').style.display = 'none';
+            document.getElementById('level2').style.display = 'flex';
+        }
+
+        function backToLevel1() {
+            document.getElementById('level1').style.display = 'block';
+            document.getElementById('level2').style.display = 'none';
+        }
+
+        updateLanguage();
+    </script>
 </body>
 </html>
