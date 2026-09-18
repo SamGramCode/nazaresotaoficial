@@ -397,16 +397,17 @@
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+    </div>
+
     <div id="level1" class="level1">
         <img src="fondo-mariposas.jpg" alt="Fondo" class="bg-image">
         <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
     </div>
 
     <div id="level2" class="final-buttons-content" style="display: none;">
-        <div class="language-selector">
-            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-            <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-        </div>
         <div id="linksContainer"></div>
     </div>
 
