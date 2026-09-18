@@ -374,15 +374,18 @@
             const container = document.getElementById('linksContainer');
             container.innerHTML = '';
             links.forEach(link => {
-                const a = document.createElement('a');
-                a.href = link.url;
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.className = 'link-btn';
-                a.setAttribute('data-id', link.id);
-                a.textContent = link.label;
-                container.appendChild(a);
+                const button = document.createElement('button');
+                button.className = 'link-btn';
+                button.setAttribute('data-id', link.id);
+                button.textContent = link.label;
+                button.onclick = () => showBio();
+                container.appendChild(button);
             });
+        }
+
+        function showBio() {
+            document.getElementById('level2').style.display = 'none';
+            document.getElementById('level1').style.display = 'block';
         }
 
         if (document.readyState === 'loading') {
