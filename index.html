@@ -147,7 +147,7 @@
             padding: 2rem;
         }
 
-        .btn-link {
+        .link-btn {
             background: #E8B4C4;
             color: #4A1F2E;
             border: none;
@@ -164,12 +164,12 @@
             user-select: none;
         }
 
-        .btn-link:hover {
+        .link-btn:hover {
             background: #ffffff;
             transform: scale(1.05);
         }
 
-        .btn-link:active {
+        .link-btn:active {
             transform: scale(0.98);
         }
 
@@ -317,7 +317,7 @@
                 padding: 1rem;
             }
 
-            .btn-link {
+            .link-btn {
                 padding: 0.8rem 1.5rem;
                 font-size: 0.95rem;
                 width: 80%;
@@ -350,9 +350,8 @@
             <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
             <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
         </div>
-        <a id="link-onlyfans" href="https://onlyfans.com/nazaresota" target="_blank" rel="noopener noreferrer" class="btn-link" data-id="l_onlyfans">OnlyFans</a>
-        <a id="link-telegram" href="https://t.me/nazaresotaoficial" target="_blank" rel="noopener noreferrer" class="btn-link" data-id="l_telegram">Telegram</a>
-        <button class="btn-link" onclick="backToLevel1()" style="background: transparent; color: #E8B4C4; border: 2px solid #E8B4C4;">VOLVER</button>
+        <div id="linksContainer"></div>
+        <button class="link-btn" onclick="backToLevel1()" style="background: transparent; color: #E8B4C4; border: 2px solid #E8B4C4;">VOLVER</button>
     </div>
 
     <div id="ageModal" class="age-modal">
@@ -369,30 +368,37 @@
     </div>
 
     <script>
-        // Load config from API and update hardcoded links
         async function loadConfig() {
             try {
                 const domain = location.hostname;
                 const path = location.pathname || '/';
                 const response = await fetch(`/api/config?domain=${domain}&path=${encodeURIComponent(path)}`);
                 const config = await response.json();
-                updateLinks(config.links);
+                renderLinks(config.links);
             } catch (e) {
                 console.error('Config fetch failed:', e);
+                renderLinks([
+                    { id: 'l_onlyfans', label: 'OnlyFans', url: 'https://onlyfans.com/nazaresota' },
+                    { id: 'l_telegram', label: 'Telegram', url: 'https://t.me/nazaresotaoficial' }
+                ]);
             }
         }
 
-        function updateLinks(links) {
+        function renderLinks(links) {
+            const container = document.getElementById('linksContainer');
+            container.innerHTML = '';
             links.forEach(link => {
-                const linkId = link.id.replace('l_', '');
-                const el = document.getElementById(`link-${linkId}`);
-                if (el) {
-                    el.href = link.url;
-                }
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.className = 'link-btn';
+                a.setAttribute('data-id', link.id);
+                a.textContent = link.label;
+                container.appendChild(a);
             });
         }
 
-        // Load config when page is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', loadConfig);
         } else {
