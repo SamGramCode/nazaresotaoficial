@@ -23,14 +23,9 @@ function getConfigForPath(path) {
     bio: 'Soy NAZARESOTA ♡ auténtica y con mucho encanto',
     links: [
       {
-        id: 'l_onlyfans',
-        label: 'OnlyFans',
-        url: 'https://onlyfans.com/nazaresota'
-      },
-      {
-        id: 'l_telegram',
-        label: 'Telegram',
-        url: 'https://t.me/nazaresotaoficial'
+        id: 'l_instagram',
+        label: 'Instagram',
+        url: 'https://www.instagram.com/nazaresotaoficial'
       }
     ]
   };
