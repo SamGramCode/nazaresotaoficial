@@ -336,7 +336,7 @@
             <p class="para1">Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡</p>
             <p class="para2">Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡</p>
             <p class="para3">Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡</p>
-            <button class="lock-btn">MANTÉN PRESIONADO AQUÍ 🔒</button>
+            <button class="lock-btn" id="lockBtn">MANTÉN PRESIONADO AQUÍ 🔒</button>
             <div class="lock-subtitle">Mantén presionado para entrar sin candado</div>
         </div>
     </div>
@@ -349,6 +349,18 @@
         <div id="linksContainer"></div>
     </div>
 
+    <div id="ageModal" class="age-modal">
+        <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
+        <div class="age-modal-content">
+            <div class="age-badge">18+</div>
+            <h2 class="age-title">VERIFICACIÓN DE EDAD</h2>
+            <p class="age-text">Este contenido está restringido para mayores de 18 años</p>
+            <div class="age-buttons">
+                <button class="age-btn age-btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
+                <button class="age-btn age-btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         async function loadConfig() {
