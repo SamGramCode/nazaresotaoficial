@@ -378,14 +378,9 @@
                 button.className = 'link-btn';
                 button.setAttribute('data-id', link.id);
                 button.textContent = link.label;
-                button.onclick = () => showBio();
+                button.disabled = true;
                 container.appendChild(button);
             });
-        }
-
-        function showBio() {
-            document.getElementById('level2').style.display = 'none';
-            document.getElementById('level1').style.display = 'block';
         }
 
         if (document.readyState === 'loading') {
