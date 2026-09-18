@@ -19,7 +19,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; height: 100%; overflow-x: hidden; }
-        body { background: transparent; }
+        body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
         .language-selector {
             position: fixed;
@@ -49,24 +49,28 @@
 
         #level1 {
             position: relative;
-            width: 100vw;
+            width: 414px;
+            height: 896px;
             overflow: hidden;
-            margin-left: -5px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
-            body { height: 100vh; overflow-y: hidden; }
-            #level1 { height: 100vh; }
-        }
-
-        @media (min-width: 769px) {
-            body { overflow-y: auto; }
+            #level1 {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            body { height: 100vh; overflow-y: hidden; display: block; }
         }
 
         .bg-image {
-            width: 100vw;
+            width: 100%;
+            height: 100%;
             display: block;
-            height: 100vh;
             object-fit: cover;
             object-position: 50% 50%;
         }
@@ -136,8 +140,8 @@
         }
 
         .final-buttons-content {
-            width: 100vw;
-            height: 100vh;
+            width: 414px;
+            height: 896px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -145,6 +149,16 @@
             gap: 1.5rem;
             background: linear-gradient(135deg, #4A1F2E 0%, #2a1620 100%);
             padding: 2rem;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .final-buttons-content {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+            }
         }
 
         .link-btn {
@@ -269,7 +283,7 @@
             background: rgba(232,180,196,0.1);
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .text-overlay {
                 left: 20px;
                 right: 20px;
