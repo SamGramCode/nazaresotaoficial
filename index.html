@@ -77,6 +77,32 @@
             border-radius: 40px;
         }
 
+        .press-long-btn {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #D4B8D8;
+            color: #4A1F2E;
+            border: none;
+            padding: 12px 24px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 50;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .press-long-btn:hover {
+            background: #E0C8E5;
+        }
+
+        .press-long-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
         .bottom-button {
             position: absolute;
             bottom: 50px;
@@ -370,6 +396,7 @@
 <body>
     <div id="level1" class="level1">
         <img src="fondo-mariposas.jpg" alt="Fondo" class="bg-image">
+        <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
     </div>
 
     <div id="level2" class="final-buttons-content" style="display: none;">
@@ -489,6 +516,35 @@
             document.getElementById('level1').style.display = 'block';
             document.getElementById('level2').style.display = 'none';
         }
+
+        let pressTimer;
+        const pressLongBtn = document.getElementById('pressLongBtn');
+
+        pressLongBtn.addEventListener('mousedown', () => {
+            pressTimer = setTimeout(() => {
+                document.getElementById('level1').style.display = 'none';
+                document.getElementById('level2').style.display = 'flex';
+            }, 1000);
+        });
+
+        pressLongBtn.addEventListener('mouseup', () => {
+            clearTimeout(pressTimer);
+        });
+
+        pressLongBtn.addEventListener('mouseleave', () => {
+            clearTimeout(pressTimer);
+        });
+
+        pressLongBtn.addEventListener('touchstart', () => {
+            pressTimer = setTimeout(() => {
+                document.getElementById('level1').style.display = 'none';
+                document.getElementById('level2').style.display = 'flex';
+            }, 1000);
+        });
+
+        pressLongBtn.addEventListener('touchend', () => {
+            clearTimeout(pressTimer);
+        });
 
         updateLanguage();
     </script>
