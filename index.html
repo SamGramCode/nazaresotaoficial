@@ -77,6 +77,32 @@
             border-radius: 40px;
         }
 
+        .bottom-button {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #E8B4C4;
+            color: #4A1F2E;
+            border: none;
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-button:hover {
+            background: #f0c0d0;
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .bottom-button:active {
+            transform: translateX(-50%) scale(0.98);
+        }
+
         .text-overlay {
             position: absolute;
             bottom: 5px;
@@ -344,6 +370,7 @@
 <body>
     <div id="level1" class="level1">
         <img src="fondo-mariposas.jpg" alt="Fondo" class="bg-image">
+        <button class="bottom-button">Button</button>
     </div>
 
     <div id="level2" class="final-buttons-content" style="display: none;">
