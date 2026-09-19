@@ -136,6 +136,34 @@
             opacity: 0.5;
         }
 
+        .text-center-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 20;
+        }
+
+        .text-center-frame h2 {
+            color: #FFFFFF;
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .text-center-frame .hola {
+            display: block;
+            font-size: 1.8rem;
+        }
+
+        .text-center-frame .cielo {
+            display: block;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
         .bottom-button {
             position: absolute;
             bottom: 50px;
@@ -434,6 +462,12 @@
 
     <div id="level1" class="level1">
         <img src="fondo-mariposas.jpg" alt="Fondo" class="bg-image">
+        <div class="text-center-frame">
+            <h2>
+                <span class="hola">Hola</span>
+                <span class="cielo">mi CIELO ♡</span>
+            </h2>
+        </div>
         <div class="press-long-container">
             <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
             <p class="press-long-subtitle">manten presionado para entrar</p>
