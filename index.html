@@ -177,6 +177,38 @@
             margin-left: 7px;
         }
 
+        .bio-text {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 350px;
+            padding: 0 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            z-index: 20;
+        }
+
+        .bio-content {
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            text-align: center;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .bio-text {
+                bottom: 80px;
+                max-width: 280px;
+            }
+            .bio-content {
+                font-size: 0.7rem;
+            }
+        }
+
         .bottom-button {
             position: absolute;
             bottom: 50px;
@@ -481,6 +513,9 @@
                 <span class="cielo">mi CIELO ♡</span>
             </h2>
         </div>
+        <div class="bio-text">
+            <p class="bio-content">Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.<br>Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.<br>Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.</p>
+        </div>
         <div class="press-long-container">
             <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
             <p class="press-long-subtitle">manten presionado para entrar</p>
@@ -546,7 +581,8 @@
                 para1: 'Hola, soy NAZARESOTA ♡ auténtica y con mucho encanto. Me encanta disfrutar de la vida, reírme de todo y conectar con personas que sepan apreciar una mujer segura de sí misma. ♡',
                 para2: 'Soy una mezcla de dulzura, actitud y curvas que no pasan desapercibidas. Me gustan las buenas conversaciones, los detalles inesperados y las conexiones que se sienten especiales. ♡',
                 para3: 'Si te gustan las mujeres con personalidad, seguridad y una sonrisa que enamora, quizás aquí encuentres algo más que una simple bio. ♡',
-                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒'
+                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒',
+                bio: 'Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.<br>Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.<br>Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.'
             },
             en: {
                 hola: 'Hello',
@@ -554,7 +590,8 @@
                 para1: 'Hi, I\'m NAZARESOTA ♡ authentic and charming. I love enjoying life, laughing at everything, and connecting with people who appreciate a confident woman. ♡',
                 para2: 'I\'m a mix of sweetness, attitude and curves that don\'t go unnoticed. I like good conversations, unexpected details and connections that feel special. ♡',
                 para3: 'If you like women with personality, confidence and a smile that makes you fall in love, maybe you\'ll find something more than a simple bio here. ♡',
-                lockBtn: 'PRESS AND HOLD HERE 🔒'
+                lockBtn: 'PRESS AND HOLD HERE 🔒',
+                bio: 'Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.<br>I built this corner to chat peacefully and share ideas without the rush of traditional social networks.<br>If you fancy a close and direct conversation, here below you have private access.'
             }
         };
 
@@ -576,6 +613,7 @@
             document.querySelector('.para2').textContent = t.para2;
             document.querySelector('.para3').textContent = t.para3;
             document.getElementById('lockBtn').textContent = t.lockBtn;
+            document.querySelector('.bio-content').innerHTML = t.bio;
         }
 
         function handleLockClick() {
