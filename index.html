@@ -166,6 +166,23 @@
             font-style: italic;
         }
 
+        .down-arrow {
+            position: absolute;
+            bottom: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #E8B4C4;
+            z-index: 25;
+            display: none;
+        }
+
+        @media (min-width: 769px) {
+            .down-arrow {
+                display: block;
+            }
+        }
+
         .bottom-button {
             position: absolute;
             bottom: 50px;
@@ -470,6 +487,7 @@
                 <span class="cielo">mi CIELO ♡</span>
             </h2>
         </div>
+        <div class="down-arrow">⬇️</div>
         <div class="press-long-container">
             <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
             <p class="press-long-subtitle">manten presionado para entrar</p>
