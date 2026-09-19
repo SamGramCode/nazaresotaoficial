@@ -1,0 +1,9 @@
+name = "nazaresotaoficial-api"
+main = "api/config.js"
+compatibility_date = "2024-01-01"
+type = "service"
+
+[env.production]
+name = "nazaresotaoficial-api-prod"
+route = "nazaresotaoficial.com/api/config*"
+zone_id = "8e5de88b1fbce774a4103c798b555ab1"
