@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html fondo-mariposas.jpg nazaresota.png favicon.png dist/"
+    "build": "mkdir -p dist && cp -r index.html fondo-mariposas.jpg fondo-desktop.jpeg nazaresota.png favicon.png dist/"
   }
 }
