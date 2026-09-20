@@ -789,6 +789,8 @@
         }
 
         function startPress(clientX, clientY) {
+            clearTimeout(pressTimer);
+            pressTimer = null;
             pressStartX = clientX;
             pressStartY = clientY;
             hasMovement = false;
