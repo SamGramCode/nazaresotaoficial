@@ -622,7 +622,8 @@
             document.querySelector('.hola').textContent = t.hola;
             document.querySelector('.cielo').textContent = t.cielo;
             document.getElementById('lockBtn').textContent = t.lockBtn;
-            document.querySelector('.press-long-subtitle').textContent = t.subtitle;
+            const subtitle = document.querySelector('.press-long-subtitle');
+            if (subtitle) subtitle.textContent = t.subtitle;
             const bios = document.querySelectorAll('.bio-para');
             if (bios.length >= 3) {
                 bios[0].textContent = t.bio1;
