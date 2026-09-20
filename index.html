@@ -591,7 +591,10 @@
                 subtitle: 'manten presionado para entrar',
                 bio1: 'Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.',
                 bio2: 'Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.',
-                bio3: 'Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.'
+                bio3: 'Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.',
+                ageText: 'Este contenido está restringido para mayores de 18 años',
+                ageYes: 'SÍ TENGO 18+',
+                ageNo: 'NO, VOLVER'
             },
             en: {
                 hola: 'Hello',
@@ -603,7 +606,10 @@
                 subtitle: 'keep pressing to enter',
                 bio1: 'Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.',
                 bio2: 'I built this corner to chat peacefully and share ideas without the rush of traditional social networks.',
-                bio3: 'If you fancy a close and direct conversation, here below you have private access.'
+                bio3: 'If you fancy a close and direct conversation, here below you have private access.',
+                ageText: 'This content is restricted to people over 18 years old',
+                ageYes: 'YES I\'M 18+',
+                ageNo: 'NO, GO BACK'
             }
         };
 
@@ -630,6 +636,12 @@
                 bios[1].textContent = t.bio2;
                 bios[2].textContent = t.bio3;
             }
+            const ageText = document.querySelector('.age-text');
+            const ageYesBtn = document.querySelector('.age-btn-yes');
+            const ageNoBtn = document.querySelector('.age-btn-no');
+            if (ageText) ageText.textContent = t.ageText;
+            if (ageYesBtn) ageYesBtn.textContent = t.ageYes;
+            if (ageNoBtn) ageNoBtn.textContent = t.ageNo;
         }
 
         function handleLockClick() {
