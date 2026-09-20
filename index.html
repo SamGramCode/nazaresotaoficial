@@ -23,6 +23,40 @@
         html, body { width: 100%; height: 100%; overflow-x: hidden; }
         body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
+        .language-selector {
+            position: fixed;
+            top: 15px;
+            right: 255px;
+            z-index: 10000;
+            display: flex;
+            gap: 3px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 5px 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        .lang-btn.active { text-decoration: underline; }
+        .lang-btn:hover { opacity: 0.8; }
+
+        @media (max-width: 768px) {
+            .language-selector {
+                right: 15px;
+            }
+            .lang-btn {
+                font-size: 0.8rem;
+            }
+        }
 
         #level1 {
             position: relative;
@@ -288,6 +322,11 @@
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
+    </div>
+
     <div id="level1" class="level1">
         <img src="fondo nazareth.jpg" alt="Fondo" class="bg-image">
         <div class="text-center-frame">
@@ -321,6 +360,66 @@
     </div>
 
     <script>
+        const translations = {
+            es: {
+                hola: 'Hola',
+                cielo: 'mi CIELO ♡',
+                lockBtn: 'MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒',
+                subtitle: 'manten presionado para entrar',
+                bio1: 'Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.',
+                bio2: 'Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.',
+                bio3: 'Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.',
+                ageBadge: '18+',
+                ageTitle: 'VERIFICACIÓN DE EDAD',
+                ageText: 'Este contenido está restringido para mayores de 18 años',
+                ageYes: 'SÍ TENGO 18+',
+                ageNo: 'NO, VOLVER'
+            },
+            en: {
+                hola: 'Hello',
+                cielo: 'my LOVE ♡',
+                lockBtn: 'PRESS AND HOLD HERE TO ENTER 🔒',
+                subtitle: 'keep pressing to enter',
+                bio1: 'Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.',
+                bio2: 'I built this corner to chat peacefully and share ideas without the rush of traditional social networks.',
+                bio3: 'If you fancy a close and direct conversation, here below you have private access.',
+                ageBadge: '18+',
+                ageTitle: 'AGE VERIFICATION',
+                ageText: 'This content is restricted to people over 18 years old',
+                ageYes: 'YES I\'M 18+',
+                ageNo: 'NO, GO BACK'
+            }
+        };
+
+        let currentLang = 'es';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            updateLanguage();
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            if (document.querySelector('.hola')) document.querySelector('.hola').textContent = t.hola;
+            if (document.querySelector('.cielo')) document.querySelector('.cielo').textContent = t.cielo;
+            if (document.getElementById('pressLongBtn')) document.getElementById('pressLongBtn').textContent = t.lockBtn;
+            if (document.querySelector('.press-long-subtitle')) document.querySelector('.press-long-subtitle').textContent = t.subtitle;
+
+            const bios = document.querySelectorAll('.bio-para');
+            if (bios[0]) bios[0].textContent = t.bio1;
+            if (bios[1]) bios[1].textContent = t.bio2;
+            if (bios[2]) bios[2].textContent = t.bio3;
+
+            if (document.querySelector('.age-badge')) document.querySelector('.age-badge').textContent = t.ageBadge;
+            if (document.querySelector('.age-title')) document.querySelector('.age-title').textContent = t.ageTitle;
+            if (document.querySelector('.age-text')) document.querySelector('.age-text').textContent = t.ageText;
+            if (document.querySelector('.age-btn-yes')) document.querySelector('.age-btn-yes').textContent = t.ageYes;
+            if (document.querySelector('.age-btn-no')) document.querySelector('.age-btn-no').textContent = t.ageNo;
+        }
+
         function openAgeModal() {
             document.getElementById('ageModal').classList.add('show');
         }
@@ -359,6 +458,8 @@
         pressLongBtn.addEventListener('touchend', () => {
             clearTimeout(pressTimer);
         });
+
+        updateLanguage();
     </script>
 </body>
 </html>
