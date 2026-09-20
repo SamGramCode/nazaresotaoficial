@@ -129,6 +129,7 @@
             user-select: none;
             white-space: nowrap;
             max-width: 280px;
+            touch-action: none;
         }
 
         .press-long-btn:hover {
@@ -792,7 +793,7 @@
             pressStartY = clientY;
             hasMovement = false;
             pressTimer = setTimeout(() => {
-                if (hasMovement) {
+                if (!hasMovement) {
                     // Si es Instagram webview, mostrar modal con instrucciones
                     // Si no, abrir age modal directamente
                     if (isInstagramWebview()) {
@@ -813,6 +814,7 @@
         }
 
         pressLongBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
             startPress(e.clientX, e.clientY);
         });
 
@@ -833,6 +835,7 @@
         });
 
         pressLongBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
             const touch = e.touches[0];
             startPress(touch.clientX, touch.clientY);
         });
