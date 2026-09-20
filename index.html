@@ -23,31 +23,6 @@
         html, body { width: 100%; height: 100%; overflow-x: hidden; }
         body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-        .language-selector {
-            position: fixed;
-            top: 15px;
-            right: 255px;
-            z-index: 10000;
-            display: flex;
-            gap: 0px;
-        }
-
-        .lang-btn {
-            background: none;
-            border: none;
-            color: #FFFFFF;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-            user-select: none;
-        }
-
-        .lang-btn.active { text-decoration: underline; }
-        .lang-btn:hover { opacity: 0.8; }
 
         #level1 {
             position: relative;
@@ -213,143 +188,6 @@
             }
         }
 
-        .bottom-button {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #E8B4C4;
-            color: #4A1F2E;
-            border: none;
-            padding: 12px 32px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 20px;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .bottom-button:hover {
-            background: #f0c0d0;
-            transform: translateX(-50%) scale(1.05);
-        }
-
-        .bottom-button:active {
-            transform: translateX(-50%) scale(0.98);
-        }
-
-        .text-overlay {
-            position: absolute;
-            bottom: 5px;
-            left: 50px;
-            right: 50px;
-            color: #FFFFFF;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            line-height: 1.6;
-            font-size: 0.75rem;
-            z-index: 10;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .text-overlay h1 {
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
-            font-family: 'Bebas Neue', sans-serif;
-            position: relative;
-            top: 60px;
-        }
-
-        .text-overlay h1 .hola { display: block; font-size: 1.8rem; }
-        .text-overlay h1 .cielo { display: block; font-size: 1.2rem; font-style: italic; }
-
-        .text-overlay p {
-            font-size: 0.85rem;
-            margin: 0.8rem 0;
-            line-height: 1.5;
-        }
-
-        .lock-btn {
-            background: rgba(255,255,255,0.05);
-            border: 2px solid #E8B4C4;
-            color: #E8B4C4;
-            padding: 0.8rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 25px;
-            margin-top: 1.2rem;
-            transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 0.5px;
-            user-select: none;
-        }
-
-        .lock-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: scale(1.05);
-        }
-
-        .lock-btn:active {
-            transform: scale(0.98);
-        }
-
-        .lock-subtitle {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.7);
-            margin-top: 0.5rem;
-            letter-spacing: 0.3px;
-        }
-
-        .final-buttons-content {
-            width: 414px;
-            height: 896px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            background: linear-gradient(135deg, #4A1F2E 0%, #2a1620 100%);
-            padding: 2rem;
-            border-radius: 40px;
-            overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            .final-buttons-content {
-                width: 100vw;
-                height: 100vh;
-                border-radius: 0;
-            }
-        }
-
-        .link-btn {
-            background: #E8B4C4;
-            color: #4A1F2E;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 0.5px;
-            text-decoration: none;
-            display: inline-block;
-            user-select: none;
-        }
-
-        .link-btn:hover {
-            background: #ffffff;
-            transform: scale(1.05);
-        }
-
-        .link-btn:active {
-            transform: scale(0.98);
-        }
 
         .age-modal {
             display: none;
@@ -447,68 +285,9 @@
             background: rgba(232,180,196,0.1);
         }
 
-        @media (max-width: 768px) {
-            .text-overlay {
-                left: 20px;
-                right: 20px;
-                bottom: 10px;
-            }
-
-            .text-overlay h1 {
-                font-size: 1.8rem;
-                top: 30px;
-            }
-
-            .text-overlay h1 .hola {
-                font-size: 1.3rem;
-            }
-
-            .text-overlay h1 .cielo {
-                font-size: 0.9rem;
-            }
-
-            .text-overlay p {
-                font-size: 0.7rem;
-                margin: 0.5rem 0;
-            }
-
-            .lock-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .lock-subtitle {
-                font-size: 0.6rem;
-            }
-
-            .language-selector {
-                right: 15px;
-                gap: 0px;
-            }
-
-            .lang-btn {
-                font-size: 0.8rem;
-            }
-
-            .final-buttons-content {
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .link-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.95rem;
-                width: 80%;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="language-selector">
-        <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
-        <button class="lang-btn active" data-lang="es" onclick="changeLanguage('es')">ES</button>
-    </div>
-
     <div id="level1" class="level1">
         <img src="fondo nazareth.jpg" alt="Fondo" class="bg-image">
         <div class="text-center-frame">
@@ -528,10 +307,6 @@
         </div>
     </div>
 
-    <div id="level2" class="final-buttons-content" style="display: none;">
-        <div id="linksContainer"></div>
-    </div>
-
     <div id="ageModal" class="age-modal">
         <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
         <div class="age-modal-content">
@@ -546,102 +321,6 @@
     </div>
 
     <script>
-        async function loadConfig() {
-            try {
-                const domain = location.hostname;
-                const path = location.pathname || '/';
-                const response = await fetch(`/api/config?domain=${domain}&path=${encodeURIComponent(path)}`);
-                const config = await response.json();
-                renderLinks(config.links);
-            } catch (e) {
-                console.error('Config fetch failed:', e);
-                renderLinks([
-                    { id: 'l_instagram', label: 'Instagram', url: 'https://www.instagram.com/nazaresotaoficial' }
-                ]);
-            }
-        }
-
-        function renderLinks(links) {
-            const container = document.getElementById('linksContainer');
-            container.innerHTML = '';
-            links.forEach(link => {
-                const button = document.createElement('button');
-                button.className = 'link-btn';
-                button.setAttribute('data-id', link.id);
-                button.textContent = link.label;
-                button.disabled = true;
-                container.appendChild(button);
-            });
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadConfig);
-        } else {
-            loadConfig();
-        }
-
-        const translations = {
-            es: {
-                hola: 'Hola',
-                cielo: 'mi CIELO ♡',
-                lockBtn: 'MANTÉN PRESIONADO AQUÍ 🔒',
-                subtitle: 'manten presionado para entrar',
-                bio1: 'Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.',
-                bio2: 'Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.',
-                bio3: 'Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.',
-                ageText: 'Este contenido está restringido para mayores de 18 años',
-                ageYes: 'SÍ TENGO 18+',
-                ageNo: 'NO, VOLVER'
-            },
-            en: {
-                hola: 'Hello',
-                cielo: 'my LOVE ♡',
-                lockBtn: 'PRESS AND HOLD HERE 🔒',
-                subtitle: 'keep pressing to enter',
-                bio1: 'Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.',
-                bio2: 'I built this corner to chat peacefully and share ideas without the rush of traditional social networks.',
-                bio3: 'If you fancy a close and direct conversation, here below you have private access.',
-                ageText: 'This content is restricted to people over 18 years old',
-                ageYes: 'YES I\'M 18+',
-                ageNo: 'NO, GO BACK'
-            }
-        };
-
-        let currentLang = 'es';
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            updateLanguage();
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-            });
-        }
-
-        function updateLanguage() {
-            const t = translations[currentLang];
-            document.querySelector('.hola').textContent = t.hola;
-            document.querySelector('.cielo').textContent = t.cielo;
-            document.getElementById('lockBtn').textContent = t.lockBtn;
-            const subtitle = document.querySelector('.press-long-subtitle');
-            if (subtitle) subtitle.textContent = t.subtitle;
-            const bios = document.querySelectorAll('.bio-para');
-            if (bios.length >= 3) {
-                bios[0].textContent = t.bio1;
-                bios[1].textContent = t.bio2;
-                bios[2].textContent = t.bio3;
-            }
-            const ageText = document.querySelector('.age-text');
-            const ageYesBtn = document.querySelector('.age-btn-yes');
-            const ageNoBtn = document.querySelector('.age-btn-no');
-            if (ageText) ageText.textContent = t.ageText;
-            if (ageYesBtn) ageYesBtn.textContent = t.ageYes;
-            if (ageNoBtn) ageNoBtn.textContent = t.ageNo;
-        }
-
-        function handleLockClick() {
-            openAgeModal();
-        }
-
         function openAgeModal() {
             document.getElementById('ageModal').classList.add('show');
         }
@@ -652,22 +331,14 @@
 
         function confirmAge() {
             closeAgeModal();
-            document.getElementById('level1').style.display = 'none';
-            document.getElementById('level2').style.display = 'flex';
         }
 
-        function backToLevel1() {
-            document.getElementById('level1').style.display = 'block';
-            document.getElementById('level2').style.display = 'none';
-        }
-
-        let pressTimer;
         const pressLongBtn = document.getElementById('pressLongBtn');
+        let pressTimer;
 
         pressLongBtn.addEventListener('mousedown', () => {
             pressTimer = setTimeout(() => {
-                document.getElementById('level1').style.display = 'none';
-                document.getElementById('level2').style.display = 'flex';
+                openAgeModal();
             }, 1000);
         });
 
@@ -681,16 +352,13 @@
 
         pressLongBtn.addEventListener('touchstart', () => {
             pressTimer = setTimeout(() => {
-                document.getElementById('level1').style.display = 'none';
-                document.getElementById('level2').style.display = 'flex';
+                openAgeModal();
             }, 1000);
         });
 
         pressLongBtn.addEventListener('touchend', () => {
             clearTimeout(pressTimer);
         });
-
-        updateLanguage();
     </script>
 </body>
 </html>
