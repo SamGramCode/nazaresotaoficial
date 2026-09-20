@@ -725,6 +725,11 @@
             closeAgeModal();
         }
 
+        // Bloquear menú contextual (copiar, guardar imagen) en toda la página
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
         const pressBtnDesktop = document.getElementById('pressBtnDesktop');
         const pressLongBtn = document.getElementById('pressLongBtn');
         let pressTimer;
