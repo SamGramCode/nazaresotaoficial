@@ -438,29 +438,64 @@
 
         const pressLongBtn = document.getElementById('pressLongBtn');
         let pressTimer;
+        let pressStartX = 0;
+        let pressStartY = 0;
+        let hasMovement = false;
 
-        pressLongBtn.addEventListener('mousedown', () => {
+        function startPress(clientX, clientY) {
+            pressStartX = clientX;
+            pressStartY = clientY;
+            hasMovement = false;
             pressTimer = setTimeout(() => {
-                openAgeModal();
+                if (hasMovement) {
+                    openAgeModal();
+                }
             }, 1000);
+        }
+
+        function trackMovement(clientX, clientY) {
+            const distX = Math.abs(clientX - pressStartX);
+            const distY = Math.abs(clientY - pressStartY);
+            if (distX > 5 || distY > 5) {
+                hasMovement = true;
+            }
+        }
+
+        pressLongBtn.addEventListener('mousedown', (e) => {
+            startPress(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (pressTimer) {
+                trackMovement(e.clientX, e.clientY);
+            }
         });
 
         pressLongBtn.addEventListener('mouseup', () => {
             clearTimeout(pressTimer);
+            hasMovement = false;
         });
 
         pressLongBtn.addEventListener('mouseleave', () => {
             clearTimeout(pressTimer);
+            hasMovement = false;
         });
 
-        pressLongBtn.addEventListener('touchstart', () => {
-            pressTimer = setTimeout(() => {
-                openAgeModal();
-            }, 1000);
+        pressLongBtn.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            startPress(touch.clientX, touch.clientY);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (pressTimer) {
+                const touch = e.touches[0];
+                trackMovement(touch.clientX, touch.clientY);
+            }
         });
 
         pressLongBtn.addEventListener('touchend', () => {
             clearTimeout(pressTimer);
+            hasMovement = false;
         });
 
         updateLanguage();
