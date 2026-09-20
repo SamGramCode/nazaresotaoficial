@@ -756,8 +756,14 @@
             }
         }
 
-        /* Cerrar modal de Instagram */
+        /* Cerrar modal de Instagram y limpiar estado del press-long */
         function closeInstagramModal() {
+            // Limpiar estado del press-long para permitir futuras activaciones
+            clearTimeout(pressTimer);
+            pressTimer = null;
+            hasMovement = false;
+
+            // Cerrar modal
             const modal = document.getElementById('instagramModal');
             if (modal) {
                 modal.classList.remove('show');
