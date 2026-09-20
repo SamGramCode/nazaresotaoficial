@@ -374,6 +374,29 @@
     </div>
 
     <script>
+        // Detectar Instagram Webview
+        function isInstagramWebview() {
+            const ua = navigator.userAgent;
+            return ua.includes('Instagram') || ua.includes('FBAN/') || ua.includes('FBAV/');
+        }
+
+        // Mostrar/Ocultar botones según plataforma
+        function initializeButtons() {
+            const isInstagram = isInstagramWebview();
+            const desktopBtn = document.querySelector('.desktop-only');
+            const mobileBtn = document.querySelector('.mobile-only');
+
+            if (isInstagram) {
+                // Instagram Webview: mostrar long-press
+                if (desktopBtn) desktopBtn.style.display = 'none';
+                if (mobileBtn) mobileBtn.style.display = 'flex';
+            } else {
+                // Navegador externo: mostrar click normal
+                if (desktopBtn) desktopBtn.style.display = 'flex';
+                if (mobileBtn) mobileBtn.style.display = 'none';
+            }
+        }
+
         const translations = {
             es: {
                 hola: 'Hola',
@@ -524,6 +547,7 @@
         });
 
         updateLanguage();
+        initializeButtons();
     </script>
 </body>
 </html>
