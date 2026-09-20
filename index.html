@@ -76,6 +76,8 @@
             .language-selector {
                 right: 245px;
             }
+            .desktop-only { display: flex !important; }
+            .mobile-only { display: none !important; }
             .text-center-frame .hola {
                 margin-left: -27px;
             }
@@ -148,6 +150,9 @@
             gap: 3px;
             z-index: 50;
         }
+
+        .desktop-only { display: none; }
+        .mobile-only { display: flex; }
 
         .press-long-subtitle {
             font-size: 12px;
@@ -344,7 +349,12 @@
             <p class="bio-para">Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.</p>
             <p class="bio-para">Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.</p>
         </div>
-        <div class="press-long-container">
+        <div class="press-long-container desktop-only">
+            <button class="press-long-btn" id="pressBtnDesktop">PRESIONE AQUÍ PARA ENTRAR 🔒</button>
+            <p class="press-long-subtitle">presiona aquí</p>
+        </div>
+
+        <div class="press-long-container mobile-only">
             <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
             <p class="press-long-subtitle">manten presionado para entrar</p>
         </div>
@@ -369,7 +379,9 @@
                 hola: 'Hola',
                 cielo: 'mi CIELO ♡',
                 lockBtn: 'MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒',
+                lockBtnDesktop: 'PRESIONE AQUÍ PARA ENTRAR 🔒',
                 subtitle: 'manten presionado para entrar',
+                subtitleDesktop: 'presiona aquí',
                 bio1: 'Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.',
                 bio2: 'Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.',
                 bio3: 'Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.',
@@ -383,7 +395,9 @@
                 hola: 'Hello',
                 cielo: 'my LOVE ♡',
                 lockBtn: 'PRESS AND HOLD HERE TO ENTER 🔒',
+                lockBtnDesktop: 'PRESS HERE TO ENTER 🔒',
                 subtitle: 'keep pressing to enter',
+                subtitleDesktop: 'press here',
                 bio1: 'Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.',
                 bio2: 'I built this corner to chat peacefully and share ideas without the rush of traditional social networks.',
                 bio3: 'If you fancy a close and direct conversation, here below you have private access.',
@@ -410,7 +424,10 @@
             if (document.querySelector('.hola')) document.querySelector('.hola').textContent = t.hola;
             if (document.querySelector('.cielo')) document.querySelector('.cielo').textContent = t.cielo;
             if (document.getElementById('pressLongBtn')) document.getElementById('pressLongBtn').textContent = t.lockBtn;
-            if (document.querySelector('.press-long-subtitle')) document.querySelector('.press-long-subtitle').textContent = t.subtitle;
+            if (document.getElementById('pressBtnDesktop')) document.getElementById('pressBtnDesktop').textContent = t.lockBtnDesktop;
+            const subtitles = document.querySelectorAll('.press-long-subtitle');
+            if (subtitles[0]) subtitles[0].textContent = t.subtitleDesktop;
+            if (subtitles[1]) subtitles[1].textContent = t.subtitle;
 
             const bios = document.querySelectorAll('.bio-para');
             if (bios[0]) bios[0].textContent = t.bio1;
@@ -436,11 +453,19 @@
             closeAgeModal();
         }
 
+        const pressBtnDesktop = document.getElementById('pressBtnDesktop');
         const pressLongBtn = document.getElementById('pressLongBtn');
         let pressTimer;
         let pressStartX = 0;
         let pressStartY = 0;
         let hasMovement = false;
+
+        // Desktop button: simple click
+        if (pressBtnDesktop) {
+            pressBtnDesktop.addEventListener('click', () => {
+                openAgeModal();
+            });
+        }
 
         function startPress(clientX, clientY) {
             pressStartX = clientX;
