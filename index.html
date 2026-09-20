@@ -328,6 +328,211 @@
             background: rgba(232,180,196,0.1);
         }
 
+        /* ========== INSTAGRAM MODAL STYLES ========== */
+        /* MODIFICABLES: Cambiar colores, tamaños, animaciones */
+
+        .instagram-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .instagram-modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Overlay semi-transparente */
+        .instagram-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tarjeta flotante */
+        .instagram-modal-content {
+            position: relative;
+            z-index: 9999;
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Título */
+        .instagram-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 10px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Texto de cargando */
+        .instagram-modal-loading {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0 0 20px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Spinner de cargando */
+        .instagram-modal-spinner {
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #E8B4C4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Texto "Si no se abre..." */
+        .instagram-modal-fallback {
+            font-size: 0.9rem;
+            color: #999;
+            margin: 20px 0 15px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Instrucciones */
+        .instagram-modal-instructions {
+            text-align: left;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .instagram-modal-instructions.show {
+            display: block;
+        }
+
+        .instagram-modal-instructions h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 10px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .instagram-modal-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .instagram-modal-instructions li {
+            margin-bottom: 8px;
+        }
+
+        /* Botones */
+        .instagram-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .instagram-modal-btn-primary {
+            background: #E8B4C4;
+            color: #4A1F2E;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .instagram-modal-btn-primary:hover {
+            background: #f0c0d0;
+            transform: scale(1.02);
+        }
+
+        .instagram-modal-btn-secondary {
+            background: transparent;
+            color: #999;
+            border: 1px solid #ddd;
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .instagram-modal-btn-secondary:hover {
+            background: #f9f9f9;
+            border-color: #ccc;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .instagram-modal-content {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .instagram-modal-title {
+                font-size: 1.3rem;
+            }
+
+            .instagram-modal-instructions {
+                padding: 12px;
+            }
+
+            .instagram-modal-instructions h3 {
+                font-size: 0.95rem;
+            }
+
+            .instagram-modal-instructions ol {
+                font-size: 0.85rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -360,6 +565,7 @@
         </div>
     </div>
 
+    <!-- MODAL: Age Verification -->
     <div id="ageModal" class="age-modal">
         <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
         <div class="age-modal-content">
@@ -369,6 +575,43 @@
             <div class="age-buttons">
                 <button class="age-btn age-btn-yes" onclick="confirmAge()">SÍ TENGO 18+</button>
                 <button class="age-btn age-btn-no" onclick="closeAgeModal()">NO, VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Instagram Webview Instructions (SOLO para Instagram) -->
+    <div id="instagramModal" class="instagram-modal">
+        <div class="instagram-modal-overlay" onclick="closeInstagramModal()"></div>
+        <div class="instagram-modal-content">
+            <h2 class="instagram-modal-title">Abriendo en Navegador</h2>
+            <p class="instagram-modal-loading">Intentando abrir automáticamente en tu navegador...</p>
+            <div class="instagram-modal-spinner"></div>
+
+            <p class="instagram-modal-fallback">Si no se abre automáticamente:</p>
+
+            <!-- INSTRUCCIONES iOS -->
+            <div id="iosInstructions" class="instagram-modal-instructions">
+                <h3>Desde Instagram (iPhone):</h3>
+                <ol>
+                    <li>Toca el icono de <strong>tres puntos (...)</strong> en la esquina superior derecha</li>
+                    <li>Selecciona <strong>"Abrir en navegador externo"</strong> o <strong>"Abrir en Safari"</strong></li>
+                    <li>La página se abrirá en Safari</li>
+                </ol>
+            </div>
+
+            <!-- INSTRUCCIONES Android -->
+            <div id="androidInstructions" class="instagram-modal-instructions">
+                <h3>Desde Instagram (Android):</h3>
+                <ol>
+                    <li>Toca el icono de <strong>tres puntos (...)</strong> en la esquina superior derecha</li>
+                    <li>Selecciona <strong>"Abrir en navegador externo"</strong> o <strong>"Abrir en Chrome"</strong></li>
+                    <li>La página se abrirá en tu navegador predeterminado</li>
+                </ol>
+            </div>
+
+            <div class="instagram-modal-buttons">
+                <button class="instagram-modal-btn-primary" onclick="closeInstagramModal()">Entendido</button>
+                <button class="instagram-modal-btn-secondary" onclick="closeInstagramModal()">Continuar Aquí (No Recomendado)</button>
             </div>
         </div>
     </div>
@@ -490,13 +733,54 @@
             });
         }
 
+        /* ========== INSTAGRAM MODAL FUNCTIONS ========== */
+        /* Mostrar modal de Instagram (SOLO en IG webview) */
+        function showInstagramModal() {
+            const modal = document.getElementById('instagramModal');
+            if (modal) {
+                modal.classList.add('show');
+                detectOSAndShowInstructions();
+            }
+        }
+
+        /* Cerrar modal de Instagram */
+        function closeInstagramModal() {
+            const modal = document.getElementById('instagramModal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        /* Detectar SO (iOS o Android) y mostrar instrucciones correspondientes */
+        function detectOSAndShowInstructions() {
+            const ua = navigator.userAgent;
+            const iosInstructions = document.getElementById('iosInstructions');
+            const androidInstructions = document.getElementById('androidInstructions');
+
+            if (iosInstructions && androidInstructions) {
+                if (ua.includes('iPhone') || ua.includes('iPad') || ua.includes('Mac OS')) {
+                    iosInstructions.classList.add('show');
+                    androidInstructions.classList.remove('show');
+                } else if (ua.includes('Android')) {
+                    androidInstructions.classList.add('show');
+                    iosInstructions.classList.remove('show');
+                }
+            }
+        }
+
         function startPress(clientX, clientY) {
             pressStartX = clientX;
             pressStartY = clientY;
             hasMovement = false;
             pressTimer = setTimeout(() => {
                 if (hasMovement) {
-                    openAgeModal();
+                    // Si es Instagram webview, mostrar modal con instrucciones
+                    // Si no, abrir age modal directamente
+                    if (isInstagramWebview()) {
+                        showInstagramModal();
+                    } else {
+                        openAgeModal();
+                    }
                 }
             }, 1000);
         }
