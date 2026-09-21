@@ -760,9 +760,6 @@
     <!-- Arrow Indicator for Instagram WebView -->
     <div id="igArrowIndicator" class="ig-arrow-global">⤴</div>
 
-    <!-- Hidden link for simulating click (web normal only) -->
-    <a id="hiddenOnlyFansLink" href="https://www.onlyfans.com/youtovar" target="_blank" style="display: none;"></a>
-
     <!-- MODAL: Age Verification -->
     <div id="ageModal" class="age-modal">
         <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
@@ -966,16 +963,8 @@
                     return false;
                 });
             } else {
-                // Web normal: simular click en link invisible
+                // Web normal: botón activo
                 exclusiveBtn.style.opacity = '1';
-                exclusiveBtn.onclick = function(e) {
-                    e.preventDefault();
-                    const hiddenLink = document.getElementById('hiddenOnlyFansLink');
-                    if (hiddenLink) {
-                        hiddenLink.click();
-                    }
-                    return false;
-                };
             }
         }
 
