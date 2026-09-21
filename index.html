@@ -728,7 +728,7 @@
         </div>
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
-            <a href="https://onlyfans.com/youtovar" target="_blank" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
+            <a id="exclusiveBtn" href="https://onlyfans.com/youtovar" target="_blank" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
         </div>
 
         <div class="social-buttons-container" id="socialButtonsContainer" style="display: none;">
@@ -785,16 +785,20 @@
 
             <div class="instagram-modal-buttons">
                 <button class="instagram-modal-btn-primary" onclick="closeInstagramModal()">Entendido</button>
-                <button class="instagram-modal-btn-secondary" onclick="closeInstagramModal()">Continuar Aquí (No Recomendado)</button>
+                <button class="instagram-modal-btn-secondary" onclick="closeInstagramModalAndDisable()">Continuar Aquí (No Recomendado)</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Control de Instagram Webview
+        let instagramWebviewDisabled = false;
+
         // Detectar Instagram Webview
         function isInstagramWebview() {
             const ua = navigator.userAgent;
-            return ua.includes('Instagram') || ua.includes('FBAN/') || ua.includes('FBAV/');
+            const isIg = ua.includes('Instagram') || ua.includes('FBAN/') || ua.includes('FBAV/');
+            return isIg && !instagramWebviewDisabled;
         }
 
         // Mostrar/Ocultar botones según plataforma
@@ -899,6 +903,26 @@
             document.getElementById('titleContainer').style.display = 'block';
             document.getElementById('exclusiveContainer').style.display = 'block';
             document.getElementById('socialButtonsContainer').style.display = 'flex';
+
+            // Configurar comportamiento del botón CONTENIDO EXCLUSIVO según Instagram WebView
+            setupExclusiveButtonBehavior();
+        }
+
+        function setupExclusiveButtonBehavior() {
+            const exclusiveBtn = document.getElementById('exclusiveBtn');
+            if (!exclusiveBtn) return;
+
+            if (isInstagramWebview()) {
+                // Instagram WebView: prevenir link y abrir modal
+                exclusiveBtn.style.pointerEvents = 'auto';
+                exclusiveBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showInstagramModal();
+                });
+            } else {
+                // Web normal: funciona normalmente (link a OnlyFans)
+                exclusiveBtn.style.pointerEvents = 'auto';
+            }
         }
 
         // Bloquear menú contextual (copiar, guardar imagen) en toda la página
@@ -950,6 +974,17 @@
             if (modal) {
                 modal.classList.remove('show');
             }
+        }
+
+        /* Cerrar modal y desactivar Instagram webview (Continuar Aquí) */
+        function closeInstagramModalAndDisable() {
+            closeInstagramModal();
+
+            // Desactivar detección de Instagram webview
+            instagramWebviewDisabled = true;
+
+            // Cambiar a botón normal (press-long a click normal)
+            initializeButtons();
         }
 
         /* Detectar SO (iOS o Android) y mostrar instrucciones correspondientes */
