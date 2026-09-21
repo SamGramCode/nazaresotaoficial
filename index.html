@@ -539,39 +539,6 @@
             }
         }
 
-        /* LEVEL 3: Solo imagen limpia */
-        .level3 {
-            position: relative;
-            width: 414px;
-            height: 896px;
-            overflow: hidden;
-            border-radius: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            flex-shrink: 0;
-        }
-
-        .bg-image-level3 {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: scale-down;
-            object-position: 50% 69%;
-            transform: scale(1.32);
-            border-radius: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .level3 {
-                width: 100vw;
-                height: 100vh;
-                border-radius: 0;
-                box-shadow: none;
-            }
-            .bg-image-level3 {
-                object-position: 49% 78%;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -653,11 +620,6 @@
                 <button class="instagram-modal-btn-secondary" onclick="closeInstagramModal()">Continuar Aquí (No Recomendado)</button>
             </div>
         </div>
-    </div>
-
-    <!-- LEVEL 3: Solo imagen de fondo -->
-    <div id="level3" class="level3" style="display: none;">
-        <img src="fondo nazareth.jpg" alt="Fondo" class="bg-image-level3">
     </div>
 
     <script>
@@ -761,7 +723,9 @@
 
         function confirmAge() {
             closeAgeModal();
-            document.getElementById('level3').style.display = 'block';
+            document.querySelector('.text-center-frame').style.display = 'none';
+            document.querySelector('.bio-text').style.display = 'none';
+            document.querySelector('.press-long-container').style.display = 'none';
         }
 
         // Bloquear menú contextual (copiar, guardar imagen) en toda la página
