@@ -963,8 +963,10 @@
                     return false;
                 });
             } else {
-                // Web normal: botón activo
+                // Web normal: botón activo con link a OnlyFans
                 exclusiveBtn.style.opacity = '1';
+                exclusiveBtn.href = 'https://www.onlyfans.com/youtovar';
+                exclusiveBtn.target = '_blank';
             }
         }
 
@@ -985,6 +987,14 @@
             pressBtnDesktop.addEventListener('click', () => {
                 openAgeModal();
             });
+        }
+
+        // Ocultar botón CONTENIDO EXCLUSIVO en Instagram WebView
+        if (isInstagramWebview()) {
+            const exclusiveContainer = document.getElementById('exclusiveContainer');
+            if (exclusiveContainer) {
+                exclusiveContainer.style.display = 'none';
+            }
         }
 
         /* ========== INSTAGRAM MODAL FUNCTIONS ========== */
