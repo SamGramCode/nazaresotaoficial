@@ -990,16 +990,6 @@
             });
         }
 
-        // Desactivar CONTENIDO EXCLUSIVO en Instagram WebView desde el inicio
-        if (isInstagramWebview()) {
-            const exclusiveBtn = document.getElementById('exclusiveBtn');
-            if (exclusiveBtn) {
-                exclusiveBtn.style.pointerEvents = 'none';
-                exclusiveBtn.style.opacity = '0.5';
-                exclusiveBtn.style.cursor = 'not-allowed';
-            }
-        }
-
         /* ========== INSTAGRAM MODAL FUNCTIONS ========== */
         /* Mostrar modal de Instagram (SOLO en IG webview) */
         function showInstagramModal() {
