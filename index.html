@@ -608,6 +608,23 @@
             50% { opacity: 1; }
         }
 
+        .ig-arrow-indicator {
+            display: none;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            color: #FF1493;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: arrow-bounce 1.2s ease-in-out infinite;
+        }
+
+        @keyframes arrow-bounce {
+            0% { transform: translate(0, 0); opacity: 0.7; }
+            50% { transform: translate(8px, -8px); opacity: 1; }
+            100% { transform: translate(0, 0); opacity: 0.7; }
+        }
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -728,7 +745,10 @@
         </div>
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
-            <a id="exclusiveBtn" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
+            <a id="exclusiveBtn" class="exclusive-btn">
+                CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown">
+                <span class="ig-arrow-indicator">↗</span>
+            </a>
         </div>
 
         <div class="social-buttons-container" id="socialButtonsContainer" style="display: none;">
@@ -925,10 +945,14 @@
             if (!exclusiveBtn) return;
 
             if (isInstagramWebview()) {
-                // Instagram WebView: desactivar botón
+                // Instagram WebView: desactivar botón y mostrar flechita
                 exclusiveBtn.style.pointerEvents = 'none';
                 exclusiveBtn.style.opacity = '0.5';
                 exclusiveBtn.style.cursor = 'not-allowed';
+                const arrowIndicator = exclusiveBtn.querySelector('.ig-arrow-indicator');
+                if (arrowIndicator) {
+                    arrowIndicator.style.display = 'block';
+                }
             } else {
                 // Web normal: botón activo
                 exclusiveBtn.style.pointerEvents = 'auto';
