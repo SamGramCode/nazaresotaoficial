@@ -913,15 +913,17 @@
             if (!exclusiveBtn) return;
 
             if (isInstagramWebview()) {
-                // Instagram WebView: prevenir link y abrir modal
-                exclusiveBtn.style.pointerEvents = 'auto';
-                exclusiveBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
+                // Instagram WebView: bloquear OnlyFans, abrir modal
+                exclusiveBtn.href = 'javascript:void(0)';
+                exclusiveBtn.onclick = function(e) {
                     showInstagramModal();
-                });
+                    return false;
+                };
             } else {
-                // Web normal: funciona normalmente (link a OnlyFans)
-                exclusiveBtn.style.pointerEvents = 'auto';
+                // Web normal: OnlyFans link
+                exclusiveBtn.href = 'https://onlyfans.com/youtovar';
+                exclusiveBtn.target = '_blank';
+                exclusiveBtn.onclick = null;
             }
         }
 
