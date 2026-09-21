@@ -612,6 +612,36 @@
             50% { transform: scale(1.05); }
         }
 
+        .social-buttons-container {
+            position: absolute;
+            bottom: 120px;
+            left: 207px;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 200px;
+        }
+
+        .social-btn {
+            background: #D4B8D8;
+            color: #4A1F2E;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .social-btn:hover {
+            background: #E0C8E5;
+        }
+
         .exclusive-title-container {
             position: absolute;
             bottom: 360px;
@@ -671,6 +701,13 @@
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
             <button class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></button>
+        </div>
+
+        <div class="social-buttons-container" id="socialButtonsContainer" style="display: none;">
+            <button class="social-btn">TIKTOK</button>
+            <button class="social-btn">INSTAGRAM</button>
+            <button class="social-btn">TELEGRAM</button>
+            <button class="social-btn">GORJEO</button>
         </div>
     </div>
 
@@ -833,6 +870,7 @@
             document.querySelector('.press-long-subtitle').style.display = 'none';
             document.getElementById('titleContainer').style.display = 'block';
             document.getElementById('exclusiveContainer').style.display = 'block';
+            document.getElementById('socialButtonsContainer').style.display = 'flex';
         }
 
         // Bloquear menú contextual (copiar, guardar imagen) en toda la página
