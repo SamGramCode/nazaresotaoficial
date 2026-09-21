@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - User-Agent</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+            word-break: break-all;
+        }
+        .box {
+            background: #333;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid #555;
+        }
+        h2 { color: #D4AF37; }
+        .yes { color: #00ff00; }
+        .no { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DIAGNÓSTICO - USER AGENT</h1>
+
+    <div class="box">
+        <h2>User-Agent Completo:</h2>
+        <p id="ua"></p>
+    </div>
+
+    <div class="box">
+        <h2>Detecciones:</h2>
+        <p>¿Tiene 'Instagram'? <span id="hasInstagram"></span></p>
+        <p>¿Tiene 'FBAN/'? <span id="hasFBAN"></span></p>
+        <p>¿Tiene 'FBAV/'? <span id="hasFBAV"></span></p>
+        <p>¿Es Instagram WebView? <span id="isIG"></span></p>
+    </div>
+
+    <div class="box">
+        <h2>Copia todo esto y envíamelo:</h2>
+        <textarea id="output" style="width: 100%; height: 300px; padding: 10px; background: #222; color: #0f0; border: 1px solid #555;" readonly></textarea>
+    </div>
+
+    <script>
+        const ua = navigator.userAgent;
+        const hasInst = ua.includes('Instagram');
+        const hasFBAN = ua.includes('FBAN/');
+        const hasFBAV = ua.includes('FBAV/');
+        const isIG = hasInst || hasFBAN || hasFBAV;
+
+        document.getElementById('ua').textContent = ua;
+        document.getElementById('hasInstagram').innerHTML = hasInst ? '<span class="yes">✓ SÍ</span>' : '<span class="no">✗ NO</span>';
+        document.getElementById('hasFBAN').innerHTML = hasFBAN ? '<span class="yes">✓ SÍ</span>' : '<span class="no">✗ NO</span>';
+        document.getElementById('hasFBAV').innerHTML = hasFBAV ? '<span class="yes">✓ SÍ</span>' : '<span class="no">✗ NO</span>';
+        document.getElementById('isIG').innerHTML = isIG ? '<span class="yes">✓ ES INSTAGRAM</span>' : '<span class="no">✗ NO ES INSTAGRAM</span>';
+
+        const output = `USER-AGENT DEBUG
+================
+
+Completo: ${ua}
+
+Verificaciones:
+- Contiene 'Instagram': ${hasInst}
+- Contiene 'FBAN/': ${hasFBAN}
+- Contiene 'FBAV/': ${hasFBAV}
+- Detectado como Instagram: ${isIG}
+
+================`;
+
+        document.getElementById('output').value = output;
+    </script>
+</body>
+</html>
