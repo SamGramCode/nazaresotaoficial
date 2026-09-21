@@ -817,19 +817,31 @@
 
         // Detectar Instagram Webview - múltiples métodos
         function isInstagramWebview() {
-            const ua = navigator.userAgent.toLowerCase();
+            const ua = navigator.userAgent;
+            const uaLower = ua.toLowerCase();
 
-            // Método 1: Buscar patrones de Instagram/Facebook
-            const method1 = ua.includes('instagram') || ua.includes('fban/') || ua.includes('fbav/') || ua.includes('instagram browser');
+            // Patrones de Instagram/Facebook
+            const patterns = [
+                /instagram/i,
+                /fban/i,
+                /fbav/i,
+                /instagram browser/i,
+                /iphone os.*instagram/i,
+                /android.*instagram/i,
+                /igproxy/i,
+                /instabridge/i,
+                /fb_iab/i,
+                /instagram app/i
+            ];
 
-            // Método 2: Detectar si es un webview (contiene 'webview' o 'wv')
-            const method2 = ua.includes('webview') || ua.includes('; wv');
+            // Buscar cualquier patrón que coincida
+            const hasInstagramPattern = patterns.some(pattern => pattern.test(ua));
 
-            // Método 3: Buscar versión de Instagram específica
-            const method3 = /instagram|iphone.*instagram/i.test(ua);
+            // Detectar webview en general
+            const isWebview = /webview|; wv|wv\)|embedded|ig_hide_web_ui_components/i.test(ua);
 
-            // Combinación: Si tiene algún indicador de webview o Instagram
-            const isIg = method1 || (method2 && ua.includes('mobile'));
+            // Si tiene patrón de Instagram, es Instagram
+            const isIg = hasInstagramPattern || (isWebview && uaLower.includes('mobile'));
 
             return isIg && !instagramWebviewDisabled;
         }
