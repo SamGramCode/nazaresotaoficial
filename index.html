@@ -608,21 +608,22 @@
             50% { opacity: 1; }
         }
 
-        .ig-arrow-indicator {
+        .ig-arrow-global {
             display: none;
-            position: absolute;
-            top: -10px;
-            right: -10px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
             color: #FF1493;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            animation: arrow-bounce 1.2s ease-in-out infinite;
+            z-index: 9999;
+            animation: arrow-bounce-global 1s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        @keyframes arrow-bounce {
-            0% { transform: translate(0, 0); opacity: 0.7; }
-            50% { transform: translate(8px, -8px); opacity: 1; }
-            100% { transform: translate(0, 0); opacity: 0.7; }
+        @keyframes arrow-bounce-global {
+            0%, 100% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-15px); opacity: 1; }
         }
 
         @keyframes pulse {
@@ -745,10 +746,7 @@
         </div>
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
-            <a id="exclusiveBtn" class="exclusive-btn">
-                CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown">
-                <span class="ig-arrow-indicator">↗</span>
-            </a>
+            <a id="exclusiveBtn" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
         </div>
 
         <div class="social-buttons-container" id="socialButtonsContainer" style="display: none;">
@@ -758,6 +756,9 @@
             <a href="https://x.com/nazarethtovar12?s=11" target="_blank" class="social-btn">GORJEO <img src="logo-x.png" alt="X/Twitter" class="social-logo logo-4"></a>
         </div>
     </div>
+
+    <!-- Arrow Indicator for Instagram WebView -->
+    <div id="igArrowIndicator" class="ig-arrow-global">⤴</div>
 
     <!-- MODAL: Age Verification -->
     <div id="ageModal" class="age-modal">
@@ -945,14 +946,21 @@
             if (!exclusiveBtn) return;
 
             if (isInstagramWebview()) {
-                // Instagram WebView: desactivar botón y mostrar flechita
+                // Instagram WebView: desactivar botón
                 exclusiveBtn.style.pointerEvents = 'none';
                 exclusiveBtn.style.opacity = '0.5';
                 exclusiveBtn.style.cursor = 'not-allowed';
-                const arrowIndicator = exclusiveBtn.querySelector('.ig-arrow-indicator');
-                if (arrowIndicator) {
-                    arrowIndicator.style.display = 'block';
-                }
+
+                // Agregar listener para mostrar flecha cuando se presiona
+                exclusiveBtn.addEventListener('click', function() {
+                    const arrowIndicator = document.getElementById('igArrowIndicator');
+                    if (arrowIndicator) {
+                        arrowIndicator.style.display = 'block';
+                        setTimeout(() => {
+                            arrowIndicator.style.display = 'none';
+                        }, 2000);
+                    }
+                });
             } else {
                 // Web normal: botón activo
                 exclusiveBtn.style.pointerEvents = 'auto';
