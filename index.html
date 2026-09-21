@@ -560,9 +560,18 @@
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             letter-spacing: 1px;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-silueta {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
         }
 
         .exclusive-btn:hover {
@@ -640,7 +649,7 @@
         </div>
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
-            <button class="exclusive-btn">CONTENIDO EXCLUSIVO 👑</button>
+            <button class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="silueta.png" alt="Silueta" class="btn-silueta"></button>
         </div>
     </div>
 
