@@ -798,6 +798,9 @@
         function isInstagramWebview() {
             const ua = navigator.userAgent;
             const isIg = ua.includes('Instagram') || ua.includes('FBAN/') || ua.includes('FBAV/');
+            // DEBUG: Log User-Agent
+            console.log('[NAZARESOTA-UA]', ua);
+            console.log('[NAZARESOTA-IG-DETECT]', isIg);
             return isIg && !instagramWebviewDisabled;
         }
 
