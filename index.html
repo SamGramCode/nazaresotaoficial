@@ -539,6 +539,74 @@
             }
         }
 
+        /* EXCLUSIVE CONTENT BUTTON */
+        .exclusive-container {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .exclusive-btn {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+
+        .exclusive-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        .exclusive-btn::before,
+        .exclusive-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .exclusive-btn::before {
+            background: radial-gradient(circle at 30% 50%, rgba(255, 105, 180, 0.3), transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(186, 85, 211, 0.3), transparent 50%),
+                        radial-gradient(circle at 50% 70%, rgba(221, 160, 221, 0.3), transparent 50%);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .exclusive-btn::after {
+            box-shadow:
+                -15px -10px 0 2px rgba(255, 105, 180, 0.6),
+                15px -10px 0 2px rgba(186, 85, 211, 0.6),
+                0 15px 0 2px rgba(221, 160, 221, 0.6),
+                -8px 8px 0 1px rgba(255, 105, 180, 0.5),
+                8px 8px 0 1px rgba(186, 85, 211, 0.5);
+            animation: sparkleMove 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkleMove {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
@@ -568,6 +636,10 @@
         <div class="press-long-container mobile-only">
             <button class="press-long-btn" id="pressLongBtn">MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒</button>
             <p class="press-long-subtitle">manten presionado para entrar</p>
+        </div>
+
+        <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
+            <button class="exclusive-btn">CONTENIDO EXCLUSIVO 👑</button>
         </div>
     </div>
 
@@ -728,6 +800,7 @@
             document.querySelector('.press-long-container').style.display = 'none';
             document.querySelector('.press-long-btn').style.display = 'none';
             document.querySelector('.press-long-subtitle').style.display = 'none';
+            document.getElementById('exclusiveContainer').style.display = 'block';
         }
 
         // Bloquear menú contextual (copiar, guardar imagen) en toda la página
