@@ -567,6 +567,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .btn-crown {
@@ -580,6 +581,7 @@
         .exclusive-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+            animation-play-state: paused;
         }
 
         .exclusive-btn::before,
@@ -603,6 +605,11 @@
         @keyframes sparkle {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .exclusive-title-container {
