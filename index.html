@@ -746,7 +746,7 @@
         </div>
 
         <div class="exclusive-container" id="exclusiveContainer" style="display: none;">
-            <a id="exclusiveBtn" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
+            <a id="exclusiveBtn" href="#" data-link="https://onlyfans.com/youtovar" class="exclusive-btn">CONTENIDO EXCLUSIVO <img src="corona-rosada.png" alt="Corona" class="btn-crown"></a>
         </div>
 
         <div class="social-buttons-container" id="socialButtonsContainer" style="display: none;">
@@ -948,7 +948,7 @@
             if (isInstagramWebview()) {
                 // Instagram WebView: permitir click pero mostrar flecha
                 exclusiveBtn.style.opacity = '0.5';
-                exclusiveBtn.href = 'javascript:void(0)';
+                exclusiveBtn.href = '#';
 
                 // Listener para mostrar flecha cuando se presiona
                 exclusiveBtn.addEventListener('click', function(e) {
@@ -963,8 +963,10 @@
                     return false;
                 });
             } else {
-                // Web normal: botón activo
+                // Web normal: botón activo con link a OnlyFans
                 exclusiveBtn.style.opacity = '1';
+                exclusiveBtn.href = exclusiveBtn.getAttribute('data-link');
+                exclusiveBtn.target = '_blank';
                 exclusiveBtn.onclick = null;
             }
         }
