@@ -946,13 +946,13 @@
             if (!exclusiveBtn) return;
 
             if (isInstagramWebview()) {
-                // Instagram WebView: desactivar botón
-                exclusiveBtn.style.pointerEvents = 'none';
+                // Instagram WebView: permitir click pero mostrar flecha
                 exclusiveBtn.style.opacity = '0.5';
-                exclusiveBtn.style.cursor = 'not-allowed';
+                exclusiveBtn.href = 'javascript:void(0)';
 
-                // Agregar listener para mostrar flecha cuando se presiona
-                exclusiveBtn.addEventListener('click', function() {
+                // Listener para mostrar flecha cuando se presiona
+                exclusiveBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
                     const arrowIndicator = document.getElementById('igArrowIndicator');
                     if (arrowIndicator) {
                         arrowIndicator.style.display = 'block';
@@ -960,12 +960,13 @@
                             arrowIndicator.style.display = 'none';
                         }, 2000);
                     }
+                    return false;
                 });
             } else {
                 // Web normal: botón activo
-                exclusiveBtn.style.pointerEvents = 'auto';
                 exclusiveBtn.style.opacity = '1';
-                exclusiveBtn.style.cursor = 'pointer';
+                exclusiveBtn.href = 'https://onlyfans.com/youtovar';
+                exclusiveBtn.target = '_blank';
                 exclusiveBtn.onclick = null;
             }
         }
