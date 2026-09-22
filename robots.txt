@@ -1,6 +1,4 @@
-User-agent: *
-Disallow: /
-
+# Block AI bots only
 User-agent: GPTBot
 Disallow: /
 
@@ -11,9 +9,6 @@ User-agent: OAI-SearchBot
 Disallow: /
 
 User-agent: Google-Extended
-Disallow: /
-
-User-agent: Googlebot
 Disallow: /
 
 User-agent: ClaudeBot
@@ -55,44 +50,15 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-User-agent: FacebookBot
-Disallow: /
-
-User-agent: facebookexternalhit
-Disallow: /
-
-User-agent: Twitterbot
-Disallow: /
-
-User-agent: LinkedInBot
-Disallow: /
-
-User-agent: Slurp
-Disallow: /
-
-User-agent: Bingbot
-Disallow: /
-
 User-agent: PetalBot
 Disallow: /
 
-User-agent: SemrushBot
+User-agent: Cohere
 Disallow: /
 
-User-agent: AhrefsBot
-Disallow: /
+# Allow Google and legitimate crawlers
+User-agent: Googlebot
+Allow: /
 
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: iaskspider
-Disallow: /
-
-User-agent: FriendlyCrawler
-Disallow: /
-
-User-agent: Timpibot
-Disallow: /
+User-agent: Bingbot
+Allow: /
