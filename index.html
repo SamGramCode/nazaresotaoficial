@@ -1031,29 +1031,36 @@ function trackMovement(clientX, clientY) {
   if (distX > 5 || distY > 5) hasMovement = true;
 }
 
-pressLongBtn.addEventListener("mousedown", e => {
-  e.preventDefault();
-  startPress(e.clientX, e.clientY);
-});
+if (pressLongBtn) {
+  pressLongBtn.addEventListener("mousedown", e => {
+    e.preventDefault();
+    startPress(e.clientX, e.clientY);
+  });
+
+  pressLongBtn.addEventListener("mouseup", () => {
+    clearTimeout(pressTimer);
+    hasMovement = false;
+  });
+
+  pressLongBtn.addEventListener("mouseleave", () => {
+    clearTimeout(pressTimer);
+    hasMovement = false;
+  });
+
+  pressLongBtn.addEventListener("touchstart", e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    startPress(touch.clientX, touch.clientY);
+  });
+
+  pressLongBtn.addEventListener("touchend", () => {
+    clearTimeout(pressTimer);
+    hasMovement = false;
+  });
+}
 
 document.addEventListener("mousemove", e => {
   if (pressTimer) trackMovement(e.clientX, e.clientY);
-});
-
-pressLongBtn.addEventListener("mouseup", () => {
-  clearTimeout(pressTimer);
-  hasMovement = false;
-});
-
-pressLongBtn.addEventListener("mouseleave", () => {
-  clearTimeout(pressTimer);
-  hasMovement = false;
-});
-
-pressLongBtn.addEventListener("touchstart", e => {
-  e.preventDefault();
-  const touch = e.touches[0];
-  startPress(touch.clientX, touch.clientY);
 });
 
 document.addEventListener("touchmove", e => {
@@ -1061,11 +1068,6 @@ document.addEventListener("touchmove", e => {
     const touch = e.touches[0];
     trackMovement(touch.clientX, touch.clientY);
   }
-});
-
-pressLongBtn.addEventListener("touchend", () => {
-  clearTimeout(pressTimer);
-  hasMovement = false;
 });
 
 updateLanguage();
