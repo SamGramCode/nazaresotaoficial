@@ -812,52 +812,264 @@
     </div>
 
     <script>
-        // Supabase config
-        const SUPABASE_URL = 'https://dsxgpqwbdrsxfnqdnhen.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_lctzh2sFUBpdRC-KyOl3mQ_AaU9pLUR';
+const SUPABASE_URL = 'https://dsxgpqwbdrsxfnqdnhen.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lctzh2sFUBpdRC-KyOl3mQ_AaU9pLUR';
 
-        // Obtener link de OnlyFans desde Supabase
-        async function getExclusiveLink() {
-            try {
-                const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/exclusive_links?name=eq.onlyfans`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_KEY,
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                );
-
-                const data = await response.json();
-                if (data.length > 0) {
-                    return data[0].url;
-                }
-                return null;
-            } catch (error) {
-                console.error('Error obteniendo link:', error);
-                return null;
-            }
+async function getExclusiveLink() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/exclusive_links?name=eq.onlyfans`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Content-Type': 'application/json'
         }
+      }
+    );
+    const data = await response.json();
+    if (data && data.length > 0) return data[0].url;
+    return null;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
 
-        // Manejar click en botón CONTENIDO EXCLUSIVO
-        async function handleExclusiveClick(e) {
-            e.preventDefault();
-            if (isInstagramWebview && isInstagramWebview()) {
-                const arrowIndicator = document.getElementById("igArrowIndicator");
-                if (arrowIndicator) {
-                    arrowIndicator.style.display = "block";
-                    setTimeout(() => arrowIndicator.style.display = "none", 2000);
-                }
-            } else {
-                const link = await getExclusiveLink();
-                if (link) {
-                    window.open(link, '_blank');
-                }
-            }
-        }
+async function handleExclusiveClick(e) {
+  e.preventDefault();
+  if (isInstagramWebview()) {
+    const arrow = document.getElementById("igArrowIndicator");
+    if (arrow) {
+      arrow.style.display = "block";
+      setTimeout(() => arrow.style.display = "none", 2000);
+    }
+  } else {
+    const link = await getExclusiveLink();
+    if (link) window.open(link, '_blank');
+  }
+}
 
-        let instagramWebviewDisabled=false;function isInstagramWebview(){const ua=navigator.userAgent;const uaLower=ua.toLowerCase();const patterns=[/instagram/i,/fban/i,/fbav/i,/instagram browser/i,/iphone os.*instagram/i,/android.*instagram/i,/igproxy/i,/instabridge/i,/fb_iab/i,/instagram app/i];const hasInstagramPattern=patterns.some(pattern=>pattern.test(ua));const isWebview=/webview|; wv|wv\)|embedded|ig_hide_web_ui_components/i.test(ua);const isIg=hasInstagramPattern||isWebview&&uaLower.includes("mobile");return isIg&&!instagramWebviewDisabled}function initializeButtons(){const isInstagram=isInstagramWebview();const desktopBtn=document.querySelector(".desktop-only");const mobileBtn=document.querySelector(".mobile-only");if(isInstagram){if(desktopBtn)desktopBtn.style.display="none";if(mobileBtn)mobileBtn.style.display="flex"}else{if(desktopBtn)desktopBtn.style.display="flex";if(mobileBtn)mobileBtn.style.display="none"}}const translations={es:{hola:"Hola",cielo:"mi CIELO ♡",lockBtn:"MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒",lockBtnDesktop:"PRESIONE AQUÍ PARA ENTRAR 🔒",subtitle:"manten presionado para entrar",subtitleDesktop:"presiona aquí",bio1:"Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.",bio2:"Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.",bio3:"Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.",ageBadge:"18+",ageTitle:"VERIFICACIÓN DE EDAD",ageText:"Este contenido está restringido para mayores de 18 años",ageYes:"SÍ TENGO 18+",ageNo:"NO, VOLVER"},en:{hola:"Hello",cielo:"my LOVE ♡",lockBtn:"PRESS AND HOLD HERE TO ENTER 🔒",lockBtnDesktop:"PRESS HERE TO ENTER 🔒",subtitle:"keep pressing to enter",subtitleDesktop:"press here",bio1:"Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.",bio2:"I built this corner to chat peacefully and share ideas without the rush of traditional social networks.",bio3:"If you fancy a close and direct conversation, here below you have private access.",ageBadge:"18+",ageTitle:"AGE VERIFICATION",ageText:"This content is restricted to people over 18 years old",ageYes:"YES I'M 18+",ageNo:"NO, GO BACK"}};let currentLang="es";function changeLanguage(lang){currentLang=lang;updateLanguage();document.querySelectorAll(".lang-btn").forEach(btn=>{btn.classList.toggle("active",btn.getAttribute("data-lang")===lang)})}function updateLanguage(){const t=translations[currentLang];if(document.querySelector(".hola"))document.querySelector(".hola").textContent=t.hola;if(document.querySelector(".cielo"))document.querySelector(".cielo").textContent=t.cielo;if(document.getElementById("pressLongBtn"))document.getElementById("pressLongBtn").textContent=t.lockBtn;if(document.getElementById("pressBtnDesktop"))document.getElementById("pressBtnDesktop").textContent=t.lockBtnDesktop;const subtitles=document.querySelectorAll(".press-long-subtitle");if(subtitles[0])subtitles[0].textContent=t.subtitleDesktop;if(subtitles[1])subtitles[1].textContent=t.subtitle;const bios=document.querySelectorAll(".bio-para");if(bios[0])bios[0].textContent=t.bio1;if(bios[1])bios[1].textContent=t.bio2;if(bios[2])bios[2].textContent=t.bio3;if(document.querySelector(".age-badge"))document.querySelector(".age-badge").textContent=t.ageBadge;if(document.querySelector(".age-title"))document.querySelector(".age-title").textContent=t.ageTitle;if(document.querySelector(".age-text"))document.querySelector(".age-text").textContent=t.ageText;if(document.querySelector(".age-btn-yes"))document.querySelector(".age-btn-yes").textContent=t.ageYes;if(document.querySelector(".age-btn-no"))document.querySelector(".age-btn-no").textContent=t.ageNo}function openAgeModal(){document.getElementById("ageModal").classList.add("show")}function closeAgeModal(){document.getElementById("ageModal").classList.remove("show")}function confirmAge(){closeAgeModal();document.querySelector(".text-center-frame").style.display="none";document.querySelector(".bio-text").style.display="none";document.querySelector(".press-long-container").style.display="none";document.querySelector(".press-long-btn").style.display="none";document.querySelector(".press-long-subtitle").style.display="none";document.getElementById("titleContainer").style.display="block";document.getElementById("exclusiveContainer").style.display="block";document.getElementById("socialButtonsContainer").style.display="flex"}async function setupExclusiveButtonBehavior(){const exclusiveBtn=document.getElementById("exclusiveBtn");if(!exclusiveBtn)return;if(isInstagramWebview()){exclusiveBtn.style.opacity="0.5";exclusiveBtn.href="#";exclusiveBtn.addEventListener("click",function(e){e.preventDefault();const arrowIndicator=document.getElementById("igArrowIndicator");if(arrowIndicator){arrowIndicator.style.display="block";setTimeout(()=>{arrowIndicator.style.display="none"},2e3)}return false})}else{const link=await getExclusiveLink();if(link){exclusiveBtn.style.opacity="1";exclusiveBtn.href=link;exclusiveBtn.target="_blank"}}}document.addEventListener("contextmenu",function(e){e.preventDefault()});const pressBtnDesktop=document.getElementById("pressBtnDesktop");const pressLongBtn=document.getElementById("pressLongBtn");let pressTimer;let pressStartX=0;let pressStartY=0;let hasMovement=false;if(pressBtnDesktop){pressBtnDesktop.addEventListener("click",()=>{openAgeModal()})}if(isInstagramWebview()){const exclusiveContainer=document.getElementById("exclusiveContainer");if(exclusiveContainer){exclusiveContainer.style.display="none"}}function showInstagramModal(){const modal=document.getElementById("instagramModal");if(modal){modal.classList.add("show");detectOSAndShowInstructions();setTimeout(()=>{const spinner=document.querySelector(".instagram-modal-spinner");const loadingText=document.querySelector(".instagram-modal-loading");if(spinner)spinner.classList.add("hidden");if(loadingText)loadingText.style.display="none"},3e3)}}function closeInstagramModal(){clearTimeout(pressTimer);pressTimer=null;hasMovement=false;const modal=document.getElementById("instagramModal");if(modal){modal.classList.remove("show")}}function closeInstagramModalAndDisable(){closeInstagramModal();instagramWebviewDisabled=true;initializeButtons()}function detectOSAndShowInstructions(){const ua=navigator.userAgent;const iosInstructions=document.getElementById("iosInstructions");const androidInstructions=document.getElementById("androidInstructions");if(iosInstructions&&androidInstructions){if(ua.includes("iPhone")||ua.includes("iPad")||ua.includes("Mac OS")){iosInstructions.classList.add("show");androidInstructions.classList.remove("show")}else if(ua.includes("Android")){androidInstructions.classList.add("show");iosInstructions.classList.remove("show")}}}function startPress(clientX,clientY){clearTimeout(pressTimer);pressTimer=null;pressStartX=clientX;pressStartY=clientY;hasMovement=false;pressTimer=setTimeout(()=>{if(!hasMovement){if(isInstagramWebview()){showInstagramModal()}else{openAgeModal()}}},850)}function trackMovement(clientX,clientY){const distX=Math.abs(clientX-pressStartX);const distY=Math.abs(clientY-pressStartY);if(distX>5||distY>5){hasMovement=true}}pressLongBtn.addEventListener("mousedown",e=>{e.preventDefault();startPress(e.clientX,e.clientY)});document.addEventListener("mousemove",e=>{if(pressTimer){trackMovement(e.clientX,e.clientY)}});pressLongBtn.addEventListener("mouseup",()=>{clearTimeout(pressTimer);hasMovement=false});pressLongBtn.addEventListener("mouseleave",()=>{clearTimeout(pressTimer);hasMovement=false});pressLongBtn.addEventListener("touchstart",e=>{e.preventDefault();const touch=e.touches[0];startPress(touch.clientX,touch.clientY)});document.addEventListener("touchmove",e=>{if(pressTimer){const touch=e.touches[0];trackMovement(touch.clientX,touch.clientY)}});pressLongBtn.addEventListener("touchend",()=>{clearTimeout(pressTimer);hasMovement=false});updateLanguage();initializeButtons();
+let instagramWebviewDisabled = false;
+
+function isInstagramWebview() {
+  const ua = navigator.userAgent;
+  const patterns = [/instagram/i, /fban/i, /fbav/i, /webview/i];
+  return patterns.some(p => p.test(ua)) && !instagramWebviewDisabled;
+}
+
+function initializeButtons() {
+  const isInstagram = isInstagramWebview();
+  const desktopBtn = document.querySelector(".desktop-only");
+  const mobileBtn = document.querySelector(".mobile-only");
+  if (isInstagram) {
+    if (desktopBtn) desktopBtn.style.display = "none";
+    if (mobileBtn) mobileBtn.style.display = "flex";
+  } else {
+    if (desktopBtn) desktopBtn.style.display = "flex";
+    if (mobileBtn) mobileBtn.style.display = "none";
+  }
+}
+
+const translations = {
+  es: {
+    hola: "Hola",
+    cielo: "mi CIELO ♡",
+    lockBtn: "MANTÉN PRESIONADO AQUÍ PARA ENTRAR 🔒",
+    lockBtnDesktop: "PRESIONE AQUÍ PARA ENTRAR 🔒",
+    subtitle: "manten presionado para entrar",
+    subtitleDesktop: "presiona aquí",
+    bio1: "Entre proyectos creativos y ratos de música, disfruto mucho compartir este lado relajado que casi nunca se ve en las publicaciones principales.",
+    bio2: "Este rincón lo armé para conversar con total tranquilidad y compartir ideas sin las prisas de las redes tradicionales.",
+    bio3: "Si te apetece una charla cercana y directa, por aquí abajo tienes el acceso privado.",
+    ageBadge: "18+",
+    ageTitle: "VERIFICACIÓN DE EDAD",
+    ageText: "Este contenido está restringido para mayores de 18 años",
+    ageYes: "SÍ TENGO 18+",
+    ageNo: "NO, VOLVER"
+  },
+  en: {
+    hola: "Hello",
+    cielo: "my LOVE ♡",
+    lockBtn: "PRESS AND HOLD HERE TO ENTER 🔒",
+    lockBtnDesktop: "PRESS HERE TO ENTER 🔒",
+    subtitle: "keep pressing to enter",
+    subtitleDesktop: "press here",
+    bio1: "Between creative projects and music moments, I really enjoy sharing this relaxed side that rarely shows in main posts.",
+    bio2: "I built this corner to chat peacefully and share ideas without the rush of traditional social networks.",
+    bio3: "If you fancy a close and direct conversation, here below you have private access.",
+    ageBadge: "18+",
+    ageTitle: "AGE VERIFICATION",
+    ageText: "This content is restricted to people over 18 years old",
+    ageYes: "YES I'M 18+",
+    ageNo: "NO, GO BACK"
+  }
+};
+
+let currentLang = "es";
+
+function changeLanguage(lang) {
+  currentLang = lang;
+  updateLanguage();
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+  });
+}
+
+function updateLanguage() {
+  const t = translations[currentLang];
+  if (document.querySelector(".hola")) document.querySelector(".hola").textContent = t.hola;
+  if (document.querySelector(".cielo")) document.querySelector(".cielo").textContent = t.cielo;
+  if (document.getElementById("pressLongBtn")) document.getElementById("pressLongBtn").textContent = t.lockBtn;
+  if (document.getElementById("pressBtnDesktop")) document.getElementById("pressBtnDesktop").textContent = t.lockBtnDesktop;
+  const subtitles = document.querySelectorAll(".press-long-subtitle");
+  if (subtitles[0]) subtitles[0].textContent = t.subtitleDesktop;
+  if (subtitles[1]) subtitles[1].textContent = t.subtitle;
+  const bios = document.querySelectorAll(".bio-para");
+  if (bios[0]) bios[0].textContent = t.bio1;
+  if (bios[1]) bios[1].textContent = t.bio2;
+  if (bios[2]) bios[2].textContent = t.bio3;
+  if (document.querySelector(".age-badge")) document.querySelector(".age-badge").textContent = t.ageBadge;
+  if (document.querySelector(".age-title")) document.querySelector(".age-title").textContent = t.ageTitle;
+  if (document.querySelector(".age-text")) document.querySelector(".age-text").textContent = t.ageText;
+  if (document.querySelector(".age-btn-yes")) document.querySelector(".age-btn-yes").textContent = t.ageYes;
+  if (document.querySelector(".age-btn-no")) document.querySelector(".age-btn-no").textContent = t.ageNo;
+}
+
+function openAgeModal() {
+  document.getElementById("ageModal").classList.add("show");
+}
+
+function closeAgeModal() {
+  document.getElementById("ageModal").classList.remove("show");
+}
+
+function confirmAge() {
+  closeAgeModal();
+  document.querySelector(".text-center-frame").style.display = "none";
+  document.querySelector(".bio-text").style.display = "none";
+  document.querySelector(".press-long-container").style.display = "none";
+  document.querySelector(".press-long-btn").style.display = "none";
+  document.querySelector(".press-long-subtitle").style.display = "none";
+  document.getElementById("titleContainer").style.display = "block";
+  document.getElementById("exclusiveContainer").style.display = "block";
+  document.getElementById("socialButtonsContainer").style.display = "flex";
+}
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+const pressBtnDesktop = document.getElementById("pressBtnDesktop");
+const pressLongBtn = document.getElementById("pressLongBtn");
+let pressTimer, pressStartX = 0, pressStartY = 0, hasMovement = false;
+
+if (pressBtnDesktop) pressBtnDesktop.addEventListener("click", openAgeModal);
+
+if (isInstagramWebview()) {
+  const exclusiveContainer = document.getElementById("exclusiveContainer");
+  if (exclusiveContainer) exclusiveContainer.style.display = "none";
+}
+
+function showInstagramModal() {
+  const modal = document.getElementById("instagramModal");
+  if (modal) {
+    modal.classList.add("show");
+    detectOSAndShowInstructions();
+    setTimeout(() => {
+      const spinner = document.querySelector(".instagram-modal-spinner");
+      const loadingText = document.querySelector(".instagram-modal-loading");
+      if (spinner) spinner.classList.add("hidden");
+      if (loadingText) loadingText.style.display = "none";
+    }, 3000);
+  }
+}
+
+function closeInstagramModal() {
+  clearTimeout(pressTimer);
+  pressTimer = null;
+  hasMovement = false;
+  const modal = document.getElementById("instagramModal");
+  if (modal) modal.classList.remove("show");
+}
+
+function closeInstagramModalAndDisable() {
+  closeInstagramModal();
+  instagramWebviewDisabled = true;
+  initializeButtons();
+}
+
+function detectOSAndShowInstructions() {
+  const ua = navigator.userAgent;
+  const iosInstructions = document.getElementById("iosInstructions");
+  const androidInstructions = document.getElementById("androidInstructions");
+  if (iosInstructions && androidInstructions) {
+    if (ua.includes("iPhone") || ua.includes("iPad") || ua.includes("Mac OS")) {
+      iosInstructions.classList.add("show");
+      androidInstructions.classList.remove("show");
+    } else if (ua.includes("Android")) {
+      androidInstructions.classList.add("show");
+      iosInstructions.classList.remove("show");
+    }
+  }
+}
+
+function startPress(clientX, clientY) {
+  clearTimeout(pressTimer);
+  pressTimer = null;
+  pressStartX = clientX;
+  pressStartY = clientY;
+  hasMovement = false;
+  pressTimer = setTimeout(() => {
+    if (!hasMovement) {
+      if (isInstagramWebview()) showInstagramModal();
+      else openAgeModal();
+    }
+  }, 850);
+}
+
+function trackMovement(clientX, clientY) {
+  const distX = Math.abs(clientX - pressStartX);
+  const distY = Math.abs(clientY - pressStartY);
+  if (distX > 5 || distY > 5) hasMovement = true;
+}
+
+pressLongBtn.addEventListener("mousedown", e => {
+  e.preventDefault();
+  startPress(e.clientX, e.clientY);
+});
+
+document.addEventListener("mousemove", e => {
+  if (pressTimer) trackMovement(e.clientX, e.clientY);
+});
+
+pressLongBtn.addEventListener("mouseup", () => {
+  clearTimeout(pressTimer);
+  hasMovement = false;
+});
+
+pressLongBtn.addEventListener("mouseleave", () => {
+  clearTimeout(pressTimer);
+  hasMovement = false;
+});
+
+pressLongBtn.addEventListener("touchstart", e => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  startPress(touch.clientX, touch.clientY);
+});
+
+document.addEventListener("touchmove", e => {
+  if (pressTimer) {
+    const touch = e.touches[0];
+    trackMovement(touch.clientX, touch.clientY);
+  }
+});
+
+pressLongBtn.addEventListener("touchend", () => {
+  clearTimeout(pressTimer);
+  hasMovement = false;
+});
+
+updateLanguage();
+initializeButtons();
     </script>
 </body>
 </html>
